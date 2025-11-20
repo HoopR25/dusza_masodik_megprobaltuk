@@ -17,29 +17,6 @@ def cols():
 def rows():
     return os.get_terminal_size().lines
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 def betoltokepernyo():
     
     cls()
@@ -134,10 +111,13 @@ def menu():
     while True:
         if keyboard.is_pressed("1"):
                 jatekmestermenu()
+                break
         if keyboard.is_pressed("2"):
                 jatekosmenu()
+                break
         if keyboard.is_pressed("3"):
                 leiras()
+                break
             
 def leiras():
     print("")    
