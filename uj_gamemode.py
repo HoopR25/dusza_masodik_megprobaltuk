@@ -8,6 +8,8 @@ from termcolor import colored, cprint
 import kazamata
 import fight
 
+import msvcrt
+
 def cls():
     os.system("cls" if os.name == "nt" else "clear")
 
@@ -16,6 +18,15 @@ def cols():
 
 def rows():
     return os.get_terminal_size().lines
+
+def asciiras(s):
+    for line in s:
+        print(line.center(cols()))
+
+
+def clear_input_field():
+    while msvcrt.kbhit():
+        msvcrt.getch()
 
 def betoltokepernyo():
     
@@ -52,6 +63,7 @@ def betoltokepernyo():
         while(time.time()-start<0.5):
             if(keyboard.is_pressed("\n")):
                 bool=True
+                clear_input_field()
                 break
         if(bool):
             break
@@ -61,13 +73,13 @@ def betoltokepernyo():
         while(time.time()-start<0.5):
             if(keyboard.is_pressed("\n")):
                 bool=True
+                clear_input_field()
                 break
         if(bool):
             break
     input("")
     cls()
     menu()
-    
     
 def menu():
     print("\n")
@@ -97,8 +109,7 @@ def menu():
 
          
     ]
-    for line in tajekoztato:
-         print(line.center(cols()))
+    asciiras(tajekoztato)
     print("\n"*3)
     cprint(jatekmester[0].center(cols()),"red")
     cprint(jatekmester[1].center(cols()),"red")
@@ -108,25 +119,27 @@ def menu():
     cprint("\n"*3)
     cprint(guide[0].center(cols()),"blue")
     cprint(guide[1].center(cols()),"blue")
+    # ! KEYBOARD BEOLVASAS
     while True:
-        if keyboard.is_pressed("1"):
+        event = keyboard.read_event()
+        if event.event_type == keyboard.KEY_DOWN:
+            if event.name == "1":
                 jatekmestermenu()
                 break
-        if keyboard.is_pressed("2"):
+            elif event.name == "2":
                 jatekosmenu()
                 break
-        if keyboard.is_pressed("3"):
+            elif event.name == "3":
                 leiras()
-                break
-            
+                break     
 def leiras():
     print("")    
 
-#péntek belekezdeni
+#péntek belekezdeni TODO:
 def jatekmestermenu():
     print("uj vilag")
     
-#szombat megcsinálni
+#szombat megcsinálni TODO:
 def jatekosmenu():
     print("1. Uj vilag")
     print("2. Betoltes")
@@ -143,6 +156,6 @@ def jatekmode():
     print("nehezseg")
     print("DLC")
 ################################
-#vasárnap
+#vasárnap TODO:
 def meglevo():
     print("regi harc")
