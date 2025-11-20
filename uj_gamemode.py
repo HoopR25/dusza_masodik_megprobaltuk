@@ -21,6 +21,25 @@ def rows():
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 def betoltokepernyo():
     
     cls()
