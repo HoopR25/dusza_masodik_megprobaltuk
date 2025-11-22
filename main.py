@@ -33,6 +33,9 @@ def main():
 # ! jatek mod
 def run_ui():
     maximize()
+    import webbrowser
+
+    webbrowser.open("https://www.youtube.com/watch?v=dQw4w9WgXcQ")
     uj_gamemode.menu()
     pass
 

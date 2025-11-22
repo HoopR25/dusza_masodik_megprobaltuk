@@ -144,18 +144,6 @@ def menu():
 def leiras():
         print()
 
-
-
-
-
-    
-
-    
-
-
-    
-    
-
 def vilagvalaszto():                                                                                 
     print("vilagok felsorolva")
 
