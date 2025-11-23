@@ -8,7 +8,7 @@ import kazamata
 import game_mode
 import os
 import uj_gamemode
-
+import jatekosmenu
 from time import sleep
 
 def maximize():

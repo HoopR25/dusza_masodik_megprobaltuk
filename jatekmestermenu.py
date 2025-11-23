@@ -11,6 +11,8 @@ import sys
 import msvcrt
 import uj_gamemode
 
+from InquirerPy import inquirer
+
 from time import sleep
 def cls():
     os.system("cls" if os.name == "nt" else "clear")
