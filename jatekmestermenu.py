@@ -104,13 +104,13 @@ def vilagfelvetel():
     "⢇⣸   ⢀⡀ ⡀⢀ ⡀⢀ ⠠ ⣰⡀ ⢀⡀ ⣀⣀  ⢀⡀ ⣀⡀ ⡀⢀",
     " ⠸ ⠶ ⣑⡺ ⣑⡺ ⠣⠼ ⡸ ⠘⠤ ⠣⠭ ⠇⠇⠇ ⠣⠭ ⠇⠸ ⣑⡺"
     ]
-    mentes = [
+    mentestext = [
     "⣏⡉     ⡇⢸ ⠄ ⡇ ⢀⣀ ⢀⡀   ⡇ ⢀⡀ ⣀⣀  ⢀⡀ ⣀⡀ ⣰⡀ ⢀⡀ ⢀⣀ ⢀⡀ ",
     "⠤⠜ ⠶   ⠸⠃ ⠇ ⠣ ⠣⠼ ⣑⡺   ⠣ ⠣⠭ ⠇⠇⠇ ⠣⠭ ⠇⠸ ⠘⠤ ⠣⠭ ⠭⠕ ⠣⠭ "
     ]
     asciiras(gyujtemenytext,"red")
     print("\n"*3)
-    asciiras(mentes,"red")
+    asciiras(mentestext,"red")
     while True:
         event = keyboard.read_event()
         if event.event_type == keyboard.KEY_DOWN:
@@ -317,9 +317,9 @@ def uj_vezerkartya():
                 clear_input_field()
                 adatok.append(False)
                 if adatok[2] == "sebzes":
-                    adatok2 = [True, adatok[0], temp_stats(adatok[1])[2] * 2, temp_stats(adatok[1])[3], temp_stats(adatok[1])[4]] 
+                    adatok2 = [True, adatok[0], temp_stats(adatok[1])[2] * 2, temp_stats(adatok[1])[3], temp_stats(adatok[1])[4], adatok[1], adatok[2]] 
                 elif adatok[2] == "eletero":
-                    adatok2 = [True, adatok[0], temp_stats(adatok[1])[2], temp_stats(adatok[1])[3] * 2, temp_stats(adatok[1])[4]] 
+                    adatok2 = [True, adatok[0], temp_stats(adatok[1])[2], temp_stats(adatok[1])[3] * 2, temp_stats(adatok[1])[4], adatok[1], adatok[2]] 
                 temp_vezerek.append(adatok2)
                 vilagfelvetel()
                 break
@@ -440,14 +440,14 @@ def egyszeru():
     "⠇⠱ ⠣⠼ ⠏  ⠘⠤ ⣑⡺ ⠣⠼ ⠏⠢"
     ]
     cim = [
-        " _    _ _                                     _                                  _        ",
-        "| |  | (_)                                   | |                                | |       ",
-        "| |  | |_    ___  __ _ ___ _______ _ __ _   _| | ____ _ ______ _ _ __ ___   __ _| |_ __ _ ",
-        "| |  | | |  / _ \/ _` / __|_  / _ \ '__| | | | |/ / _` |_  / _` | '_ ` _ \ / _` | __/ _` |",
-        "| |__| | | |  __/ (_| \__ \/ /  __/ |  | |_| |   < (_| |/ / (_| | | | | | | (_| | || (_| |",
-        " \____/| |  \___|\__, |___/___\___|_|   \__,_|_|\_\__,_/___\__,_|_| |_| |_|\__,_|\__\__,_|",
-        "      _/ |        __/ |                                                                   ",
-        "     |__/        |___/                                                                    "
+"  _    _ _                                           _                                  _        ",
+" | |  | (_)                                         | |                                | |       ",
+" | |  | |_    ___  __ _ _   _ ___ _______ _ __ _   _| | ____ _ ______ _ _ __ ___   __ _| |_ __ _ ",
+" | |  | | |  / _ \/ _` | | | / __|_  / _ \ '__| | | | |/ / _` |_  / _` | '_ ` _ \ / _` | __/ _` |",
+" | |__| | | |  __/ (_| | |_| \__ \/ /  __/ |  | |_| |   < (_| |/ / (_| | | | | | | (_| | || (_| |",
+"  \____/| |  \___|\__, |\__, |___/___\___|_|   \__,_|_|\_\__,_/___\__,_|_| |_| |_|\__,_|\__\__,_|",
+"       _/ |        __/ | __/ |                                                                   ",
+"      |__/        |___/ |___/                                                                    "
     ] 
     hiba = [
          "⣎⣱ ⢀⣸ ⠠ ⢀⣀   ⣀⣀  ⢀⡀ ⢀⡀   ⣇⡀ ⢀⡀ ⡇ ⡀⢀ ⢀⡀ ⢀⣀ ⢀⡀ ⣀⡀",
@@ -605,6 +605,7 @@ def kis():
 
         # ! VEZEREK
         asciiras(vezertext, "blue")
+        print("")
         for i in range(0, len(temp_vezerek), 3):
             if len(temp_vezerek) - printed >= 3:
                 cprint(" /\\/\\/\\/\\/\\/\\/\\/\\        /\\/\\/\\/\\/\\/\\/\\/\\        /\\/\\/\\/\\/\\/\\/\\/\\".center(os.get_terminal_size().columns), "yellow")
@@ -731,9 +732,9 @@ def nagy():
                 cprint(f"|{temp_kartyak[i][4].center(16)}|".center(os.get_terminal_size().columns), "blue")
                 cprint(" ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾".center(os.get_terminal_size().columns),"" "blue")
                 printed += 1
-
         # ! VEZEREK
         asciiras(vezertext, "blue")
+        print("")
         for i in range(0, len(temp_vezerek), 3):
             if len(temp_vezerek) - printed >= 3:
                 cprint(" /\\/\\/\\/\\/\\/\\/\\/\\        /\\/\\/\\/\\/\\/\\/\\/\\        /\\/\\/\\/\\/\\/\\/\\/\\".center(os.get_terminal_size().columns), "yellow")
@@ -783,20 +784,309 @@ def nagy():
 
 
 
-
+temp_gyujtemeny = []
 
 
 def uj_gyujtemeny():
-    print("gyujtemeny")
+    cim = [
+        "   _____             _ _                                  ",
+        "  / ____|           (_) |                                 ",
+        " | |  __ _   _ _   _ _| |_ ___ _ __ ___   ___ _ __  _   _ ",
+        " | | |_ | | | | | | | | __/ _ \ '_ ` _ \ / _ \ '_ \| | | |",
+        " | |__| | |_| | |_| | | ||  __/ | | | | |  __/ | | | |_| |",
+        "  \_____|\__, |\__,_| |\__\___|_| |_| |_|\___|_| |_|\__, |",
+        "          __/ |    _/ |                              __/ |",
+        "         |___/    |__/                              |___/ "
+    ]
+    p1 = [
+        "⣎⣱ ⢀⣸ ⠠ ⢀⣀   ⣀⣀  ⢀⡀ ⢀⡀   ⢀⣀",
+        "⠇⠸ ⠣⠼ ⡸ ⠣⠼   ⠇⠇⠇ ⠣⠭ ⣑⡺   ⠣⠼"
+    ]
+    p2 = [
+        "⣰⡀ ⢀⡀ ⡇ ⠠ ⢀⡀ ⢀⣀   ⢀⡀ ⡀⢀ ⡀⢀ ⠠ ⣰⡀ ⢀⡀ ⣀⣀  ⢀⡀ ⣀⡀ ⡀⢀ ⣰⡀",
+        "⠘⠤ ⠣⠭ ⠣ ⡸ ⠣⠭ ⠭⠕   ⣑⡺ ⣑⡺ ⠣⠼ ⡸ ⠘⠤ ⠣⠭ ⠇⠇⠇ ⠣⠭ ⠇⠸ ⣑⡺ ⠘⠤"
+    ]
+    p3 = [
+        "⢀⣀ ⣀⣀ ⢀⡀ ⡇⡠ ⢀⡀ ⣀⣀ ⢀⡀ ⡇⡠ ⡇⡠ ⢀⡀ ⡇   ⢀⡀ ⡇ ⡀⢀ ⢀⣀ ⡇ ⢀⣀ ⢀⣀ ⣀⣀ ⣰⡀ ⡀⢀ ⢀⣀",
+        "⠭⠕ ⠴⠥ ⠣⠜ ⠏⠢ ⠣⠜ ⠴⠥ ⠣⠜ ⠏⠢ ⠏⠢ ⠣⠭ ⠣   ⠣⠭ ⠣ ⠱⠃ ⠣⠼ ⠣ ⠣⠼ ⠭⠕ ⠴⠥ ⠘⠤ ⠱⠃ ⠣⠼"
+    ]
+    hiba = [
+         "⣎⣱ ⢀⣸ ⠠ ⢀⣀   ⣀⣀  ⢀⡀ ⢀⡀   ⣇⡀ ⢀⡀ ⡇ ⡀⢀ ⢀⡀ ⢀⣀ ⢀⡀ ⣀⡀",
+         "⠇⠸ ⠣⠼ ⡸ ⠣⠼   ⠇⠇⠇ ⠣⠭ ⣑⡺   ⠇⠸ ⠣⠭ ⠣ ⣑⡺ ⠣⠭ ⠭⠕ ⠣⠭ ⠇⠸"
+    ]
+    kartyaktext = [
+        "⣇⠜ ⢀⣀ ⡀⣀ ⣰⡀ ⡀⢀ ⢀⣀ ⡇⡠",
+        "⠇⠱ ⠣⠼ ⠏  ⠘⠤ ⣑⡺ ⠣⠼ ⠏⠢"
+    ]
+    cls()
+    print("\n" * 3)
+    asciiras(cim,"white")
+    print("\n" * int(rows()/5))
+    asciiras(p1, "blue")
+    asciiras(p2, "blue")
+    asciiras(p3, "blue")
+    if (len(temp_kartyak)) < 1:
+        asciiras(nincselegtext, "red")
+        while True:
+            event = keyboard.read_event()
+            if event.event_type == keyboard.KEY_DOWN:
+                if event.name == "esc":
+                    clear_input_field()
+                    vilagfelvetel()
+                    break
+    else:
+        print("\n" * 3)
+
+        while True:
+            asciiras(kartyaktext,"blue")
+            printed = 0
+            for i in range(0, len(temp_kartyak), 3):
+                if len(temp_kartyak) - printed >= 3:
+                    cprint(" ________________        ________________        ________________".center(os.get_terminal_size().columns), "blue")
+                    cprint(f"|{temp_kartyak[i][1].center(16)}|      |{temp_kartyak[i + 1][1].center(16)}|      |{temp_kartyak[i + 2][1].center(16)}|".center(os.get_terminal_size().columns), "blue")
+                    cprint(f"|{("S  " + str(temp_kartyak[i][2]) + "  E  " + str(temp_kartyak[i][3])).center(16)}|      |{("S  " + str(temp_kartyak[i + 1][2]) + "  E  " + str(temp_kartyak[i + 1][3])).center(16)}|      |{("S  " + str(temp_kartyak[i + 2][2]) + "  E  " + str(temp_kartyak[i + 2][3])).center(16)}|".center(os.get_terminal_size().columns), "blue")
+                    cprint(f"|{temp_kartyak[i][4].center(16)}|      |{temp_kartyak[i + 1][4].center(16)}|      |{temp_kartyak[i + 2][4].center(16)}|".center(os.get_terminal_size().columns), "blue")
+                    cprint(" ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾        ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾        ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾".center(os.get_terminal_size().columns), "blue")
+                    printed += 3
+                elif len(temp_kartyak) - printed == 2:
+                        
+                    cprint(" ________________        ________________".center(os.get_terminal_size().columns), "blue")
+                    cprint(f"|{temp_kartyak[i][1].center(16)}|      |{temp_kartyak[i+1][1].center(16)}|".center(os.get_terminal_size().columns), "blue")
+                    cprint(f"|{("S  " + str(temp_kartyak[i][2]) + "  E  " + str(temp_kartyak[i][3])).center(16)}|      |{("S  " + str(temp_kartyak[i + 1][2]) + "  E  " + str(temp_kartyak[i + 1][3])).center(16)}|".center(os.get_terminal_size().columns), "blue")
+                    cprint(f"|{temp_kartyak[i][4].center(16)}|      |{temp_kartyak[i + 1][4].center(16)}|".center(os.get_terminal_size().columns), "blue")
+                    cprint(" ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾        ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾".center(os.get_terminal_size().columns), "blue")
+                    printed += 2
+                else:
+                    cprint(" ________________".center(os.get_terminal_size().columns), "blue")
+                    cprint(f"|{temp_kartyak[i][1].center(16)}|".center(os.get_terminal_size().columns), "blue")
+                    cprint(f"|{("S  " + str(temp_kartyak[i][2]) + "  E  " + str(temp_kartyak[i][3])).center(16)}|".center(os.get_terminal_size().columns), "blue")
+                    cprint(f"|{temp_kartyak[i][4].center(16)}|".center(os.get_terminal_size().columns), "blue")
+                    cprint(" ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾".center(os.get_terminal_size().columns),"" "blue")
+                    printed += 1
+                
+            event = keyboard.read_event()
+            if event.event_type == keyboard.KEY_DOWN:
+                if event.name == "esc":
+                    clear_input_field()
+                    vilagfelvetel()
+                    break
+            clear_input_field()
+            bemenet = input("")
+            adatok = bemenet.strip().split(" ")
+            hibas = False
+            for nev in adatok:
+                if not van_sima(nev):
+                    hibas = True
+            if not hibas:
+                for adat in adatok:
+                    temp_gyujtemeny.append(adat)
+                vilagfelvetel()
+                break
+
+            cls()
+            print("\n" * 3)
+            asciiras(cim,"white")
+            print("\n" * int(rows()/5))
+            asciiras(hiba, "red")
+            print("\n")
+            asciiras(p1, "red")
+            asciiras(p2, "red")
+            asciiras(p3, "red")
+            print("\n" * 3)
+            sleep(0.2)
+            
+    
+temp_vilagnev = ""
+
+vilagok = []
+
+    
+# * temp_kartyak
+# * temp_vezerek
+# * temp_kazamatak
+# * temp_gyujtemeny
+# * temp_vilagnev
 
 def mentes():
-    print("mentve")
+
+    cim = [
+ " __  __            _             ",
+ "|  \/  |          | |            ",
+ "| \  / | ___ _ __ | |_ ___  ___  ",
+ "| |\/| |/ _ \ '_ \| __/ _ \/ __| ",
+ "| |  | |  __/ | | | ||  __/\__ \ ",
+ "|_|  |_|\___|_| |_|\__\___||___/ "
+                                 
+                                 
+    ]
+    utasitas = [
+ "⣎⣱ ⢀⣸ ⠠ ⢀⣀   ⣀⣀  ⢀⡀ ⢀⡀   ⢀⣀   ⡀⢀ ⠄ ⡇ ⢀⣀ ⢀⡀ ⣀⡀ ⢀⡀ ⡀⢀ ⢀⡀ ⣰⡀",
+ "⠇⠸ ⠣⠼ ⡸ ⠣⠼   ⠇⠇⠇ ⠣⠭ ⣑⡺   ⠣⠼   ⠱⠃ ⠇ ⠣ ⠣⠼ ⣑⡺ ⠇⠸ ⠣⠭ ⠱⠃ ⠣⠭ ⠘⠤"
+    ]
+    hiba = [
+ "⣏⡉ ⢀⡀ ⡀⢀   ⣀⡀ ⢀⡀ ⡀⢀ ⢀⡀ ⣰⡀   ⢀⣀ ⢀⣸ ⠠ ⢀⡀ ⣀⡀   ⣀⣀  ⢀⡀ ⢀⡀",
+ "⠧⠤ ⣑⡺ ⣑⡺   ⠇⠸ ⠣⠭ ⠱⠃ ⠣⠭ ⠘⠤   ⠣⠼ ⠣⠼ ⡸ ⠣⠜ ⠇⠸   ⠇⠇⠇ ⠣⠭ ⣑⡺"
+    ]
+    vanilyentext = [
+ "⡷⢾ ⢀⣀ ⡀⣀   ⡀⢀ ⢀⣀ ⣀⡀   ⠄ ⡇ ⡀⢀ ⢀⡀ ⣀⡀   ⡀⢀ ⠄ ⡇ ⢀⣀ ⢀⡀",
+ "⠇⠸ ⠣⠼ ⠏    ⠱⠃ ⠣⠼ ⠇⠸   ⠇ ⠣ ⣑⡺ ⠣⠭ ⠇⠸   ⠱⠃ ⠇ ⠣ ⠣⠼ ⣑⡺"
+    ]
+    cls()
+    print("\n" * 3)
+    asciiras(cim, "white")
+    print("\n" * int(rows()/5))
+    asciiras(utasitas, "blue")
+    while True:
+        event = keyboard.read_event()
+        if event.event_type == keyboard.KEY_DOWN:
+            if event.name == "esc":
+                clear_input_field()
+                vilagfelvetel()
+                break
+            clear_input_field()
+            bemenet = input("")
+            adatok = bemenet.strip().split(" ")
+            if len(adatok[0]) > 0 and len(adatok) == 1 and not van_vilag(adatok[0]):
+                temp_vilagnev = adatok[0]
+                temp_osszes_k = []
+                for kartya in temp_kartyak:
+                    temp_osszes_k.append(kartya)
+                for vezer in temp_vezerek:
+                    temp_osszes_k.append(vezer)
+                cards = []
+                for kartya in temp_osszes_k:
+                    if not kartya[0]:
+                        card = {
+                            "nev": kartya[1],
+                            "sebzes": int(kartya[2]),
+                            "eletero": int(kartya[3]),
+                            "tipus": kartya[4],
+                            "vezer": kartya[0],
+                        }
+                    else:
+                        card = {
+                            "nev": kartya[1],
+                            "sebzes": int(kartya[2]),
+                            "eletero": int(kartya[3]),
+                            "tipus": kartya[4],
+                            "vezer": kartya[0],
+                            "szarmaztatas": kartya[5],
+                            "duplazo": kartya[6],
+                        }
+                    cards.append(card)
+                
+                
+                vilagok.append([temp_vilagnev, cards.copy(), temp_gyujtemeny.copy(), temp_kazamatak.copy()])
+
+                with open("jatekkornyezetek.megprobaltuk", "w", encoding = "utf-8") as file:
+                    # ! ALAP VILAG MENTESE
+
+                    # file.write("uj kartya;Arin;2;5;fold\n")
+                    # file.write("uj kartya;Liora;2;4;levego\n")
+                    # file.write("uj kartya;Nerun;3;3;tuz\n")
+                    # file.write("uj kartya;Selia;2;6;viz\n")
+                    # file.write("uj kartya;Torak;3;4;fold\n")
+                    # file.write("uj kartya;Emera;2;5;levego\n")
+                    # file.write("uj kartya;Vorn;2;7;viz\n")
+                    # file.write("uj kartya;Kael;3;5;tuz\n")
+                    # file.write("uj kartya;Myra;2;6;fold\n")
+                    # file.write("uj kartya;Thalen;3;5;levego\n")
+                    # file.write("uj kartya;Isara;2;6;viz\n")
+
+                    # file.write("uj vezer;Lord Torak;Torak;sebzes\n")
+                    # file.write("uj vezer;Priestess Selia;Selia;eletero\n\n")
+
+                    # file.write("uj kazamata;egyszeru;Barlangi Portya;Nerun;sebzes\n")
+                    # file.write("uj kazamata;kis;Osi Szentely;Arin,Emera,Selia,Lord Torak;eletero\n")
+                    # file.write("uj kazamata;nagy;A melyseg kiralynoje;Liora,Arin,Selia,Nerun,Torak;Priestess Selia\n\n")
+
+                    # file.write("felvetel gyujtemenybe;Arin\n")
+                    # file.write("felvetel gyujtemenybe;Liora\n")
+                    # file.write("felvetel gyujtemenybe;Selia\n")
+                    # file.write("felvetel gyujtemenybe;Nerun\n")
+                    # file.write("felvetel gyujtemenybe;Torak\n")
+                    # file.write("felvetel gyujtemenybe;Emera\n")
+                    # file.write("felvetel gyujtemenybe;Kael\n")
+                    # file.write("felvetel gyujtemenybe;Myra\n")
+                    # file.write("felvetel gyujtemenybe;Thalen\n")
+                    # file.write("felvetel gyujtemenybe;Isara\n\n")
+
+                    # file.write("uj vilag;alap\n")
+                    # file.write("\n\n")
+                    
+
+                    for vilag in vilagok:
+                        # * kartyak
+                        for kartya in vilag[1]:
+                            if not kartya["vezer"]:
+                                file.write(f"uj kartya;{kartya["nev"]};{kartya["sebzes"]};{kartya["eletero"]};{kartya["tipus"]}\n")
+                            else:
+                                file.write(f"uj vezer;{kartya["nev"]};{kartya["szarmaztatas"]}:{kartya["duplazo"]}\n")
+                        file.write("\n")
+                        
+                        # * gyujtemeny
+                        for kartya in vilag[2]:
+                            file.write(f"felvetel gyujtemenybe;{kartya}\n")
+                        file.write("\n")
+
+                        # * vilagkaz
+                        for vilagkaz in vilag[3]:
+                            file.write(f"uj kazamata;{vilagkaz["tipus"]};{vilagkaz["nev"]};")
+                            if vilagkaz["tipus"] == "egyszeru":
+                                file.write(f"{vilagkaz["kartyak"][0]}\n")
+                            elif vilagkaz["tipus"] == "kis":
+                                file.write(f"{vilagkaz["kartyak"][0]},{vilagkaz["kartyak"][1]},{vilagkaz["kartyak"][2]};{vilagkaz["kartyak"][3]};{vilagkaz["fejlesztes"]}\n")
+                            elif vilagkaz["tipus"] == "nagy":
+                                file.write(f"{vilagkaz["kartyak"][0]},{vilagkaz["kartyak"][1]},{vilagkaz["kartyak"][2]},{vilagkaz["kartyak"][3]},{vilagkaz["kartyak"][4]};{vilagkaz["kartyak"][5]}\n")
+                        file.write("\n")
+                        
+                        file.write(f"uj vilag;{vilag[0]}\n")
+                        
+                        file.write("\n")
+                # * temp_kartyak
+                # * temp_vezerek
+                # * temp_kazamatak
+                # * temp_gyujtemeny
+                # * temp_vilagnev
+                temp_kartyak.clear()
+                temp_vezerek.clear()
+                temp_kazamatak.clear()
+                temp_gyujtemeny.clear()
+                temp_vilagnev = ""
+                jatekmestermenu()
+                break
+                                
+            elif len(adatok) == 1 and van_vilag(adatok[0]):
+                cls()
+                print("\n" * 3)
+                asciiras(cim,"white")
+                print("\n" * int(rows()/5))
+                asciiras(vanilyentext, "red")
+                print("\n" * 3)
+                sleep(0.2)
+                #asciiras(utasitas, "red")
+            else:
+                cls()
+                print("\n" * 3)
+                asciiras(cim,"white")
+                print("\n" * int(rows()/5))
+                asciiras(hiba, "red")
+                print("\n" * 3)
+                sleep(0.2)
+                #asciiras(utasitas, "red")
+
 
 def van_benne(arg):
     for tipus in tipusok:
         if tipus == arg:
             return True
     return False
+
+
+# ! vilagok = [["vilag1", kartyak, gyujtemeny, kazamatak], ["vilag2", kartyak, gyujtemeny, kazamatak]]
+
+# ! jatek = ["vilag1", gyujtemeny, gyujtstats]
+
 
 def temp_stats(nev):
     for kartya in temp_kartyak:
@@ -808,6 +1098,7 @@ def van_jutalom(text):
         return True
     else:
         return False
+
     
 def van_kaz(nev):
     for kaz in temp_kazamatak:
@@ -825,5 +1116,11 @@ def van_vezer(nev):
 def van_sima(nev):
     for kartya in temp_kartyak:
         if kartya[1] == nev:
+            return True
+    return False
+
+def van_vilag(vilagnev):
+    for vilag in vilagok:
+        if vilagnev == vilag[0]:
             return True
     return False

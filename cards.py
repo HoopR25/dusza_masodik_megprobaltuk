@@ -23,7 +23,11 @@ def new_vezer(vezer):
                     "eletero": int(kartya["eletero"]),
                     "tipus": kartya["tipus"],
                     "vezer": True,
+                    "szarmaztatas": vezer[2],
+                    "duplazo": vezer[3],
                 }
+                kartyak.append(card)
+
             else:
                 card = {
                     "nev": vezer[1],
@@ -31,8 +35,10 @@ def new_vezer(vezer):
                     "eletero": int(kartya["eletero"])* 2,
                     "tipus": kartya["tipus"],
                     "vezer": True,
+                    "szarmaztatas": vezer[2],
+                    "duplazo": vezer[3],
                 }
-    kartyak.append(card)
+                kartyak.append(card)
 
 def add_to_collection(kartya):
     gyujtemeny.append(kartya[1])

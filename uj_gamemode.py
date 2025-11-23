@@ -11,6 +11,7 @@ import sys
 import msvcrt
 import jatekosmenu
 import jatekmestermenu
+import new_fileread
 
 def cls():
     os.system("cls" if os.name == "nt" else "clear")
@@ -31,7 +32,45 @@ def clear_input_field():
         msvcrt.getch()
 
 def betoltokepernyo():
-    
+    if os.path.getsize("jatekkornyezetek.megprobaltuk") == 0:
+        with open("jatekkornyezetek.megprobaltuk", "w", encoding = "utf-8") as file:
+                # ! ALAP VILAG MENTESE
+
+                file.write("uj kartya;Arin;2;5;fold\n")
+                file.write("uj kartya;Liora;2;4;levego\n")
+                file.write("uj kartya;Nerun;3;3;tuz\n")
+                file.write("uj kartya;Torak;3;4;fold\n")
+                file.write("uj kartya;Selia;2;6;viz\n")
+                file.write("uj kartya;Emera;2;5;levego\n")
+                file.write("uj kartya;Vorn;2;7;viz\n")
+                file.write("uj kartya;Kael;3;5;tuz\n")
+                file.write("uj kartya;Myra;2;6;fold\n")
+                file.write("uj kartya;Thalen;3;5;levego\n")
+                file.write("uj kartya;Isara;2;6;viz\n")
+
+                file.write("uj vezer;Lord Torak;Torak;sebzes\n")
+                file.write("uj vezer;Priestess Selia;Selia;eletero\n\n")
+
+                file.write("uj kazamata;egyszeru;Barlangi Portya;Nerun;sebzes\n")
+                file.write("uj kazamata;kis;Osi Szentely;Arin,Emera,Selia,Lord Torak;eletero\n")
+                file.write("uj kazamata;nagy; A melyseg kiralynoje;Liora,Arin,Selia,Nerun,Torak;Priestess Selia\n\n")
+
+                file.write("felvetel gyujtemenybe;Arin\n")
+                file.write("felvetel gyujtemenybe;Liora\n")
+                file.write("felvetel gyujtemenybe;Selia\n")
+                file.write("felvetel gyujtemenybe;Nerun\n")
+                file.write("felvetel gyujtemenybe;Torak\n")
+                file.write("felvetel gyujtemenybe;Emera\n")
+                file.write("felvetel gyujtemenybe;Kael\n")
+                file.write("felvetel gyujtemenybe;Myra\n")
+                file.write("felvetel gyujtemenybe;Thalen\n")
+                file.write("felvetel gyujtemenybe;Isara\n\n")
+
+                file.write("uj vilag;alap\n")
+                file.write("\n\n")
+        new_fileread.read_file("jatekkornyezetek.megprobaltuk")
+    else:
+        new_fileread.read_file("jatekkornyezetek.megprobaltuk")
     cls()
     ascii_art = [
     " _______                                                                            ",
@@ -144,17 +183,4 @@ def menu():
 def leiras():
         print()
 
-def vilagvalaszto():                                                                                 
-    print("vilagok felsorolva")
-
-
-def jatekmode():
-    print("nehezseg")
-    print("DLC")
-
-
-################################
-#vasárnap
-def meglevo():
-    print("regi harc")
 

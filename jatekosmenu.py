@@ -29,7 +29,38 @@ def clear_input_field():
         msvcrt.getch()
 
 def jatekosmenu():
-    print("1. Uj vilag")
+    cim = [
+"  ____   ____  ______    ___  __  _   ___   _____",
+" |    | /    ||      |  /  _]|  |/ ] /   \ / ___/",
+" |__  ||  o  ||      | /  [_ |  ' / |     (   \_ ",
+" __|  ||     ||_|  |_||    _]|    \ |  O  |\__  |",
+"/  |  ||  _  |  |  |  |   [_ |     ||     |/  \ |",
+"\  `  ||  |  |  |  |  |     ||  .  ||     |\    |",
+" \____j|__|__|  |__|  |_____||__|\_| \___/  \___|"
+
+    ]
+    ujjatektext = [
+    " ⡇⢸ ⠠   ⠠ ⢀⣀ ⣰⡀ ⢀⡀ ⡇⡠"
+    " ⠣⠜ ⡸   ⡸ ⠣⠼ ⠘⠤ ⠣⠭ ⠏⠢"
+    ]
+
+
+ 
     print("2. Betoltes")
     print("3. Szabályzat")
     print("4. világok")
+
+
+def vilagvalaszto():                                                                                 
+    print("vilagok felsorolva")
+
+
+def jatekmode():
+    print("nehezseg")
+    print("DLC")
+
+
+################################
+#vasárnap
+def meglevo():
+    print("regi harc")
