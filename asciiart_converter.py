@@ -255,7 +255,7 @@ z = [
 
 
 
-def text_to_ascii(text):
+def text_to_ascii(text, int):
      ascii_text = ["", ""]
      for letter in text:
           if letter == "0":
@@ -448,4 +448,10 @@ def text_to_ascii(text):
                ascii_text[0] += "  "
                ascii_text[1] += "  "
 
-     return ascii_text
+     if int == 0:
+          return ascii_text
+     else:
+          return fr"""
+               {ascii_text[0]}          
+               {ascii_text[1]}          
+          """
