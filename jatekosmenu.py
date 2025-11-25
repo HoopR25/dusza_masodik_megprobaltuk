@@ -319,7 +319,7 @@ def hardcore():
      "⣇⣸ ⢀⣀ ⡀⣀ ⢀⣸ ⢀⣀ ⢀⡀ ⡀⣀ ⢀⡀   ⣀⣀  ⢀⡀ ⢀⣸ ⣇⡀ ⢀⣀   ⢀⣀ ⣀⣀ ⢀⡀ ⡀⣀ ⢀⡀ ⣰⡀ ⣀⡀ ⢀⡀   ⡇ ⢀⡀ ⣀⡀ ⣀⡀ ⠄",
     " ⠇⠸ ⠣⠼ ⠏  ⠣⠼ ⠣⠤ ⠣⠜ ⠏  ⠣⠭   ⠇⠇⠇ ⠣⠜ ⠣⠼ ⠧⠜ ⠣⠼   ⠭⠕ ⠴⠥ ⠣⠭ ⠏  ⠣⠭ ⠘⠤ ⠇⠸ ⠣⠭   ⠣ ⠣⠭ ⡧⠜ ⠇⠸ ⠇"
     ]
-    asciiras(kerdes,"blue")
+    
     igen = r"""
      ⡇ ⢀⡀ ⢀⡀ ⣀⡀
      ⠇ ⣑⡺ ⠣⠭ ⠇⠸
@@ -333,6 +333,7 @@ def hardcore():
     center_option(nem)
     ]
     asciiras(cim,"white")
+    asciiras(kerdes,"blue")
     Choice = inquirer.select(
         message = "",
         pointer = "",
@@ -364,7 +365,7 @@ def kepesseg():
     " ⣇⠜ ⢀⡀ ⣀⡀ ⢀⡀ ⢀⣀ ⢀⣀ ⢀⡀ ⢀⡀ ⢀⡀ ⡇⡠ ⡇⡠ ⢀⡀ ⡇   ⢀⣀ ⣀⣀ ⢀⡀ ⡀⣀ ⢀⡀ ⣰⡀ ⣀⡀ ⢀⡀   ⠠ ⢀⣀ ⣰⡀ ⢀⣀ ⣀⣀ ⢀⣀ ⣀⡀ ⠄",
     " ⠇⠱ ⠣⠭ ⡧⠜ ⠣⠭ ⠭⠕ ⠭⠕ ⠣⠭ ⣑⡺ ⠣⠭ ⠏⠢ ⠏⠢ ⠣⠭ ⠣   ⠭⠕ ⠴⠥ ⠣⠭ ⠏  ⠣⠭ ⠘⠤ ⠇⠸ ⠣⠭   ⡸ ⠣⠼ ⠘⠤ ⠭⠕ ⠴⠥ ⠣⠼ ⠇⠸ ⠇"
     ]
-    asciiras(kerdes,"blue")
+    
     igen = r"""
      ⡇ ⢀⡀ ⢀⡀ ⣀⡀
      ⠇ ⣑⡺ ⠣⠭ ⠇⠸
@@ -378,6 +379,7 @@ def kepesseg():
     center_option(nem)
     ]
     asciiras(cim,"white")
+    asciiras(kerdes,"blue")
     Choice = inquirer.select(
         message = "",
         pointer = "",
