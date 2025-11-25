@@ -119,8 +119,7 @@ def jatekosmenu():
 
 
 def vilagvalaszto():  
-    cls()
-    options=[]                         
+    cls()                      
     cim = [
 " __ __  ____  _       ____   ____   ___   __  _  ",
 "|  |  ||    || |     /    | /    | /   \ |  |/ ] ",
@@ -177,9 +176,9 @@ def vilagvalaszto():
             oldalszam += 1
         else:
             break
+    beallitasok(choice)
     
     
-    input("")
     
 
 # ! !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!    
@@ -199,13 +198,203 @@ def vilagvalaszto():
 # ! !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!   
 # ! !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 # ! LEMENTENI JATEKOT: VILAGNEV, GYUJTEMENY, GYUJTSTATS, BEALLITASOK
+    nehezsegiszint = 0
+    hardcore = False
+    kepesseg = False
 
-def jatekmode():
-    print("nehezseg")
-    print("DLC")
+def beallitasok(vilagnev):
+    cls()
+    cim = [
+    " ____     ___   ____  _      _      ____  ______   ____  _____  ___   __  _  ",
+    "|    \   /  _] /    || |    | |    |    ||      | /    |/ ___/ /   \ |  |/ ] ",
+    "|  o  ) /  [_ |  o  || |    | |     |  | |      ||  o  (   \_ |     ||  ' /  ",
+    "|     ||    _]|     || |___ | |___  |  | |_|  |_||     |\__  ||  O  ||    \  ",
+    "|  O  ||   [_ |  _  ||     ||     | |  |   |  |  |  _  |/  \ ||     ||     \ ",
+    "|     ||     ||  |  ||     ||     | |  |   |  |  |  |  |\    ||     ||  .  | ",
+    "|_____||_____||__|__||_____||_____||____|  |__|  |__|__| \___| \___/ |__|\_| "
+                                                                     ]
+    utasitas = [
+     "⣎⣱ ⢀⣸ ⠠ ⢀⣀   ⣀⣀  ⢀⡀ ⢀⡀   ⢀⣀   ⣀⡀ ⢀⡀ ⣇⡀ ⢀⡀ ⣀⣀ ⢀⣀ ⢀⡀ ⢀⡀ ⠄   ⢀⣀ ⣀⣀ ⠄ ⣀⡀ ⣰⡀ ⢀⡀ ⣰⡀",
+     "⠇⠸ ⠣⠼ ⡸ ⠣⠼   ⠇⠇⠇ ⠣⠭ ⣑⡺   ⠣⠼   ⠇⠸ ⠣⠭ ⠇⠸ ⠣⠭ ⠴⠥ ⠭⠕ ⠣⠭ ⣑⡺ ⠇   ⠭⠕ ⠴⠥ ⠇ ⠇⠸ ⠘⠤ ⠣⠭ ⠘⠤"
+    ]
+    utasitas2 = [
+     "⣎⣵ ⣰⡀ ⢀⡀ ⡇   ⢺  ⣎⣵ ⠄ ⢀⡀",
+     "⠫⠜ ⠘⠤ ⠣⠜ ⠣   ⠼⠄ ⠫⠜ ⠇ ⣑⡺"
+    ]
+    opt1 = r"""
+     ⡷⣸ ⢀⡀ ⣇⡀ ⢀⡀ ⣀⣀ ⢀⣀ ⢀⡀ ⢀⡀ ⠄   ⢀⣀ ⣀⣀ ⠄ ⣀⡀ ⣰⡀
+     ⠇⠹ ⠣⠭ ⠇⠸ ⠣⠭ ⠴⠥ ⠭⠕ ⠣⠭ ⣑⡺ ⠇   ⠭⠕ ⠴⠥ ⠇ ⠇⠸ ⠘⠤
+    """
+    opt2 = r"""
+    ⣇⣸ ⢀⣀ ⡀⣀ ⢀⣸ ⢀⣀ ⢀⡀ ⡀⣀ ⢀⡀
+    ⠇⠸ ⠣⠼ ⠏  ⠣⠼ ⠣⠤ ⠣⠜ ⠏  ⠣⠭
+    """
+    opt3 = r"""
+     ⣇⠜ ⢀⡀ ⣀⡀ ⢀⡀ ⢀⣀ ⢀⣀ ⢀⡀ ⢀⡀
+     ⠇⠱ ⠣⠭ ⡧⠜ ⠣⠭ ⠭⠕ ⠭⠕ ⠣⠭ ⣑⡺
+    """
+    opt4 = r"""
+     ⢎⡑ ⣰⡀ ⢀⣀ ⡀⣀ ⣰⡀
+     ⠢⠜ ⠘⠤ ⠣⠼ ⠏  ⠘⠤
+    """
+    opt5 = r"""
+     ⡇⢸ ⠄ ⢀⣀ ⢀⣀ ⣀⣀ ⢀⣀
+     ⠸⠃ ⠇ ⠭⠕ ⠭⠕ ⠴⠥ ⠣⠼
+    """
+    options = [
+    center_option(opt5),
+    center_option(opt1),
+    center_option(opt2),
+    center_option(opt3),
+    center_option(opt4)
+    ]
+    
+    #while not nehezsegiszint.isdigit():
+    while True:
+        cls()
+        asciiras(cim,"white")
+        
+        choice = inquirer.select(
+                message = "",
+                pointer = "",
+                choices = options,
+                multiselect = False,
+                style = theme
+            ).execute()
+        if choice == options[0]:
+            vilagvalaszto()
+            break
+        elif choice == options[1]:
+            nehezseg()
+        elif choice == options[2]:
+            hardcore()
+        elif choice == options[3]:
+            kepesseg()
+        elif choice == options[4]:
+            meglevo()
+
+def nehezseg():
+    cls()
+    utasitas = [
+     "⣎⣱ ⢀⣸ ⠠ ⢀⣀   ⣀⣀  ⢀⡀ ⢀⡀   ⢀⣀   ⣀⡀ ⢀⡀ ⣇⡀ ⢀⡀ ⣀⣀ ⢀⣀ ⢀⡀ ⢀⡀ ⠄   ⢀⣀ ⣀⣀ ⠄ ⣀⡀ ⣰⡀ ⢀⡀ ⣰⡀",
+     "⠇⠸ ⠣⠼ ⡸ ⠣⠼   ⠇⠇⠇ ⠣⠭ ⣑⡺   ⠣⠼   ⠇⠸ ⠣⠭ ⠇⠸ ⠣⠭ ⠴⠥ ⠭⠕ ⠣⠭ ⣑⡺ ⠇   ⠭⠕ ⠴⠥ ⠇ ⠇⠸ ⠘⠤ ⠣⠭ ⠘⠤"
+    ]
+    utasitas2 = [
+     "⣎⣵ ⣰⡀ ⢀⡀ ⡇   ⢺  ⣎⣵ ⠄ ⢀⡀",
+     "⠫⠜ ⠘⠤ ⠣⠜ ⠣   ⠼⠄ ⠫⠜ ⠇ ⣑⡺"
+    ]
+    cim = [
+" ____     ___  __ __    ___  _____  _____   ___   ____       _____ _____  ____  ____   ______ ",
+"|    \   /  _]|  |  |  /  _]|     |/ ___/  /  _] /    |     / ___/|     ||    ||    \ |      |",
+"|  _  | /  [_ |  |  | /  [_ |__/  (   \_  /  [_ |   __|    (   \_ |__/  | |  | |  _  ||      |",
+"|  |  ||    _]|  _  ||    _]|   __|\__  ||    _]|  |  |     \__  ||   __| |  | |  |  ||_|  |_|",
+"|  |  ||   [_ |  |  ||   [_ |  /  |/  \ ||   [_ |  |_ |     /  \ ||  /  | |  | |  |  |  |  |  ",
+"|  |  ||     ||  |  ||     ||     |\    ||     ||     |     \    ||     | |  | |  |  |  |  |  ",
+"|__|__||_____||__|__||_____||_____| \___||_____||___,_|      \___||_____||____||__|__|  |__|  "
+                                                                                              
+    ]
+    while True:      
+        asciiras(cim,"white")
+        print("\n" * 4)
+        asciiras(utasitas,"blue")
+        asciiras(utasitas2,"blue")
+        nehezsegiszint = input("")
+        if(nehezsegiszint.isdigit()):
+            nehezsegiszint = int(nehezsegiszint)
+            if((nehezsegiszint<11 and nehezsegiszint>-1)):
+                break
+        cls()
+def hardcore():
+    cls()
+    cim = [
+" __ __   ____  ____   ___      __   ___   ____     ___ ",
+"|  |  | /    ||    \ |   \    /  ] /   \ |    \   /  _]",
+"|  |  ||  o  ||  D  )|    \  /  / |     ||  D  ) /  [_ ",
+"|  _  ||     ||    / |  D  |/  /  |  O  ||    / |    _]",
+"|  |  ||  _  ||    \ |     /   \_ |     ||    \ |   [_ ",
+"|  |  ||  |  ||  .  \|     \     ||     ||  .  \|     |",
+"|__|__||__|__||__|\_||_____|\____| \___/ |__|\_||_____|"
+    ]
+    kerdes = [
+     "⣇⣸ ⢀⣀ ⡀⣀ ⢀⣸ ⢀⣀ ⢀⡀ ⡀⣀ ⢀⡀   ⣀⣀  ⢀⡀ ⢀⣸ ⣇⡀ ⢀⣀   ⢀⣀ ⣀⣀ ⢀⡀ ⡀⣀ ⢀⡀ ⣰⡀ ⣀⡀ ⢀⡀   ⡇ ⢀⡀ ⣀⡀ ⣀⡀ ⠄",
+    " ⠇⠸ ⠣⠼ ⠏  ⠣⠼ ⠣⠤ ⠣⠜ ⠏  ⠣⠭   ⠇⠇⠇ ⠣⠜ ⠣⠼ ⠧⠜ ⠣⠼   ⠭⠕ ⠴⠥ ⠣⠭ ⠏  ⠣⠭ ⠘⠤ ⠇⠸ ⠣⠭   ⠣ ⠣⠭ ⡧⠜ ⠇⠸ ⠇"
+    ]
+    asciiras(kerdes,"blue")
+    igen = r"""
+     ⡇ ⢀⡀ ⢀⡀ ⣀⡀
+     ⠇ ⣑⡺ ⠣⠭ ⠇⠸
+    """
+    nem = r"""
+     ⡷⣸ ⢀⡀ ⣀⣀ 
+     ⠇⠹ ⠣⠭ ⠇⠇⠇
+    """
+    options = [
+    center_option(igen),
+    center_option(nem)
+    ]
+    asciiras(cim,"white")
+    Choice = inquirer.select(
+        message = "",
+        pointer = "",
+        choices = options,
+        multiselect = False,
+        style = theme
+    ).execute()
+    if Choice == igen:
+        hardcore = True
+    else: 
+        hardcore = False 
+    
 
 
+
+def kepesseg():
+    cls()
+    cim = [
+" __  _    ___  ____   ___  _____ _____   ___   ____    ___  __  _  ",
+"|  |/ ]  /  _]|    \ /  _]/ ___// ___/  /  _] /    |  /  _]|  |/ ] ",
+"|  ' /  /  [_ |  o  )  [_(   \_(   \_  /  [_ |   __| /  [_ |  ' /  ",
+"|    \ |    _]|   _/    _]\__  |\__  ||    _]|  |  ||    _]|    \  ",
+"|     ||   [_ |  | |   [_ /  \ |/  \ ||   [_ |  |_ ||   [_ |     \ ",
+"|  .  ||     ||  | |     |\    |\    ||     ||     ||     ||  .  | ",
+"|__|\_||_____||__| |_____| \___| \___||_____||___,_||_____||__|\_| "
+                                                                  
+    ]
+    kerdes = [
+    " ⣇⠜ ⢀⡀ ⣀⡀ ⢀⡀ ⢀⣀ ⢀⣀ ⢀⡀ ⢀⡀ ⢀⡀ ⡇⡠ ⡇⡠ ⢀⡀ ⡇   ⢀⣀ ⣀⣀ ⢀⡀ ⡀⣀ ⢀⡀ ⣰⡀ ⣀⡀ ⢀⡀   ⠠ ⢀⣀ ⣰⡀ ⢀⣀ ⣀⣀ ⢀⣀ ⣀⡀ ⠄",
+    " ⠇⠱ ⠣⠭ ⡧⠜ ⠣⠭ ⠭⠕ ⠭⠕ ⠣⠭ ⣑⡺ ⠣⠭ ⠏⠢ ⠏⠢ ⠣⠭ ⠣   ⠭⠕ ⠴⠥ ⠣⠭ ⠏  ⠣⠭ ⠘⠤ ⠇⠸ ⠣⠭   ⡸ ⠣⠼ ⠘⠤ ⠭⠕ ⠴⠥ ⠣⠼ ⠇⠸ ⠇"
+    ]
+    asciiras(kerdes,"blue")
+    igen = r"""
+     ⡇ ⢀⡀ ⢀⡀ ⣀⡀
+     ⠇ ⣑⡺ ⠣⠭ ⠇⠸
+    """
+    nem = r"""
+     ⡷⣸ ⢀⡀ ⣀⣀ 
+     ⠇⠹ ⠣⠭ ⠇⠇⠇
+    """
+    options = [
+    center_option(igen),
+    center_option(nem)
+    ]
+    asciiras(cim,"white")
+    Choice = inquirer.select(
+        message = "",
+        pointer = "",
+        choices = options,
+        multiselect = False,
+        style = theme
+    ).execute()
+    if Choice == igen:
+        kepesseg = True
+    else: 
+        kepesseg = False 
+
+def nev():
+    cls()   
+    print("")
 ################################
 #vasárnap
+
 def meglevo():
     print("regi harc")
