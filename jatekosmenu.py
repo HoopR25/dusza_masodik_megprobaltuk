@@ -423,9 +423,9 @@ def nev(vilagnev):
         if vilag[0] == vilagnev:
             for kartya in vilag[2]:
                 cards.add_to_collection(kartya)
-    mentesek_fileread.mentesek.append(jateknev,[nehezsegiszint,hardcore,kepesseg],cards.gyujtemeny,cards.gyujt_stats,cards.pakli,vilagnev)
-
-def mentes(vilagnev,jateknev):
+    mentesek_fileread.mentesek.append([jateknev,[nehezsegiszint,hardcore,kepesseg],cards.gyujtemeny,cards.gyujt_stats,cards.pakli,vilagnev])
+    mentes()
+def mentes():
 
     cls()
     
@@ -440,9 +440,13 @@ def mentes(vilagnev,jateknev):
                 # * gyujt stats
                 for stats in mentes[3]:
                     file.write(f"stats;{stats["nev"]};{stats["sebzes"]};{stats["eletero"]};{stats["tipus"]}\n")
-                file.write(f"uj pakli;{mentes[4][0]}")
-                for i in range(1,(len(mentes[4]))):
-                    file.write(f"{mentes[4][i]},")
+                file.write(f"uj pakli;")
+                for i in range(0,(len(mentes[4]))):
+                    if(i == len(mentes[4])):
+                        file.write(f"{mentes[4][i]}")
+                    else:
+                        file.write(f"{mentes[4][i]},")
+
                 file.write(f"mentes;{mentes[0]}\n")
                 file.write("\n")
                 # * temp_kartyak

@@ -210,7 +210,7 @@ def JATEK(mentesnev):
             beallitasok.append(mentes[2][1])
             beallitasok.append(mentes[2][2])
             jateknev = mentesnev[0]
-def menu():
+def menu2():
     cls()
     cprint("Udvozollek a Damareen-ben!\n", "blue")
     cprint("Valassz az alabbi opciok kozul:\n", "green")
