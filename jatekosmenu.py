@@ -15,8 +15,9 @@ import asciiart_converter
 from InquirerPy.base.control import Choice
 from InquirerPy.utils import color_print
 from InquirerPy import get_style
-
+import game_mode
 import math
+import mentesek_fileread
 
 theme = get_style({
     "questionmark": "#000000",
@@ -176,7 +177,8 @@ def vilagvalaszto():
             oldalszam += 1
         else:
             break
-    beallitasok(choice)
+    
+    beallitasok(asciiart_converter.ascii_to_text(choice))
     
     
     
@@ -198,9 +200,9 @@ def vilagvalaszto():
 # ! !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!   
 # ! !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 # ! LEMENTENI JATEKOT: VILAGNEV, GYUJTEMENY, GYUJTSTATS, BEALLITASOK
-    nehezsegiszint = 0
-    hardcore = False
-    kepesseg = False
+nehezsegiszint = 0
+hardcore = False
+kepesseg = False
 
 def beallitasok(vilagnev):
     cls()
@@ -271,7 +273,7 @@ def beallitasok(vilagnev):
         elif choice == options[3]:
             kepesseg()
         elif choice == options[4]:
-            meglevo()
+            nev(vilagnev)
 
 def nehezseg():
     cls()
@@ -392,11 +394,60 @@ def kepesseg():
     else: 
         kepesseg = False 
 
-def nev():
-    cls()   
-    print("")
-################################
-#vasárnap
+def nev(vilagnev):
+    cls()
+    cim = [
+        " __  _    ___  _____  ___      ___  _____ ",
+        "|  |/ ]  /  _]|     ||   \    /  _]/ ___/ ",
+        "|  ' /  /  [_ |__/  ||    \  /  [_(   \_  ",
+        "|    \ |    _]|   __||  D  ||    _]\__  | ",
+        "|     ||   [_ |  /  ||     ||   [_ /  \ | ",
+        "|  .  ||     ||     ||     ||     |\    | ",
+        "|__|\_||_____||_____||_____||_____| \___| "
+        ]
+    instrukció = [
+     "⣎⣱ ⢀⣸ ⠠ ⢀⣀   ⣀⣀  ⢀⡀ ⢀⡀   ⠠ ⢀⣀ ⣰⡀ ⢀⡀ ⡇⡠ ⣀⣀  ⢀⡀ ⣀⡀ ⢀⡀ ⣰⡀   ⣀⡀ ⢀⡀ ⡀⢀ ⢀⡀ ⣰⡀ ",
+     "⠇⠸ ⠣⠼ ⡸ ⠣⠼   ⠇⠇⠇ ⠣⠭ ⣑⡺   ⡸ ⠣⠼ ⠘⠤ ⠣⠭ ⠏⠢ ⠇⠇⠇ ⠣⠭ ⠇⠸ ⠣⠭ ⠘⠤   ⠇⠸ ⠣⠭ ⠱⠃ ⠣⠭ ⠘⠤"
+    ]
+    
+    asciiras(cim,"white")
+    asciiras(instrukció,"blue")
+    
+    jateknev=input("")
+    
+    cls()
+    cards.pakli.clear()
+    cards.gyujt_stats.clear()
+    cards.gyujtemeny.clear()
+    for vilag in jatekmestermenu.vilagok:
+        if vilag[0] == vilagnev:
+            for kartya in vilag[2]:
+                cards.add_to_collection(kartya)
+    mentesek_fileread.mentesek.append(jateknev,[nehezsegiszint,hardcore,kepesseg],cards.gyujtemeny,cards.gyujt_stats,cards.pakli,vilagnev)
 
-def meglevo():
-    print("regi harc")
+def mentes(vilagnev,jateknev):
+
+    cls()
+    
+    with open("mentes.megprobaltuk", "w", encoding = "utf-8") as file:
+        for mentes in mentesek_fileread.mentesek: 
+                # * beallitasok
+                file.write(f"beallitasok;{mentes[1][0]};{mentes[1][1]};{mentes[1][2]}\n")
+                # * gyujtemeny
+                for kartya in mentes[2]:
+                    file.write(f"felvetel gyujtemenybe;{kartya}\n")
+                    file.write("\n")
+                # * gyujt stats
+                for stats in mentes[3]:
+                    file.write(f"stats;{stats["nev"]};{stats["sebzes"]};{stats["eletero"]};{stats["tipus"]}\n")
+                file.write(f"uj pakli;{mentes[4][0]}")
+                for i in range(1,(len(mentes[4]))):
+                    file.write(f"{mentes[4][i]},")
+                file.write(f"mentes;{mentes[0]}\n")
+                file.write("\n")
+                # * temp_kartyak
+                # * temp_vezerek
+                # * temp_kazamatak
+                # * temp_gyujtemeny
+                # * temp_vilagnev
+

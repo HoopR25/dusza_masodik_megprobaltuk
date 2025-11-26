@@ -455,3 +455,67 @@ def text_to_ascii(text, int):
                {ascii_text[0]}          
                {ascii_text[1]}          
           """
+
+def ascii_to_text(ascii_block: str) -> str:
+    # Sorok szétválasztása, center whitespace eltávolítása
+    lines = ascii_block.strip("\n").split("\n")
+
+    # Ha az első sor üres
+    if lines[0].strip() == "":
+        lines = lines[1:]
+
+    line1 = lines[0].rstrip()
+    line2 = lines[1].rstrip()
+
+    # összes karakter mapping + szélesség
+    patterns = {}
+
+    def add(ch, patt):
+        patterns[ch] = {
+            "top": patt[0],
+            "bot": patt[1],
+            "w": len(patt[0])
+        }
+
+    all_chars = {
+        "0": zero, "1": one, "2": two, "3": three, "4": four, "5": five,
+        "6": six, "7": seven, "8": eight, "9": nine,
+        "A": A, "B": B, "C": C, "D": D, "E": E, "F": F, "G": G, "H": H,
+        "I": I, "J": J, "K": K, "L": L, "M": M, "N": N, "O": O, "P": P,
+        "Q": Q, "R": R, "S": S, "T": T, "U": U, "V": V, "W": W, "X": X,
+        "Y": Y, "Z": Z,
+        "a": a, "b": b, "c": c, "d": d, "e": e, "f": f, "g": g, "h": h,
+        "i": i, "j": j, "k": k, "l": l, "m": m, "n": n, "o": o, "p": p,
+        "q": q, "r": r, "s": s, "t": t, "u": u, "v": v, "w": w, "x": x,
+        "y": y, "z": z
+    }
+
+    for ch, patt in all_chars.items():
+        add(ch, patt)
+
+    result = ""
+    pos = 0
+    length = len(line1)
+
+    while pos < length:
+        matched = False
+
+        # Végigpróbálunk minden karaktert
+        for ch, patt in patterns.items():
+            pattern_w = patt["w"]
+            if pos + pattern_w <= length:
+                if line1[pos:pos+pattern_w] == patt["top"] and line2[pos:pos+pattern_w] == patt["bot"]:
+                    result += ch
+                    pos += pattern_w + 1  # +1 space
+                    matched = True
+                    break
+
+        if not matched:
+            # ha nem talál egyezést → lépjünk egyet, de jelezzük a hibát
+            result += "?"
+            pos += 1
+
+    result = result.replace("?", "")
+    return result
+     
+

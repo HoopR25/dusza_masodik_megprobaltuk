@@ -8,3 +8,4 @@ def uj_vilag(data):
     cards.kartyak.clear()
     cards.gyujtemeny.clear()
     kazamata.kazamatak.clear()
+

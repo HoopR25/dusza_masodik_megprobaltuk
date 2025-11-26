@@ -22,3 +22,4 @@ def read_file(file):
         elif data[0] == "uj pakli":
             cards.new_deck(data) 
     f.close()
+
