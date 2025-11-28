@@ -2,7 +2,7 @@ kartyak = []
 gyujtemeny = []
 pakli = []
 gyujt_stats = []
-
+vezerek = []
 def new_card(kartya):
     card = {
         "nev": kartya[1],
@@ -42,7 +42,9 @@ def new_vezer(vezer):
 
 def add_to_collection(kartya):
     gyujtemeny.append(kartya[1])
-    gyujt_stats.append(stats(kartya[1]))
+    st = stats(kartya[1])
+    if st != None:
+        gyujt_stats.append(st)
 
 
 def stats(nev):

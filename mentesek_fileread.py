@@ -21,7 +21,7 @@ def read_file(filer):
             elif data[0] == "vilag":
                 vilag = data[1]
             elif data[0] == "mentes":
-                addtomentesek(data[1])
+                addtomentesek(data)
 
 def beallitas(data):
         beallitasok.append(data[1])
@@ -30,7 +30,7 @@ def beallitas(data):
 
 
 def addtomentesek(mentesnev):
-    mentesek.append([mentesnev,beallitasok,cards.gyujtemeny,cards.gyujt_stats,cards.pakli,vilag])
+    mentesek.append([mentesnev[1],beallitasok.copy(),cards.gyujtemeny.copy(),cards.gyujt_stats.copy(),cards.pakli.copy(),vilag])
     cards.gyujtemeny.clear()
     cards.gyujt_stats.clear()
     cards.pakli.clear()

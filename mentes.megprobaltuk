@@ -1,21 +1,608 @@
-beallitasok;0;<function hardcore at 0x000002A130433480>;<function kepesseg at 0x000002A130433530>
-felvetel gyujtemenybe;r
+beallitasok;0;1;1
+vilag;
+felvetel gyujtemenybe;Liora
 
-felvetel gyujtemenybe;i
+felvetel gyujtemenybe;Selia
 
-felvetel gyujtemenybe;e
+felvetel gyujtemenybe;Nerun
 
-felvetel gyujtemenybe;e
+felvetel gyujtemenybe;Torak
 
-felvetel gyujtemenybe;o
+felvetel gyujtemenybe;Emera
 
-felvetel gyujtemenybe;m
+felvetel gyujtemenybe;Kael
 
-felvetel gyujtemenybe;a
+felvetel gyujtemenybe;Myra
 
-felvetel gyujtemenybe;y
+felvetel gyujtemenybe;Thalen
 
-felvetel gyujtemenybe;h
+felvetel gyujtemenybe;Isara
 
-felvetel gyujtemenybe;s
+stats;Arin;2;5;fold
+stats;Liora;2;4;levego
+stats;Selia;2;6;viz
+stats;Nerun;3;3;tuz
+stats;Torak;3;4;fold
+stats;Emera;2;5;levego
+stats;Kael;3;5;tuz
+stats;Myra;2;6;fold
+stats;Thalen;3;5;levego
+stats;Isara;2;6;viz
+uj pakli;,,
+mentes;alaposan
+
+beallitasok;0;1;1
+vilag;
+felvetel gyujtemenybe;Arin
+
+felvetel gyujtemenybe;Liora
+
+felvetel gyujtemenybe;Selia
+
+felvetel gyujtemenybe;Nerun
+
+felvetel gyujtemenybe;Torak
+
+felvetel gyujtemenybe;Emera
+
+felvetel gyujtemenybe;Kael
+
+felvetel gyujtemenybe;Myra
+
+felvetel gyujtemenybe;Thalen
+
+felvetel gyujtemenybe;Isara
+
+uj pakli;,,,,,,,,,,,,,,,,,,,,,,
+mentes;piros
+
+beallitasok;0;1;1
+vilag;
+felvetel gyujtemenybe;Arin
+
+felvetel gyujtemenybe;Liora
+
+felvetel gyujtemenybe;Selia
+
+felvetel gyujtemenybe;Nerun
+
+felvetel gyujtemenybe;Torak
+
+felvetel gyujtemenybe;Emera
+
+felvetel gyujtemenybe;Kael
+
+felvetel gyujtemenybe;Myra
+
+felvetel gyujtemenybe;Thalen
+
+felvetel gyujtemenybe;Isara
+
+uj pakli;,,,,,,,,,,,,,,,,,,,,,
+mentes;alap
+
+beallitasok;0;1;1
+vilag;
+felvetel gyujtemenybe;Arin
+
+felvetel gyujtemenybe;Liora
+
+felvetel gyujtemenybe;Selia
+
+felvetel gyujtemenybe;Nerun
+
+felvetel gyujtemenybe;Torak
+
+felvetel gyujtemenybe;Emera
+
+felvetel gyujtemenybe;Kael
+
+felvetel gyujtemenybe;Myra
+
+felvetel gyujtemenybe;Thalen
+
+felvetel gyujtemenybe;Isara
+
+uj pakli;,,,,,,,,,,,,,,,,,,,,
+mentes;kek
+
+beallitasok;0;1;1
+vilag;
+felvetel gyujtemenybe;Arin
+
+felvetel gyujtemenybe;Liora
+
+felvetel gyujtemenybe;Selia
+
+felvetel gyujtemenybe;Nerun
+
+felvetel gyujtemenybe;Torak
+
+felvetel gyujtemenybe;Emera
+
+felvetel gyujtemenybe;Kael
+
+felvetel gyujtemenybe;Myra
+
+felvetel gyujtemenybe;Thalen
+
+felvetel gyujtemenybe;Isara
+
+uj pakli;,,,,,,,,,,,,,,,,,,,
+mentes;segg
+
+beallitasok;0;1;1
+vilag;
+felvetel gyujtemenybe;Arin
+
+felvetel gyujtemenybe;Liora
+
+felvetel gyujtemenybe;Selia
+
+felvetel gyujtemenybe;Nerun
+
+felvetel gyujtemenybe;Torak
+
+felvetel gyujtemenybe;Emera
+
+felvetel gyujtemenybe;Kael
+
+felvetel gyujtemenybe;Myra
+
+felvetel gyujtemenybe;Thalen
+
+felvetel gyujtemenybe;Isara
+
+uj pakli;,,,,,,,,,,,,,,,,,,
+mentes;mittom
+
+beallitasok;0;1;1
+vilag;
+felvetel gyujtemenybe;Arin
+
+felvetel gyujtemenybe;Liora
+
+felvetel gyujtemenybe;Selia
+
+felvetel gyujtemenybe;Nerun
+
+felvetel gyujtemenybe;Torak
+
+felvetel gyujtemenybe;Emera
+
+felvetel gyujtemenybe;Kael
+
+felvetel gyujtemenybe;Myra
+
+felvetel gyujtemenybe;Thalen
+
+felvetel gyujtemenybe;Isara
+
+uj pakli;,,,,,,,,,,,,,,,,,
+mentes;12
+
+beallitasok;0;1;1
+vilag;
+felvetel gyujtemenybe;Arin
+
+felvetel gyujtemenybe;Liora
+
+felvetel gyujtemenybe;Selia
+
+felvetel gyujtemenybe;Nerun
+
+felvetel gyujtemenybe;Torak
+
+felvetel gyujtemenybe;Emera
+
+felvetel gyujtemenybe;Kael
+
+felvetel gyujtemenybe;Myra
+
+felvetel gyujtemenybe;Thalen
+
+felvetel gyujtemenybe;Isara
+
+uj pakli;,,,,,,,,,,,,,,,,
+mentes;13
+
+beallitasok;0;1;1
+vilag;
+felvetel gyujtemenybe;Arin
+
+felvetel gyujtemenybe;Liora
+
+felvetel gyujtemenybe;Selia
+
+felvetel gyujtemenybe;Nerun
+
+felvetel gyujtemenybe;Torak
+
+felvetel gyujtemenybe;Emera
+
+felvetel gyujtemenybe;Kael
+
+felvetel gyujtemenybe;Myra
+
+felvetel gyujtemenybe;Thalen
+
+felvetel gyujtemenybe;Isara
+
+uj pakli;,,,,,,,,,,,,,,,
+mentes;14
+
+beallitasok;0;1;1
+vilag;
+felvetel gyujtemenybe;Arin
+
+felvetel gyujtemenybe;Liora
+
+felvetel gyujtemenybe;Selia
+
+felvetel gyujtemenybe;Nerun
+
+felvetel gyujtemenybe;Torak
+
+felvetel gyujtemenybe;Emera
+
+felvetel gyujtemenybe;Kael
+
+felvetel gyujtemenybe;Myra
+
+felvetel gyujtemenybe;Thalen
+
+felvetel gyujtemenybe;Isara
+
+uj pakli;,,,,,,,,,,,,,,
+mentes;15
+
+beallitasok;0;1;1
+vilag;
+felvetel gyujtemenybe;Arin
+
+felvetel gyujtemenybe;Liora
+
+felvetel gyujtemenybe;Selia
+
+felvetel gyujtemenybe;Nerun
+
+felvetel gyujtemenybe;Torak
+
+felvetel gyujtemenybe;Emera
+
+felvetel gyujtemenybe;Kael
+
+felvetel gyujtemenybe;Myra
+
+felvetel gyujtemenybe;Thalen
+
+felvetel gyujtemenybe;Isara
+
+uj pakli;,,,,,,,,,,,,,
+mentes;16
+
+beallitasok;0;1;1
+vilag;
+felvetel gyujtemenybe;Arin
+
+felvetel gyujtemenybe;Liora
+
+felvetel gyujtemenybe;Selia
+
+felvetel gyujtemenybe;Nerun
+
+felvetel gyujtemenybe;Torak
+
+felvetel gyujtemenybe;Emera
+
+felvetel gyujtemenybe;Kael
+
+felvetel gyujtemenybe;Myra
+
+felvetel gyujtemenybe;Thalen
+
+felvetel gyujtemenybe;Isara
+
+uj pakli;,,,,,,,,,,,,
+mentes;16
+
+beallitasok;0;1;1
+vilag;
+felvetel gyujtemenybe;Arin
+
+felvetel gyujtemenybe;Liora
+
+felvetel gyujtemenybe;Selia
+
+felvetel gyujtemenybe;Nerun
+
+felvetel gyujtemenybe;Torak
+
+felvetel gyujtemenybe;Emera
+
+felvetel gyujtemenybe;Kael
+
+felvetel gyujtemenybe;Myra
+
+felvetel gyujtemenybe;Thalen
+
+felvetel gyujtemenybe;Isara
+
+uj pakli;,,,,,,,,,,,
+mentes;17
+
+beallitasok;0;1;1
+vilag;
+felvetel gyujtemenybe;Arin
+
+felvetel gyujtemenybe;Liora
+
+felvetel gyujtemenybe;Selia
+
+felvetel gyujtemenybe;Nerun
+
+felvetel gyujtemenybe;Torak
+
+felvetel gyujtemenybe;Emera
+
+felvetel gyujtemenybe;Kael
+
+felvetel gyujtemenybe;Myra
+
+felvetel gyujtemenybe;Thalen
+
+felvetel gyujtemenybe;Isara
+
+uj pakli;,,,,,,,,,,
+mentes;18
+
+beallitasok;0;1;1
+vilag;
+felvetel gyujtemenybe;Arin
+
+felvetel gyujtemenybe;Liora
+
+felvetel gyujtemenybe;Selia
+
+felvetel gyujtemenybe;Nerun
+
+felvetel gyujtemenybe;Torak
+
+felvetel gyujtemenybe;Emera
+
+felvetel gyujtemenybe;Kael
+
+felvetel gyujtemenybe;Myra
+
+felvetel gyujtemenybe;Thalen
+
+felvetel gyujtemenybe;Isara
+
+uj pakli;,,,,,,,,,
+mentes;18
+
+beallitasok;0;1;1
+vilag;
+felvetel gyujtemenybe;Arin
+
+felvetel gyujtemenybe;Liora
+
+felvetel gyujtemenybe;Selia
+
+felvetel gyujtemenybe;Nerun
+
+felvetel gyujtemenybe;Torak
+
+felvetel gyujtemenybe;Emera
+
+felvetel gyujtemenybe;Kael
+
+felvetel gyujtemenybe;Myra
+
+felvetel gyujtemenybe;Thalen
+
+felvetel gyujtemenybe;Isara
+
+uj pakli;,,,,,,,,
+mentes;19
+
+beallitasok;0;1;1
+vilag;
+felvetel gyujtemenybe;Arin
+
+felvetel gyujtemenybe;Liora
+
+felvetel gyujtemenybe;Selia
+
+felvetel gyujtemenybe;Nerun
+
+felvetel gyujtemenybe;Torak
+
+felvetel gyujtemenybe;Emera
+
+felvetel gyujtemenybe;Kael
+
+felvetel gyujtemenybe;Myra
+
+felvetel gyujtemenybe;Thalen
+
+felvetel gyujtemenybe;Isara
+
+uj pakli;,,,,,,,
+mentes;20
+
+beallitasok;0;1;1
+vilag;
+felvetel gyujtemenybe;Arin
+
+felvetel gyujtemenybe;Liora
+
+felvetel gyujtemenybe;Selia
+
+felvetel gyujtemenybe;Nerun
+
+felvetel gyujtemenybe;Torak
+
+felvetel gyujtemenybe;Emera
+
+felvetel gyujtemenybe;Kael
+
+felvetel gyujtemenybe;Myra
+
+felvetel gyujtemenybe;Thalen
+
+felvetel gyujtemenybe;Isara
+
+uj pakli;,,,,,,
+mentes;21
+
+beallitasok;0;1;1
+vilag;
+felvetel gyujtemenybe;Arin
+
+felvetel gyujtemenybe;Liora
+
+felvetel gyujtemenybe;Selia
+
+felvetel gyujtemenybe;Nerun
+
+felvetel gyujtemenybe;Torak
+
+felvetel gyujtemenybe;Emera
+
+felvetel gyujtemenybe;Kael
+
+felvetel gyujtemenybe;Myra
+
+felvetel gyujtemenybe;Thalen
+
+felvetel gyujtemenybe;Isara
+
+uj pakli;,,,,,
+mentes;22
+
+beallitasok;0;1;1
+vilag;
+felvetel gyujtemenybe;Arin
+
+felvetel gyujtemenybe;Liora
+
+felvetel gyujtemenybe;Selia
+
+felvetel gyujtemenybe;Nerun
+
+felvetel gyujtemenybe;Torak
+
+felvetel gyujtemenybe;Emera
+
+felvetel gyujtemenybe;Kael
+
+felvetel gyujtemenybe;Myra
+
+felvetel gyujtemenybe;Thalen
+
+felvetel gyujtemenybe;Isara
+
+uj pakli;,,,,
+mentes;23
+
+beallitasok;0;1;1
+vilag;
+felvetel gyujtemenybe;Arin
+
+felvetel gyujtemenybe;Liora
+
+felvetel gyujtemenybe;Selia
+
+felvetel gyujtemenybe;Nerun
+
+felvetel gyujtemenybe;Torak
+
+felvetel gyujtemenybe;Emera
+
+felvetel gyujtemenybe;Kael
+
+felvetel gyujtemenybe;Myra
+
+felvetel gyujtemenybe;Thalen
+
+felvetel gyujtemenybe;Isara
+
+uj pakli;,,,
+mentes;23
+
+beallitasok;0;1;1
+vilag;
+felvetel gyujtemenybe;Arin
+
+felvetel gyujtemenybe;Liora
+
+felvetel gyujtemenybe;Selia
+
+felvetel gyujtemenybe;Nerun
+
+felvetel gyujtemenybe;Torak
+
+felvetel gyujtemenybe;Emera
+
+felvetel gyujtemenybe;Kael
+
+felvetel gyujtemenybe;Myra
+
+felvetel gyujtemenybe;Thalen
+
+felvetel gyujtemenybe;Isara
+
+uj pakli;,,
+mentes;24
+
+beallitasok;0;1;1
+vilag;
+felvetel gyujtemenybe;Arin
+
+felvetel gyujtemenybe;Liora
+
+felvetel gyujtemenybe;Selia
+
+felvetel gyujtemenybe;Nerun
+
+felvetel gyujtemenybe;Torak
+
+felvetel gyujtemenybe;Emera
+
+felvetel gyujtemenybe;Kael
+
+felvetel gyujtemenybe;Myra
+
+felvetel gyujtemenybe;Thalen
+
+felvetel gyujtemenybe;Isara
+
+uj pakli;,
+mentes;26
+
+beallitasok;0;1;1
+vilag;alap
+felvetel gyujtemenybe;Arin
+
+felvetel gyujtemenybe;Liora
+
+felvetel gyujtemenybe;Selia
+
+felvetel gyujtemenybe;Nerun
+
+felvetel gyujtemenybe;Torak
+
+felvetel gyujtemenybe;Emera
+
+felvetel gyujtemenybe;Kael
+
+felvetel gyujtemenybe;Myra
+
+felvetel gyujtemenybe;Thalen
+
+felvetel gyujtemenybe;Isara
+
+uj pakli;
+mentes;27
 

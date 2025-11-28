@@ -507,7 +507,17 @@ def egyszeru():
         bemenet = input("")
         adatok = bemenet.strip().split(" ")
         if len(adatok) == 3 and len(adatok[0]) < 17 and van_sima(adatok[1]) and van_jutalom(adatok[2]) and not van_kaz(adatok[0]):
-            temp_kazamatak.append(["placeholder", "egyszeru", adatok[0], [adatok[1]], adatok[2]])
+            
+
+            k = {
+                "tipus": "egyszeru",
+                "nev": adatok[0],
+                "kartyak": [adatok[1]],
+                "fejlesztes": adatok[2]
+            }
+
+
+            temp_kazamatak.append(k)
             uj_kazamata()
             break
         cls()
@@ -643,7 +653,17 @@ def kis():
         bemenet = input("")
         adatok = bemenet.strip().split(" ")
         if len(adatok) == 6 and len(adatok[0]) < 17 and van_sima(adatok[1]) and van_sima(adatok[2]) and van_sima(adatok[3]) and van_vezer(adatok[4]) and van_jutalom(adatok[5]) and ugyanolyan([adatok[1], adatok[2], adatok[3]]) and not van_kaz(adatok[0]):
-            temp_kazamatak.append(["placeholder", "kis", adatok[0], [adatok[1], adatok[2], adatok[3], adatok[4]], adatok[5]])
+            
+
+
+
+            k = {
+                "tipus": "kis",
+                "nev": adatok[0],
+                "kartyak": [adatok[1], adatok[2], adatok[3], adatok[4]],
+                "fejlesztes": adatok[5]
+            }
+            temp_kazamatak.append(k)
             uj_kazamata()
             break
         cls()
@@ -772,7 +792,23 @@ def nagy():
         bemenet = input("")
         adatok = bemenet.strip().split(" ")
         if len(adatok) == 7 and len(adatok[0]) < 17 and van_sima(adatok[1]) and van_sima(adatok[2]) and van_sima(adatok[3]) and van_sima(adatok[4]) and van_sima(adatok[5]) and van_vezer(adatok[6]) and ugyanolyan([adatok[1], adatok[2], adatok[3], adatok[4], adatok[5], adatok[6]]) and not van_kaz(adatok[0]):
-            temp_kazamatak.append(["placeholder", "nagy", adatok[0], [adatok[1], adatok[2], adatok[3], adatok[4]], adatok[5]])
+            
+            
+
+
+
+            k = {
+                "tipus": "nagy",
+                "nev": adatok[0],
+                "kartyak": [adatok[1], adatok[2], adatok[3], adatok[4], adatok[5]],
+            }
+            
+
+
+
+
+            
+            temp_kazamatak.append(k)
             uj_kazamata()
             break
         cls()
@@ -1023,7 +1059,7 @@ def mentes():
                             if not kartya["vezer"]:
                                 file.write(f"uj kartya;{kartya["nev"]};{kartya["sebzes"]};{kartya["eletero"]};{kartya["tipus"]}\n")
                             else:
-                                file.write(f"uj vezer;{kartya["nev"]};{kartya["szarmaztatas"]}:{kartya["duplazo"]}\n")
+                                file.write(f"uj vezer;{kartya["nev"]};{kartya["szarmaztatas"]};{kartya["duplazo"]}\n")
                         file.write("\n")
                         
                         # * gyujtemeny
@@ -1033,7 +1069,7 @@ def mentes():
 
                         # * vilagkaz
                         for vilagkaz in vilag[3]:
-                            file.write(f"uj kazamata;{vilagkaz["tipus"]};{vilagkaz["nev"]};")
+                            file.write(f"uj kazamata;{vilagkaz["tipus"]};{vilagkaz["nev"]};")#file.write(f"uj kazamata;{vilagkaz["tipus"]};{vilagkaz["nev"]};")
                             if vilagkaz["tipus"] == "egyszeru":
                                 file.write(f"{vilagkaz["kartyak"][0]}\n")
                             elif vilagkaz["tipus"] == "kis":

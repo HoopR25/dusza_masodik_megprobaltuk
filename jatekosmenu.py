@@ -18,7 +18,7 @@ from InquirerPy import get_style
 import game_mode
 import math
 import mentesek_fileread
-
+import uj_gamemode
 theme = get_style({
     "questionmark": "#000000",
     "answermark": "#b10101",
@@ -422,9 +422,24 @@ def nev(vilagnev):
     for vilag in jatekmestermenu.vilagok:
         if vilag[0] == vilagnev:
             for kartya in vilag[2]:
-                cards.add_to_collection(kartya)
-    mentesek_fileread.mentesek.append([jateknev,[nehezsegiszint,hardcore,kepesseg],cards.gyujtemeny,cards.gyujt_stats,cards.pakli,vilagnev])
+                cards.add_to_collection(["",kartya])
+    mentesek_fileread.mentesek.append([jateknev,[nehezsegiszint,hardcore,kepesseg].copy(),cards.gyujtemeny.copy(),cards.gyujt_stats.copy(),cards.pakli.copy(),vilagnev])
     mentes()
+    uj_gamemode.JATEK(jateknev)
+    
+
+
+def modosit(jateknev,vilagnev):
+    for mentes in mentesek_fileread.mentesek:
+        if mentes[0] == vilagnev:
+            mentes=([jateknev,[nehezsegiszint,hardcore,kepesseg].copy(),cards.gyujtemeny.copy(),cards.gyujt_stats.copy(),cards.pakli.copy(),vilagnev])
+            break
+    mentes()
+
+
+
+
+
 def mentes():
 
     cls()
@@ -432,13 +447,27 @@ def mentes():
     with open("mentes.megprobaltuk", "w", encoding = "utf-8") as file:
         for mentes in mentesek_fileread.mentesek: 
                 # * beallitasok
-                file.write(f"beallitasok;{mentes[1][0]};{mentes[1][1]};{mentes[1][2]}\n")
+                file.write(f"beallitasok;{mentes[1][0]};")
+                if mentes[1][1]:
+                    file.write("1;")
+                else:
+                    file.write("0;")
+                if mentes[1][2]:
+                    file.write("1\n")
+                else:
+                    file.write("0\n")
+                # * vilagnev
+                file.write(f"vilag;{mentes[5]}\n")
                 # * gyujtemeny
                 for kartya in mentes[2]:
                     file.write(f"felvetel gyujtemenybe;{kartya}\n")
                     file.write("\n")
                 # * gyujt stats
                 for stats in mentes[3]:
+                    if stats is None:
+                        print("HIBA: mentes[3] egy None statot tartalmaz!")
+                        input("")
+                        continue
                     file.write(f"stats;{stats["nev"]};{stats["sebzes"]};{stats["eletero"]};{stats["tipus"]}\n")
                 file.write(f"uj pakli;")
                 for i in range(0,(len(mentes[4]))):
@@ -446,7 +475,7 @@ def mentes():
                         file.write(f"{mentes[4][i]}")
                     else:
                         file.write(f"{mentes[4][i]},")
-
+                file.write("\n")
                 file.write(f"mentes;{mentes[0]}\n")
                 file.write("\n")
                 # * temp_kartyak
@@ -454,4 +483,4 @@ def mentes():
                 # * temp_kazamatak
                 # * temp_gyujtemeny
                 # * temp_vilagnev
-
+    
