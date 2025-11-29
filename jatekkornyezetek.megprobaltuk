@@ -12,6 +12,10 @@ uj kartya;Isara;2;6;viz
 uj vezer;Lord Torak;Torak;sebzes
 uj vezer;Priestess Selia;Selia;eletero
 
+uj kazamata;egyszeru;Barlangi Portya;Nerun;sebzes
+uj kazamata;kis;Osi Szentely;Arin,Emera,Selia,Lord Torak;eletero
+uj kazamata;nagy; A melyseg kiralynoje;Liora,Arin,Selia,Nerun,Torak;Priestess Selia
+
 felvetel gyujtemenybe;Arin
 felvetel gyujtemenybe;Liora
 felvetel gyujtemenybe;Selia
@@ -23,15 +27,6 @@ felvetel gyujtemenybe;Myra
 felvetel gyujtemenybe;Thalen
 felvetel gyujtemenybe;Isara
 
-uj kazamata;egyszeru;Barlangi Portya;Nerun
-uj kazamata;kis;Osi Szentely;Arin,Emera,Selia;Lord Torak;eletero
-uj kazamata;nagy; A melyseg kiralynoje;Liora,Arin,Selia,Nerun,Torak;Priestess Selia
-
 uj vilag;alap
 
-uj kartya;mester;2;4;fold
-
-
-
-uj vilag;sarga
 

@@ -41,10 +41,12 @@ def new_vezer(vezer):
                 kartyak.append(card)
 
 def add_to_collection(kartya):
-    gyujtemeny.append(kartya[1])
-    st = stats(kartya[1])
-    if st != None:
-        gyujt_stats.append(st)
+    if kartya[1] not in gyujtemeny:
+        gyujtemeny.append(kartya[1])
+        st = stats(kartya[1])
+        if st is not None:
+            gyujt_stats.append(st)
+
 
 
 def stats(nev):

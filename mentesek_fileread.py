@@ -3,9 +3,12 @@ import kazamata
 import export
 import fight
 mentesek = []
-beallitasok = []
-vilag = ""
+
 def read_file(filer):
+    mentesek.clear()
+    global vilag 
+    global beallitasok
+    beallitasok = []
     with open(filer, "r", encoding = "utf-8") as file:
         lines = file.readlines()
         for line in lines:
@@ -34,3 +37,4 @@ def addtomentesek(mentesnev):
     cards.gyujtemeny.clear()
     cards.gyujt_stats.clear()
     cards.pakli.clear()
+    beallitasok.clear()
