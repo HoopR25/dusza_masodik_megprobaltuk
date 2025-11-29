@@ -176,9 +176,6 @@ def betoltes():
             oldalszam += 1
         else:
             break
-    print(choice)
-    print(asciiart_converter.ascii_to_text(choice))
-    input("")
     uj_gamemode.JATEK(asciiart_converter.ascii_to_text(choice))
 
 def vilagvalaszto():  
@@ -490,16 +487,30 @@ def nev(vilagnev):
             for kartya in vilag[2]:
                 cards.add_to_collection(["",kartya])
     mentesek_fileread.mentesek.append([jateknev,[nehezsegiszint,hardcore,kepesseg].copy(),cards.gyujtemeny.copy(),cards.gyujt_stats.copy(),cards.pakli.copy(),vilagnev])
+    print(beallitasok)
+    input("")
     mentes()
     mentesek_fileread.read_file("mentes.megprobaltuk")
     uj_gamemode.JATEK(jateknev)
     
 
 
-def modosit(jateknev,vilagnev,beallitasok):
+def modosit(jateknev,vilagnev,beallitasok2):
+    beallitasok = []
+    beallitasok.append(beallitasok2[0])
+    if beallitasok2[1] == 1:
+        beallitasok.append(True)
+    else:
+        beallitasok.append(False)
+    if beallitasok2[2] == 1:
+        beallitasok.append(True)
+    else:
+        beallitasok.append(False)    
     for i in range(len(mentesek_fileread.mentesek)):
         if mentesek_fileread.mentesek[i][0] == jateknev:
             mentesek_fileread.mentesek[i]=[jateknev,beallitasok.copy(),cards.gyujtemeny.copy(),cards.gyujt_stats.copy(),cards.pakli.copy(),vilagnev]
+            print(beallitasok)
+            input("")
             break
     mentes()
 
@@ -516,13 +527,13 @@ def mentes():
                 # * beallitasok
                 file.write(f"beallitasok;{mentes[1][0]};")
                 if mentes[1][1]:
-                    file.write("0;")
-                else:
                     file.write("1;")
-                if mentes[1][2]:
-                    file.write("0\n")
                 else:
+                    file.write("0;")
+                if mentes[1][2]:
                     file.write("1\n")
+                else:
+                    file.write("0\n")
                 # * vilagnev
                 file.write(f"vilag;{mentes[5]}\n")
                 # * gyujtemeny

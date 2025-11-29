@@ -250,7 +250,8 @@ def JATEK(mentesnev):
             beallitasok.append(mentes[1][0])
             beallitasok.append(mentes[1][1])
             beallitasok.append(mentes[1][2])
-
+            print(beallitasok)
+            input("")
             
     menu2()
 def menu2():
@@ -659,12 +660,25 @@ def jatekostamad():
         time.sleep(0.4)
         cls()
 
+    if jatekh["tipus"] != kazh["tipus"]:
+        ktipus = fight.get_tipus_index(jatekh["tipus"])
+        jtipus = fight.get_tipus_index(kazh["tipus"])
+        if fight.tipusok[ktipus] == fight.tipusok[jtipus - 1] or fight.tipusok[ktipus] == fight.tipusok[jtipus + 1]:
+            kazh["eletero"] -= round((jatekh["sebzes"] * 2)*(1 - random.random() * beallitasok[0]))
+        else:
+            kazh["eletero"] -= round((int(jatekh["sebzes"] / 2))*(1 - random.random() * beallitasok[0]))
+    else:
+        kazh["eletero"] -= round((jatekh["sebzes"])*(1 - random.random() * beallitasok[0]))
+    if kazh["eletero"] < 0:
+        kazh["eletero"] = 0
     # ---------------------------------------------------------
     #                VISSZAMOZGÁS
     # ---------------------------------------------------------
     i = 0
+    clsb = True
     while i < 41:
         i += 3
+        
         if i > 40:
             i = 41
         lines = [
@@ -677,51 +691,117 @@ def jatekostamad():
 
         print("\n".join(lines))
         time.sleep(0.2)
-        cls()
+        if clsb:
+            cls()
+
+
+
+
+
+        
 def kazamatatamad(kazh, jatekh):
-    cls()
-    total_frames = 44
-    max_shift = 40
-
-    width = os.get_terminal_size().columns
-
-    for frame in range(total_frames):
+    # ODAMOZGÁS
+    i = 41
+    while i > 0:
+        i -= 3
+        if i < 0:
+            i = 0
+        lines = [
+            f' ________________{" " * (i + 2)}________________{" " * (41 - i)}'.center(os.get_terminal_size().columns),
+            f'|{jatekh["nev"].center(16)}|{" " * i}|{kazh["nev"].center(16)}|{" " * (40 - i)}'.center(os.get_terminal_size().columns),
+            f'|{("S  "+str(jatekh["sebzes"])+"  E  "+str(jatekh["eletero"])).center(16)}|{" " * i}|{("S  "+str(kazh["sebzes"])+"  E  "+str(kazh["eletero"])).center(16)}|{" " * (40 - i)}'.center(os.get_terminal_size().columns),
+            f'|{jatekh["tipus"].center(16)}|{" " * i}|{cards.stats(kazh["nev"])["tipus"].center(16)}|{" " * (40 - i)}'.center(os.get_terminal_size().columns),
+            f' ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾{" " * (i + 2)}‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾{" " * (41 - i)}'.center(os.get_terminal_size().columns),
+        ]
+        print("\n".join(lines))
+        time.sleep(0.2)
         cls()
 
-        # oda-vissza mozgás
-        if frame < total_frames // 2:
-            shift = int(max_shift * (frame / (total_frames // 2)))
+
+
+    def random_hit_text(original):
+        """16 karakter hosszú ütés-effekt: random csillagok."""
+        result = []
+        for ch in original:
+            if ch != " " and random.random() < 0.6:
+                result.append("*")
+            else:
+                result.append(ch)
+        return "".join(result).ljust(16)[:16]
+
+    for _ in range(4):
+
+        # csillagos verzió generálása
+        hit_name  = random_hit_text(kazh["nev"].center(16))
+        hit_stats = random_hit_text(("S  "+str(kazh["sebzes"])+"  E  "+str(kazh["eletero"])).center(16))
+        hit_type  = random_hit_text(cards.stats(kazh["nev"])["tipus"].center(16))
+
+        # csillagos frame (találat)
+        lines = [
+            f'________________   ________________{" " * 40}'.center(os.get_terminal_size().columns),
+            f'|{jatekh["nev"].center(16)}| |{hit_name}|{" " * 39}'.center(os.get_terminal_size().columns),
+            f'|{("S  "+str(jatekh["sebzes"])+"  E  "+str(jatekh["eletero"])).center(16)}| |{hit_stats}|{" " * 39}'.center(os.get_terminal_size().columns),
+            f'|{jatekh["tipus"].center(16)}| |{hit_type}|{" " * 39}'.center(os.get_terminal_size().columns),
+            f'‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾   ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾{" " * 40}'.center(os.get_terminal_size().columns),
+        ]
+        print("\n".join(lines))
+        time.sleep(0.4)
+        cls()
+
+        # eredeti frame vissza
+        lines = [
+            f'________________   ________________{" " * 40}'.center(os.get_terminal_size().columns),
+            f'|{jatekh["nev"].center(16)}| |{kazh["nev"].center(16)}|{" " * 39}'.center(os.get_terminal_size().columns),
+            f'|{("S  "+str(jatekh["sebzes"])+"  E  "+str(jatekh["eletero"])).center(16)}| |{("S  "+str(kazh["sebzes"])+"  E  "+str(kazh["eletero"])).center(16)}|{" " * 39}'.center(os.get_terminal_size().columns),
+            f'|{jatekh["tipus"].center(16)}| |{cards.stats(kazh["nev"])["tipus"].center(16)}|{" " * 39}'.center(os.get_terminal_size().columns),
+            f'‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾   ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾{" " * 40}'.center(os.get_terminal_size().columns),
+        ]
+        print("\n".join(lines))
+        time.sleep(0.4)
+        cls()
+
+
+
+    if kazh["tipus"] != jatekh["tipus"]:
+        ktipus = fight.get_tipus_index(kazh["tipus"])
+        jtipus = fight.get_tipus_index(jatekh["tipus"])
+        if fight.tipusok[ktipus] == fight.tipusok[jtipus - 1] or fight.tipusok[ktipus] == fight.tipusok[jtipus + 1]:
+            jatekh["eletero"] -= ((kazh["sebzes"] * 2)*(1 + random.random() * beallitasok[0]))
         else:
-            shift = int(max_shift * (1 - (frame - total_frames // 2) / (total_frames // 2)))
+            jatekh["eletero"] -= (int(kazh["sebzes"] / 2))*(1 + random.random() * beallitasok[0])
+    else:
+        jatekh["eletero"] -= ((kazh["sebzes"])*(1 + random.random() * beallitasok[0]))
+    if jatekh["eletero"] < 0:
+        jatekh["eletero"] = 0            
 
-        space = " " * shift
 
-        L = [
-            " ________________ ",
-            f"|{jatekh['nev'].center(16)}|",
-            f"|S {str(jatekh['sebzes']).center(3)} E {str(jatekh['eletero']).center(3)}|",
-            f"|{jatekh['tipus'].center(16)}|",
-            " ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾ "
+
+
+
+
+
+    # ---------------------------------------------------------
+    #                VISSZAMOZGÁS
+    # ---------------------------------------------------------
+    i = 0
+    clsb = True
+    while i < 41:
+        i += 3
+        if i > 40:
+            i = 41
+            clsb=False
+        lines = [
+            f'________________{" " * (i + 2)}________________{" " * (41 - i)}'.center(os.get_terminal_size().columns),
+            f'|{jatekh["nev"].center(16)}|{" " * i}|{kazh["nev"].center(16)}|{" " * (40 - i)}'.center(os.get_terminal_size().columns),
+            f'|{("S  "+str(jatekh["sebzes"])+"  E  "+str(jatekh["eletero"])).center(16)}|{" " * i}|{("S  "+str(kazh["sebzes"])+"  E  "+str(kazh["eletero"])).center(16)}|{" " * (40 - i)}'.center(os.get_terminal_size().columns),
+            f'|{jatekh["tipus"].center(16)}|{" " * i}|{cards.stats(kazh["nev"])["tipus"].center(16)}|{" " * (40 - i)}'.center(os.get_terminal_size().columns),
+            f'‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾{" " * (i + 2)}‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾{" " * (41 - i)}'.center(os.get_terminal_size().columns),
         ]
 
-        R = [
-            " ________________ ",
-            f"|{kazh['nev'].center(16)}|",
-            f"|S {str(kazh['sebzes']).center(3)} E {str(kazh['eletero']).center(3)}      |",
-            f"|{kazh['tipus'].center(16)}|",
-            " ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾ "
-        ]
-
-        gap = " " * 40
-
-        frame_lines = []
-        for l, r in zip(L, R):
-            line = f"{l}{gap}{space}{r}"
-            frame_lines.append(line.center(width))
-            
-        print("\n".join(frame_lines))
-        time.sleep(0.04)
-
+        print("\n".join(lines))
+        time.sleep(0.2)
+        if clsb:
+            cls()
 
 
 
@@ -736,99 +816,62 @@ def harc(kazamata):
     indexj = 0
     jatekh = cards.get_gyujt_stats(cards.pakli[indexj]).copy()
     kazh = cards.stats(ellenfelek[indexk]).copy()
-    #while True:
-        #if indexk >= len(ellenfelek):
-        #    input()
-        #    win_screen(kiv_kaz, True, indexj)
-        #if indexj >= len(cards.pakli):
-        #    input()
-        #    win_screen(kiv_kaz, False, indexj)
-
-    jatekostamad()
+    print(f"{beallitasok[1]}   {beallitasok[2]}")
     input("")
-       # print(" ________________        ________________".center(os.get_terminal_size().columns))
-       # print(f"|{jatekh["nev"].center(16)}|      |{kazh["nev"].center(16)}|".center(os.get_terminal_size().columns))
-       # print(f"|{("S  " + str(jatekh["sebzes"]) + "  E  " + str(jatekh["eletero"])).center(16)}|      |{("S  " + str(kazh["sebzes"]) + "  E  " + str(kazh["eletero"])).center(16)}|".center(os.get_terminal_size().columns))
-       # print(f"|{jatekh["tipus"].center(16)}|      |{cards.stats(kazh["nev"])["tipus"].center(16)}|".center(os.get_terminal_size().columns))
-       # print(" ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾        ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾".center(os.get_terminal_size().columns))
-# ! #################################################################################################################################################
-    # ! MARADJ A FOR CIKLUSBAN
-    """
-        if kazh["eletero"] <= 0:
-            kazh["eletero"] = 0
-            indexk += 1
-            if indexk >= len(ellenfelek):
-                input()
-                win_screen(kiv_kaz, True, indexj)
-            if indexj >= len(cards.pakli):
-                input()
-                win_screen(kiv_kaz, False, indexj)
-            print(f"A kazamata kijatszik egy kartyat: {ellenfelek[indexk]}")
-            kazh = cards.stats(ellenfelek[indexk]).copy()
-        else:
-            if kazh["tipus"] != jatekh["tipus"]:
-                    ktipus = fight.get_tipus_index(kazh["tipus"])
-                    jtipus = fight.get_tipus_index(jatekh["tipus"])
-                    if fight.tipusok[ktipus] == fight.tipusok[jtipus - 1] or fight.tipusok[ktipus] == fight.tipusok[jtipus + 1]:
-                        jatekh["eletero"] -= kazh["sebzes"] * 2
-                        print(f"A kazamata tamad: {kazh["sebzes"] * 2}")
-                    else:
-                        jatekh["eletero"] -= int(kazh["sebzes"] / 2)
-                        print(f"A kazamata tamad: {int(kazh["sebzes"] / 2)}")
+    if beallitasok[1] == 1 and beallitasok[2] == 1:
+        alapeset(kazamata)
+    elif beallitasok[1] == 0 and beallitasok[2] == 1:
+        csak_hardcore(kazamata)
+    elif beallitasok[1] == 1 and beallitasok[2] == 0:
+        csak_kepeseg(kazamata)
+    else:
+        minden(kazamata)
+def alapeset(kazamata):
+    cls()
+    global jatekh
+    global kazh
+    ellenfelek = kazamata["kartyak"]
+    indexk = 0
+    indexj = 0
+    jatekh = cards.get_gyujt_stats(cards.pakli[indexj]).copy()
+    kazh = cards.stats(ellenfelek[indexk]).copy()
+    while True:
+        if kazh["eletero"] == 0:
+            if(indexk + 1 <= len(kazamata)):
+                cls()
+                #jatekos nyert
             else:
-                jatekh["eletero"] -= kazh["sebzes"]
-                print(f"A kazamata tamad: {kazh["sebzes"]}")
-        if kazh["eletero"] <= 0:
-            kazh["eletero"] = 0
-        if jatekh["eletero"] <= 0:
-            jatekh["eletero"] = 0
-
-        
-        input()
-        cls()
-
-
-
-        if jatekh["eletero"] <= 0:
-            jatekh["eletero"] = 0
-            indexj += 1
-            if indexk >= len(ellenfelek):
-                input()
-                win_screen(kiv_kaz, True, indexj)
-            if indexj >= len(cards.pakli):
-                input()
-                win_screen(kiv_kaz, False, indexj)
-            print(f"A jatekos kijatszik egy kartyat: {cards.pakli[indexj]}")
-            jatekh = cards.stats(cards.pakli[indexj]).copy()
+                #kijatszoanimacio
+                indexk += 1
+                kazh = cards.stats(ellenfelek[indexk]).copy()
         else:
-            if jatekh["tipus"] != kazh["tipus"]:
-                    ktipus = fight.get_tipus_index(jatekh["tipus"])
-                    jtipus = fight.get_tipus_index(kazh["tipus"])
-                    if fight.tipusok[ktipus] == fight.tipusok[jtipus - 1] or fight.tipusok[ktipus] == fight.tipusok[jtipus + 1]:
-                        kazh["eletero"] -= jatekh["sebzes"] * 2
-                        print(f"A jatekos tamad: {jatekh["sebzes"] * 2}")
-                    else:
-                        kazh["eletero"] -= int(jatekh["sebzes"] / 2)
-                        print(f"A jatekos tamad: {int(jatekh["sebzes"] / 2)}")
+            kazamatatamad()
+        if jatekh["eletero"] == 0:
+            if(indexj + 1 <= len(cards.pakli)):
+                cls()
+                win_screen(kazamata["nev"],False,)
             else:
-                kazh["eletero"] -= jatekh["sebzes"]
-                print(f"A jatekos tamad: {jatekh["sebzes"]}")
-        if kazh["eletero"] <= 0:
-            kazh["eletero"] = 0
-        if jatekh["eletero"] <= 0:
-            jatekh["eletero"] = 0
-        """
-        
+                indexj += 1
+                kazh = cards.gyujt_stats(cards.pakli[indexj]).copy()
+        else:
+            jatekostamad()
+
+def csak_hardcore():
+    cls()
+def csak_kepeseg():
+    cls()
+def minden():
+    cls()
 
 fejlesztes = {
     "eletero": 2,
     "sebzes": 1,
 }
-
-# ! #################################################################################################################################################
-def win_screen(kiv_kaz, nyert, indexj):
+def win_screen(kaznev, nyert, indexj):
     cls()
-    kstat=kazamata.kazamatak[kiv_kaz - 1]
+    for kaz in kazamata.kazamatak:
+        if kaz["nev"] == kaznev:
+            kstat = kaz
     if nyert:
         cprint("A jatektosos nyert.", "green")
         if (kstat["tipus"] == "egyszeru" or kstat["tipus"] == "kis") : 
