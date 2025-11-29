@@ -602,7 +602,9 @@ def jatekostamad():
     # ODAMOZGÁS
     i = 41
     while i > 0:
-        i -= 1
+        i -= 3
+        if i < 0:
+            i = 0
         lines = [
             f'{" " * (41 - i)}________________{" " * (i + 2)}________________'.center(os.get_terminal_size().columns),
             f'{" " * (40 - i)}|{jatekh["nev"].center(16)}|{" " * i}|{kazh["nev"].center(16)}|'.center(os.get_terminal_size().columns),
@@ -611,7 +613,7 @@ def jatekostamad():
             f'{" " * (41 - i)}‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾{" " * (i + 2)}‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾'.center(os.get_terminal_size().columns),
         ]
         print("\n".join(lines))
-        time.sleep(0.05)
+        time.sleep(0.2)
         cls()
 
 
@@ -620,8 +622,8 @@ def jatekostamad():
         """16 karakter hosszú ütés-effekt: random csillagok."""
         result = []
         for ch in original:
-            if ch != " " and random.random() < 0.35:
-                result.append(YELLOW + "*" + RESET)
+            if ch != " " and random.random() < 0.6:
+                result.append("*")
             else:
                 result.append(ch)
         return "".join(result).ljust(16)[:16]
@@ -635,26 +637,26 @@ def jatekostamad():
 
         # csillagos frame (találat)
         lines = [
-            f'{" " * 40}________________  ________________'.center(os.get_terminal_size().columns),
-            f'{" " * 39}|{jatekh["nev"].center(16)}| |{RED}{hit_name}{RESET}|'.center(os.get_terminal_size().columns),
-            f'{" " * 39}|{("S  "+str(jatekh["sebzes"])+"  E  "+str(jatekh["eletero"])).center(16)}| |{RED}{hit_name}{RESET}|'.center(os.get_terminal_size().columns),
-            f'{" " * 39}|{jatekh["tipus"].center(16)}| |{RED}{hit_name}{RESET}|'.center(os.get_terminal_size().columns),
-            f'{" " * 40}‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾  ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾'.center(os.get_terminal_size().columns),
+            f'{" " * 40}________________   ________________'.center(os.get_terminal_size().columns),
+            f'{" " * 39}|{jatekh["nev"].center(16)}| |{hit_name}|'.center(os.get_terminal_size().columns),
+            f'{" " * 39}|{("S  "+str(jatekh["sebzes"])+"  E  "+str(jatekh["eletero"])).center(16)}| |{hit_stats}|'.center(os.get_terminal_size().columns),
+            f'{" " * 39}|{jatekh["tipus"].center(16)}| |{hit_type}|'.center(os.get_terminal_size().columns),
+            f'{" " * 40}‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾   ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾'.center(os.get_terminal_size().columns),
         ]
         print("\n".join(lines))
-        time.sleep(0.07)
+        time.sleep(0.4)
         cls()
 
         # eredeti frame vissza
         lines = [
-            f'{" " * 40}________________  ________________'.center(os.get_terminal_size().columns),
+            f'{" " * 40}________________   ________________'.center(os.get_terminal_size().columns),
             f'{" " * 39}|{jatekh["nev"].center(16)}| |{kazh["nev"].center(16)}|'.center(os.get_terminal_size().columns),
             f'{" " * 39}|{("S  "+str(jatekh["sebzes"])+"  E  "+str(jatekh["eletero"])).center(16)}| |{("S  "+str(kazh["sebzes"])+"  E  "+str(kazh["eletero"])).center(16)}|'.center(os.get_terminal_size().columns),
             f'{" " * 39}|{jatekh["tipus"].center(16)}| |{cards.stats(kazh["nev"])["tipus"].center(16)}|'.center(os.get_terminal_size().columns),
-            f'{" " * 40}‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾  ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾'.center(os.get_terminal_size().columns),
+            f'{" " * 40}‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾   ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾'.center(os.get_terminal_size().columns),
         ]
         print("\n".join(lines))
-        time.sleep(0.07)
+        time.sleep(0.4)
         cls()
 
     # ---------------------------------------------------------
@@ -662,7 +664,9 @@ def jatekostamad():
     # ---------------------------------------------------------
     i = 0
     while i < 41:
-        i += 1
+        i += 3
+        if i > 40:
+            i = 41
         lines = [
             f'{" " * (41 - i)}________________{" " * (i + 2)}________________'.center(os.get_terminal_size().columns),
             f'{" " * (40 - i)}|{jatekh["nev"].center(16)}|{" " * i}|{kazh["nev"].center(16)}|'.center(os.get_terminal_size().columns),
@@ -672,7 +676,7 @@ def jatekostamad():
         ]
 
         print("\n".join(lines))
-        time.sleep(0.05)
+        time.sleep(0.2)
         cls()
 def kazamatatamad(kazh, jatekh):
     cls()
