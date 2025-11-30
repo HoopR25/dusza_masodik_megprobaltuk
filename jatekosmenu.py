@@ -19,6 +19,7 @@ import game_mode
 import math
 import mentesek_fileread
 import uj_gamemode
+import new_cards
 theme = get_style({
     "questionmark": "#000000",
     "answermark": "#b10101",
@@ -93,14 +94,16 @@ def jatekosmenu():
      ⡇⢸ ⠄ ⡇ ⢀⣀ ⢀⡀ ⢀⡀ ⡇⡠
      ⠸⠃ ⠇ ⠣ ⠣⠼ ⣑⡺ ⠣⠜ ⠏⠢
      """
-    
-    options = [ujjatektext, betoltestext, szabalyzattext, vilagtext]
+    visszatext = r"""
+     ⡇⢸ ⠄ ⢀⣀ ⢀⣀ ⣀⣀ ⢀⣀
+     ⠸⠃ ⠇ ⠭⠕ ⠭⠕ ⠴⠥ ⠣⠼
+    """
+    options = [ujjatektext, betoltestext, szabalyzattext]
     
     centered_options = [
     center_option(ujjatektext),
     center_option(betoltestext),
-    center_option(szabalyzattext),
-    center_option(vilagtext)
+    center_option(visszatext)
 ]
 
     cls()
@@ -119,9 +122,11 @@ def jatekosmenu():
         vilagvalaszto()
     if choice == centered_options[1]:
         betoltes()
-
+    if choice == centered_options[2]:
+        uj_gamemode.menu()
 def betoltes():
     cls()
+
     cim = [
 " ____     ___ ______   ___   _     ______    ___  _____",
 "|    \   /  _]      | /   \ | |   |      |  /  _]/ ___/",
@@ -131,7 +136,17 @@ def betoltes():
 "|     ||     | |  |  |     ||     | |  |  |     |\    |",
 "|_____||_____| |__|   \___/ |_____| |__|  |_____| \___|"
     ]
+    utasitas = [
+     "⡷⣸ ⠄ ⣀⡀ ⣀⡀ ⢀⣀ ⢀⣀   ⣀⣀  ⢀⡀ ⣀⡀ ⣰⡀ ⢀⡀ ⢀⣀",
+     "⠇⠹ ⠇ ⠇⠸ ⠇⠸ ⠣⠤ ⠭⠕   ⠇⠇⠇ ⠣⠭ ⠇⠸ ⠘⠤ ⠣⠭ ⠭⠕"
+    ]
     asciiras(cim,"white")
+    if mentesek_fileread.mentesek == []:
+        print("\n" * int(rows()/3))
+        asciiras(utasitas,"red")
+        cprint("Nyomjon egy Enter-t a folytatashoz!".center(cols()),"blue")
+        input("")
+        jatekosmenu()   
     opciok = [[]]
     vilagok = mentesek_fileread.mentesek
     for i in range(math.ceil(len(vilagok) / 3)):
@@ -426,23 +441,43 @@ def nev(vilagnev):
      "⣎⣱ ⢀⣸ ⠠ ⢀⣀   ⣀⣀  ⢀⡀ ⢀⡀   ⠠ ⢀⣀ ⣰⡀ ⢀⡀ ⡇⡠ ⣀⣀  ⢀⡀ ⣀⡀ ⢀⡀ ⣰⡀   ⣀⡀ ⢀⡀ ⡀⢀ ⢀⡀ ⣰⡀ ",
      "⠇⠸ ⠣⠼ ⡸ ⠣⠼   ⠇⠇⠇ ⠣⠭ ⣑⡺   ⡸ ⠣⠼ ⠘⠤ ⠣⠭ ⠏⠢ ⠇⠇⠇ ⠣⠭ ⠇⠸ ⠣⠭ ⠘⠤   ⠇⠸ ⠣⠭ ⠱⠃ ⠣⠭ ⠘⠤"
     ]
-    
+    instrukció2 = [
+     " ⣎⣱ ⢀⣸ ⠠ ⢀⡀ ⣀⡀   ⣀⣀  ⢀⡀ ⢀⡀   ⢀⡀ ⢀⡀ ⡀⢀   ⢀⡀ ⢀⡀ ⡀⢀ ⢀⡀ ⢀⣸ ⠄   ⣀⡀ ⢀⡀ ⡀⢀ ⢀⡀ ⣰⡀",
+     " ⠇⠸ ⠣⠼ ⡸ ⠣⠜ ⠇⠸   ⠇⠇⠇ ⠣⠭ ⣑⡺   ⠣⠭ ⣑⡺ ⣑⡺   ⠣⠭ ⣑⡺ ⣑⡺ ⠣⠭ ⠣⠼ ⠇   ⠇⠸ ⠣⠭ ⠱⠃ ⠣⠭ ⠘⠤"
+    ]
     asciiras(cim,"white")
     asciiras(instrukció,"blue")
-    
-    jateknev=input("")
-    
+    bool = True
+    while  True:
+
+        jateknev=input("")
+        for mentes2 in mentesek_fileread.mentesek:
+            if mentes2[0] == jateknev:
+                bool = False
+        if bool:
+            break
+        else:
+            cls()
+            asciiras(cim,"white")
+            asciiras(instrukció2,"red")
     cls()
     cards.pakli.clear()
     cards.gyujt_stats.clear()
     cards.gyujtemeny.clear()
+    cards.kartyak.clear()
     for vilag in jatekmestermenu.vilagok:
         if vilag[0] == vilagnev:
+            for kartya in vilag[1]:
+                if kartya["vezer"]:
+                    new_cards.new_vezerf(kartya)
+                else:
+                    new_cards.new_cardf(kartya)
             for kartya in vilag[2]:
                 cards.add_to_collection(["",kartya])
     mentesek_fileread.mentesek.append([jateknev,[nehezsegiszint,hardcore].copy(),cards.gyujtemeny.copy(),cards.gyujt_stats.copy(),cards.pakli.copy(),vilagnev])
     mentes()
     mentesek_fileread.read_file("mentes.megprobaltuk")
+
     uj_gamemode.JATEK(jateknev)
     
 
@@ -473,10 +508,6 @@ def mentes():
                 # * beallitasok
                 file.write(f"beallitasok;{mentes[1][0]};")
                 if mentes[1][1]:
-                    file.write("1;")
-                else:
-                    file.write("0;")
-                if mentes[1][2]:
                     file.write("1\n")
                 else:
                     file.write("0\n")
@@ -486,7 +517,7 @@ def mentes():
                 for kartya in mentes[2]:
                     file.write(f"felvetel gyujtemenybe;{kartya}\n")
                     file.write("\n")
-                # * gyujt stats
+                
                 for stats in mentes[3]:
                     if stats is None:
                         print("HIBA: mentes[3] egy None statot tartalmaz!")

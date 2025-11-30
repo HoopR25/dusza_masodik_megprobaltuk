@@ -1,6 +1,6 @@
 import cards
 
-def new_card(kartya):
+def new_cardf(kartya):
     card = {
         "nev": kartya["nev"],
         "sebzes": int(kartya["sebzes"]),
@@ -10,7 +10,7 @@ def new_card(kartya):
     }
     cards.kartyak.append(card)
 
-def new_vezer(vezer):
+def new_vezerf(vezer):
     card = {
     "nev": vezer["nev"],
     "sebzes": int(vezer["sebzes"]) * 2,
@@ -284,7 +284,6 @@ def game_vezer(kartya):
     cards.kartyak.append(card)
 
 def statmodositas(data):
-    print(data[1])
     for i in range(len(cards.gyujt_stats)-1,-1,-1):
         
         if cards.gyujt_stats[i]["nev"] == data[1]:

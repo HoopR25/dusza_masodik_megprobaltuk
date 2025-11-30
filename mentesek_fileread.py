@@ -3,12 +3,18 @@ import kazamata
 import export
 import fight
 import new_cards
+import jatekmestermenu
 mentesek = []
 
 def read_file(filer):
     mentesek.clear()
     global vilag 
     global beallitasok
+    cards.gyujtemeny.clear()
+    cards.gyujt_stats.clear()
+    cards.pakli.clear()
+    cards.vezerek.clear()
+    cards.kartyak.clear()
     beallitasok = []
     with open(filer, "r", encoding = "utf-8") as file:
         lines = file.readlines()
@@ -24,6 +30,15 @@ def read_file(filer):
                 beallitas(data)
             elif data[0] == "vilag":
                 vilag = data[1]
+                for vilag2 in jatekmestermenu.vilagok:
+                    if vilag2[0] == vilag:
+                        
+                        vilagnev = vilag2[0]
+                        for kartya in vilag2[1]:
+                            if kartya["vezer"]:
+                                new_cards.new_vezerf(kartya)
+                            else:
+                                new_cards.new_cardf(kartya)
             elif data[0] == "mentes":
                 addtomentesek(data)
             elif data[0] == "stats":
@@ -33,7 +48,6 @@ def beallitas(data):
         global beallitasok
         beallitasok.append(data[1])
         beallitasok.append(data[2])
-        beallitasok.append(data[3])
 
 
 def addtomentesek(mentesnev):
@@ -42,4 +56,6 @@ def addtomentesek(mentesnev):
     cards.gyujtemeny.clear()
     cards.gyujt_stats.clear()
     cards.pakli.clear()
+    cards.vezerek.clear()
+    cards.kartyak.clear()
     beallitasok.clear()

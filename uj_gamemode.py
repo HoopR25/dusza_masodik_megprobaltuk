@@ -93,7 +93,7 @@ def betoltokepernyo():
 
                 file.write("uj kazamata;egyszeru;Barlangi Portya;Nerun;sebzes\n")
                 file.write("uj kazamata;kis;Osi Szentely;Arin,Emera,Selia,Lord Torak;eletero\n")
-                file.write("uj kazamata;nagy; A melyseg kiralynoje;Liora,Arin,Selia,Nerun,Torak;Priestess Selia\n\n")
+                file.write("uj kazamata;nagy;A melyseg kiralynoje;Liora,Arin,Selia,Nerun,Torak;Priestess Selia\n\n")
 
                 file.write("felvetel gyujtemenybe;Arin\n")
                 file.write("felvetel gyujtemenybe;Liora\n")
@@ -220,9 +220,98 @@ def menu():
                 sys.exit(1)
                 os.system(f'taskkill /f /fi "WINDOWTITLE eq Damareen"')
 def leiras():
-        print()
+    cls()
+    cim = [
+" _        ___  ____  ____    ____  _____",
+"| |      /  _]|    ||    \  /    |/ ___/",
+"| |     /  [_  |  | |  D  )|  o  (   \_ ",
+"| |___ |    _] |  | |    / |     |\__  |",
+"|     ||   [_  |  | |    \ |  _  |/  \ |",
+"|     ||     | |  | |  .  \|  |  |\    |",
+"|_____||_____||____||__|\_||__|__| \___|"
+        ]
+    asciiras(cim,"white")
+    print("\n" * 2)
+    cprint("Tarts be minden szabalyt:\n".center(os.get_terminal_size().columns), "red")
+    cprint("Vard vegig a toltest.".center(os.get_terminal_size().columns), "blue")
+    cprint("A Jatekmestermenuben szamokkal, a Jatekosmenuben a nyilakkal es az Enter-rel tudsz mozogni.".center(os.get_terminal_size().columns), "blue")
+    cprint("Az ESC gombbal tudsz visszalepni azokbol a menukbol ahol nincs kiirva a visszalepesi lehetoseg.".center(os.get_terminal_size().columns), "blue")
+    cprint("A harcbol nem lehet kilepni, csak ha lefutott.".center(os.get_terminal_size().columns), "blue")
+    cprint("A jatek nem tamogatja az ekezeteket.".center(os.get_terminal_size().columns), "blue")
+    cprint("Az alap harc soran Enterrel tudsz tovabb menni.".center(os.get_terminal_size().columns), "blue")
+    cprint("A Hardcore modban a megadott billentyuk lenyomasaval lehet tovabb menni.".center(os.get_terminal_size().columns), "blue")
+    cprint("A vilag keszitesen belul a kartyak letrehozasanal mindig mikor letrehozol egy kartyat akkor eggyel visszabdob.".center(os.get_terminal_size().columns), "blue")
+    cprint("Hianyos vilagot(nincs kazamata vagy gyujtemeny, esetleg vilagkartyak) ne tolts be.".center(os.get_terminal_size().columns), "blue")
+    cprint("Az alap jatekmodban koronkent Enter-t kell nyomni akkor is ha az a kor az utolso.".center(os.get_terminal_size().columns), "blue")
+    print("")
+    cprint("Nyomja meg az Enter-t a folytatashoz.".center(os.get_terminal_size().columns), "blue")
+    input()
+    menu()
+
+
+
+
+
+
+def kartyacheck(kaznev):
+    
+    target_kaz = None
+    for kaz in kazamata.kazamatak:
+        print(f"{kaznev}   {kaz["nev"]}")
+        if kaz["nev"].strip() == kaznev:
+            target_kaz = kaz
+            break
+
+    if target_kaz is None:
+        print("Kazamata nem található.")
+        input("")
+        return
 
     
+    if target_kaz["tipus"] == "nagy":
+
+        for nev in target_kaz["kartyak"]:
+            card_stats = cards.stats(nev)
+
+            
+            if card_stats["vezer"]:
+                cls()
+                print("Nem valaszthatod ezt a kazamatat,".center(os.get_terminal_size().columns))
+                print("mert nincs olyan kartya,".center(os.get_terminal_size().columns))
+                print("amit megszerezhetsz.".center(os.get_terminal_size().columns))
+                print("\n")
+                cprint("Nyomja meg az Enter-t a folytatashoz.".center(os.get_terminal_size().columns), "blue")
+                input("")
+                kazamata_valaszto()
+                return
+
+            
+            can_get_card = True
+            for kartya in cards.gyujtemeny:
+                if nev == kartya:
+                    can_get_card = False
+                    break
+
+            
+            if can_get_card:
+                for kaz in kazamata.kazamatak:
+                    if kaznev == kaz["nev"]:
+                        harc(kaz.copy())
+                        return
+
+        
+        
+        return
+
+    
+    for kaz in kazamata.kazamatak:
+        if kaznev == kaz["nev"]:
+            harc(kaz.copy())
+            return
+
+                
+
+
 
 
 def JATEK(mentesnev):
@@ -231,6 +320,8 @@ def JATEK(mentesnev):
     global beallitasok 
     beallitasok = []
     jateknev = mentesnev
+    cards.kartyak.clear()
+    cards.vezerek.clear()
     for mentes in mentesek_fileread.mentesek:
         if mentes[0] == mentesnev: 
             for vilag in jatekmestermenu.vilagok:
@@ -239,9 +330,9 @@ def JATEK(mentesnev):
                     vilagnev = vilag[0]
                     for kartya in vilag[1]:
                         if kartya["vezer"]:
-                            new_cards.new_vezer(kartya)
+                            new_cards.new_vezerf(kartya)
                         else:
-                            new_cards.new_card(kartya)
+                            new_cards.new_cardf(kartya)
                     for kaz in vilag[3]:
                         new_kaz.new_kazamata(kaz)
             for kartya_nev in mentes[2]:
@@ -252,7 +343,6 @@ def JATEK(mentesnev):
             cards.pakli = mentes[4]
             beallitasok.append(mentes[1][0])
             beallitasok.append(mentes[1][1])
-            beallitasok.append(mentes[1][2])
             
     menu2()
 def menu2():
@@ -445,9 +535,7 @@ def kazamata_valaszto():
 # * levego 2 kor 80% esely blockra
 # * 10 kor one tap
     kaznev = asciiart_converter.ascii_to_text(choice)
-    for kaz in kazamata.kazamatak:
-        if kaznev == kaz["nev"]:
-            harc(kaz.copy())
+    kartyacheck(kaznev)
 
 
     
@@ -744,11 +832,11 @@ def kazamatatamad(kazh, jatekh):
 
        
         lines = [
-            f'________________   ________________{" " * 40}'.center(os.get_terminal_size().columns),
+            f' ________________   ________________{" " * 40}'.center(os.get_terminal_size().columns),
             f'|{hit_name}| |{kazh["nev"].center(16)}|{" " * 39}'.center(os.get_terminal_size().columns),
             f'|{hit_stats}| |{("S  "+str(kazh["sebzes"])+"  E  "+str(kazh["eletero"])).center(16)}|{" " * 39}'.center(os.get_terminal_size().columns),
             f'|{hit_type}| |{cards.stats(kazh["nev"])["tipus"].center(16)}|{" " * 39}'.center(os.get_terminal_size().columns),
-            f'‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾   ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾{" " * 40}'.center(os.get_terminal_size().columns),
+            f' ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾   ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾{" " * 40}'.center(os.get_terminal_size().columns),
         ]
         print("\n".join(lines))
         time.sleep(0.4)
@@ -757,11 +845,11 @@ def kazamatatamad(kazh, jatekh):
         print("\n" * int(rows()/4))
        
         lines = [
-            f'________________   ________________{" " * 40}'.center(os.get_terminal_size().columns),
+            f' ________________   ________________{" " * 40}'.center(os.get_terminal_size().columns),
             f'|{jatekh["nev"].center(16)}| |{kazh["nev"].center(16)}|{" " * 39}'.center(os.get_terminal_size().columns),
             f'|{("S  "+str(jatekh["sebzes"])+"  E  "+str(jatekh["eletero"])).center(16)}| |{("S  "+str(kazh["sebzes"])+"  E  "+str(kazh["eletero"])).center(16)}|{" " * 39}'.center(os.get_terminal_size().columns),
             f'|{jatekh["tipus"].center(16)}| |{cards.stats(kazh["nev"])["tipus"].center(16)}|{" " * 39}'.center(os.get_terminal_size().columns),
-            f'‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾   ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾{" " * 40}'.center(os.get_terminal_size().columns),
+            f' ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾   ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾{" " * 40}'.center(os.get_terminal_size().columns),
         ]
         print("\n".join(lines))
         time.sleep(0.4)
@@ -793,11 +881,11 @@ def kazamatatamad(kazh, jatekh):
             i = 41
             clsb=False
         lines = [
-            f'________________{" " * (i + 2)}________________{" " * (39 - i)}'.center(os.get_terminal_size().columns),
-            f'|{jatekh["nev"].center(16)}|{" " * i}|{kazh["nev"].center(16)}|{" " * (38 - i)}'.center(os.get_terminal_size().columns),
-            f'|{("S  "+str(jatekh["sebzes"])+"  E  "+str(jatekh["eletero"])).center(16)}|{" " * i}|{("S  "+str(kazh["sebzes"])+"  E  "+str(kazh["eletero"])).center(16)}|{" " * (38 - i)}'.center(os.get_terminal_size().columns),
-            f'|{jatekh["tipus"].center(16)}|{" " * i}|{cards.stats(kazh["nev"])["tipus"].center(16)}|{" " * (38 - i)}'.center(os.get_terminal_size().columns),
-            f'‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾{" " * (i + 2)}‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾{" " * (39 - i)}'.center(os.get_terminal_size().columns),
+            f' ________________{" " * (i + 2)}________________{" " * (41 - i)}'.center(os.get_terminal_size().columns),
+            f'|{jatekh["nev"].center(16)}|{" " * i}|{kazh["nev"].center(16)}|{" " * (40 - i)}'.center(os.get_terminal_size().columns),
+            f'|{("S  "+str(jatekh["sebzes"])+"  E  "+str(jatekh["eletero"])).center(16)}|{" " * i}|{("S  "+str(kazh["sebzes"])+"  E  "+str(kazh["eletero"])).center(16)}|{" " * (40 - i)}'.center(os.get_terminal_size().columns),
+            f'|{jatekh["tipus"].center(16)}|{" " * i}|{cards.stats(kazh["nev"])["tipus"].center(16)}|{" " * (40 - i)}'.center(os.get_terminal_size().columns),
+            f' ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾{" " * (i + 2)}‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾{" " * (41 - i)}'.center(os.get_terminal_size().columns),
         ]
 
         print("\n".join(lines))
@@ -812,7 +900,15 @@ def kazamatatamad(kazh, jatekh):
 
 
 def harc(kazamata):
+    
+    if cards.pakli == [''] :
+        cls()
+        print("\n" * int(rows()/2))
+        cprint("Hozzon letre egy paklit eloszor".center(cols()),"red")
+        input("")
+        menu2()
     cls()
+    
     global jatekh
     global kazh
     ellenfelek = kazamata["kartyak"]
@@ -820,14 +916,10 @@ def harc(kazamata):
     indexj = 0
     jatekh = cards.get_gyujt_stats(cards.pakli[indexj]).copy()
     kazh = cards.stats(ellenfelek[indexk]).copy()
-    if beallitasok[1] == '0' and beallitasok[2] == '0':
+    if beallitasok[1] == '0':
         alapeset(kazamata)
-    elif beallitasok[1] == '1' and beallitasok[2] == '0':
+    elif beallitasok[1] == '1':
         csak_hardcore(kazamata)
-    elif beallitasok[1] == '0' and beallitasok[2] == '1':
-        csak_kepeseg(kazamata)
-    else:
-        minden(kazamata)
 def alapeset(kazamata):
     cls()
     global jatekh
@@ -839,7 +931,7 @@ def alapeset(kazamata):
     kazh = cards.stats(ellenfelek[indexk]).copy()
     while True:
         if kazh["eletero"] == 0:
-            if(indexk + 2 >= len(kazamata)):
+            if(len(kazamata["kartyak"])-2 < indexk):
                 cls()
                 #jatekos nyert
                 win_screen(kazamata["nev"],True,jatekh["nev"])
@@ -1017,22 +1109,22 @@ def win_screen(kaznev, nyert, kartyanev):
         if kaz["nev"] == kaznev:
             kstat = kaz
     if nyert:
-        cprint(f"A jatekos nyert. {kartyanev}", "green")
+        cprint(f"A jatekos nyert. {kartyanev}".center(os.get_terminal_size().columns), "green")
         if (kstat["tipus"] == "egyszeru" or kstat["tipus"] == "kis") : 
             
             for i in range(len(cards.gyujt_stats)):
                 if cards.gyujt_stats[i]["nev"] == kartyanev:
                     cards.gyujt_stats[i][kstat["fejlesztes"]] =int(cards.gyujt_stats[i][kstat["fejlesztes"]]) + fejlesztes[kstat["fejlesztes"]]
-                    print(f"\n A jutalmad:{kartyanev} kap + {kstat["fejlesztes"]}t")
+                    print(f"A jutalmad:{kartyanev} kap + {kstat["fejlesztes"]}t".center(os.get_terminal_size().columns))
                     break
         else:
             for kartya in kstat["kartyak"]:
                 if(cards.get_gyujt_stats(kartya) == False):
                     cards.add_to_collection(cards.stats(kartya))
-                    print(f"\n A jutalmad: ez a kartya {kartya} a gyüjteményedbe került")
+                    print(f"A jutalmad: ez a kartya {kartya} a gyüjteményedbe került".center(os.get_terminal_size().columns))
                     break
     else:
-        cprint("A jatekos vesztett.", "red")
+        cprint("A jatekos vesztett.".center(os.get_terminal_size().columns), "red")
 
     input()
     jatekosmenu.modosit(jateknev,vilagnev,beallitasok)
