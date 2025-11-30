@@ -310,7 +310,6 @@ def beallitasok(vilagnev):
     center_option(opt5),
     center_option(opt1),
     center_option(opt2),
-    center_option(opt3),
     center_option(opt4)
     ]
     
@@ -334,8 +333,6 @@ def beallitasok(vilagnev):
         elif choice == options[2]:
             hardcore1()
         elif choice == options[3]:
-            kepesseg1()
-        elif choice == options[4]:
             nev(vilagnev)
 
 def nehezseg():
@@ -414,52 +411,6 @@ def hardcore1():
         hardcore = False 
     
 
-
-
-def kepesseg1():
-    cls()
-    cim = [
-" __  _    ___  ____   ___  _____ _____   ___   ____    ___  __  _  ",
-"|  |/ ]  /  _]|    \ /  _]/ ___// ___/  /  _] /    |  /  _]|  |/ ] ",
-"|  ' /  /  [_ |  o  )  [_(   \_(   \_  /  [_ |   __| /  [_ |  ' /  ",
-"|    \ |    _]|   _/    _]\__  |\__  ||    _]|  |  ||    _]|    \  ",
-"|     ||   [_ |  | |   [_ /  \ |/  \ ||   [_ |  |_ ||   [_ |     \ ",
-"|  .  ||     ||  | |     |\    |\    ||     ||     ||     ||  .  | ",
-"|__|\_||_____||__| |_____| \___| \___||_____||___,_||_____||__|\_| "
-                                                                  
-    ]
-    kerdes = [
-    " ⣇⠜ ⢀⡀ ⣀⡀ ⢀⡀ ⢀⣀ ⢀⣀ ⢀⡀ ⢀⡀ ⢀⡀ ⡇⡠ ⡇⡠ ⢀⡀ ⡇   ⢀⣀ ⣀⣀ ⢀⡀ ⡀⣀ ⢀⡀ ⣰⡀ ⣀⡀ ⢀⡀   ⠠ ⢀⣀ ⣰⡀ ⢀⣀ ⣀⣀ ⢀⣀ ⣀⡀ ⠄",
-    " ⠇⠱ ⠣⠭ ⡧⠜ ⠣⠭ ⠭⠕ ⠭⠕ ⠣⠭ ⣑⡺ ⠣⠭ ⠏⠢ ⠏⠢ ⠣⠭ ⠣   ⠭⠕ ⠴⠥ ⠣⠭ ⠏  ⠣⠭ ⠘⠤ ⠇⠸ ⠣⠭   ⡸ ⠣⠼ ⠘⠤ ⠭⠕ ⠴⠥ ⠣⠼ ⠇⠸ ⠇"
-    ]
-    
-    igen = r"""
-     ⡇ ⢀⡀ ⢀⡀ ⣀⡀
-     ⠇ ⣑⡺ ⠣⠭ ⠇⠸
-    """
-    nem = r"""
-     ⡷⣸ ⢀⡀ ⣀⣀ 
-     ⠇⠹ ⠣⠭ ⠇⠇⠇
-    """
-    global kepesseg
-    options = [
-    center_option(igen),
-    center_option(nem)
-    ]
-    asciiras(cim,"white")
-    asciiras(kerdes,"blue")
-    Choice = inquirer.select(
-        message = "",
-        pointer = "",
-        choices = options,
-        multiselect = False,
-        style = theme
-    ).execute()
-    if Choice == options[0]:
-        kepesseg = True
-    else: 
-        kepesseg = False 
-
 def nev(vilagnev):
     cls()
     cim = [
@@ -489,7 +440,7 @@ def nev(vilagnev):
         if vilag[0] == vilagnev:
             for kartya in vilag[2]:
                 cards.add_to_collection(["",kartya])
-    mentesek_fileread.mentesek.append([jateknev,[nehezsegiszint,hardcore,kepesseg].copy(),cards.gyujtemeny.copy(),cards.gyujt_stats.copy(),cards.pakli.copy(),vilagnev])
+    mentesek_fileread.mentesek.append([jateknev,[nehezsegiszint,hardcore].copy(),cards.gyujtemeny.copy(),cards.gyujt_stats.copy(),cards.pakli.copy(),vilagnev])
     mentes()
     mentesek_fileread.read_file("mentes.megprobaltuk")
     uj_gamemode.JATEK(jateknev)
@@ -502,11 +453,7 @@ def modosit(jateknev,vilagnev,beallitasok2):
     if beallitasok2[1] == '1':
         beallitasok[1] = True
     else:
-        beallitasok[1] = False
-    if beallitasok2[2] == '1':
-        beallitasok[2] = True
-    else:
-        beallitasok[2] = False    
+        beallitasok[1] = False  
     for i in range(len(mentesek_fileread.mentesek)):
         if mentesek_fileread.mentesek[i][0] == jateknev:
             mentesek_fileread.mentesek[i]=[jateknev,beallitasok.copy(),cards.gyujtemeny.copy(),cards.gyujt_stats.copy(),cards.pakli.copy(),vilagnev].copy()

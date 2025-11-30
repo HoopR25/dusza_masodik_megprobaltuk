@@ -53,6 +53,9 @@ def stats(nev):
     for kartya in kartyak:
         if kartya["nev"] == nev:
             return kartya.copy()
+    for kartya in vezerek:
+        if kartya["nev"] == nev:
+            return kartya.copy()
 
 def get_gyujt_stats(nev):
     for kartya in gyujt_stats:

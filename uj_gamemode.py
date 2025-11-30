@@ -445,11 +445,7 @@ def kazamata_valaszto():
 # * levego 2 kor 80% esely blockra
 # * 10 kor one tap
     kaznev = asciiart_converter.ascii_to_text(choice)
-    print(kaznev)
-    input("")
     for kaz in kazamata.kazamatak:
-        print(kaz["nev"])
-        input("")
         if kaznev == kaz["nev"]:
             harc(kaz.copy())
 
@@ -670,11 +666,11 @@ def jatekostamad(kazh,jatekh):
         ktipus = fight.get_tipus_index(jatekh["tipus"])
         jtipus = fight.get_tipus_index(kazh["tipus"])
         if fight.tipusok[ktipus] == fight.tipusok[jtipus - 1] or fight.tipusok[ktipus] == fight.tipusok[jtipus + 1]:
-            kazh["eletero"] -= int(round(float(jatekh["sebzes"] * 2)*(float(1) - random.random() * float(beallitasok[0]))))
+            kazh["eletero"] -= int(round(float(int(jatekh["sebzes"]) * 2)*(float(1) - random.random() * float(beallitasok[0]))))
         else:
-            kazh["eletero"] -= int(round(float(jatekh["sebzes"] / 2))*(float(1) - random.random() * float(beallitasok[0])))
+            kazh["eletero"] -= int(round(float(int(jatekh["sebzes"]) / 2))*(float(1) - random.random() * float(beallitasok[0])))
     else:
-        kazh["eletero"] -= int(round(float(jatekh["sebzes"])*(float(1) - random.random() * float(beallitasok[0]))))
+        kazh["eletero"] -= int(round(float(int(jatekh["sebzes"])*(float(1) - random.random() * float(beallitasok[0])))))
     if kazh["eletero"] < 0:
         kazh["eletero"] = 0
     
@@ -843,7 +839,7 @@ def alapeset(kazamata):
     kazh = cards.stats(ellenfelek[indexk]).copy()
     while True:
         if kazh["eletero"] == 0:
-            if(indexk + 1 >= len(kazamata)):
+            if(indexk + 2 >= len(kazamata)):
                 cls()
                 #jatekos nyert
                 win_screen(kazamata["nev"],True,jatekh["nev"])
@@ -896,7 +892,7 @@ def csak_hardcore(kazamata):
     kazh = cards.stats(ellenfelek[indexk]).copy()
     while True:
         if kazh["eletero"] == 0:
-            if(indexk + 1 >= len(kazamata["kartyak"])):
+            if(len(kazamata["kartyak"])-2 == indexk):
                 cls()
                 win_screen(kazamata["nev"],True,jatekh["nev"])
                 #jatekos nyert
