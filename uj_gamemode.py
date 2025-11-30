@@ -131,7 +131,7 @@ def betoltokepernyo():
     print("\n" * (vpad - 4))  
 
     for line in ascii_art:
-        #time.sleep(0.5)
+        time.sleep(0.5)
         cprint(line.center(cols()),"green")
     print("\n "*5)
     
