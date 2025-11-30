@@ -1,7 +1,5 @@
-beallitasok;0;1;1
+beallitasok;0;1;0
 vilag;alap
-felvetel gyujtemenybe;Arin
-
 felvetel gyujtemenybe;Liora
 
 felvetel gyujtemenybe;Selia
@@ -20,151 +18,15 @@ felvetel gyujtemenybe;Thalen
 
 felvetel gyujtemenybe;Isara
 
-uj pakli;
-mentes;kort
-
-beallitasok;0;1;1
-vilag;alap
-felvetel gyujtemenybe;Arin
-
-felvetel gyujtemenybe;Liora
-
-felvetel gyujtemenybe;Selia
-
-felvetel gyujtemenybe;Nerun
-
-felvetel gyujtemenybe;Torak
-
-felvetel gyujtemenybe;Emera
-
-felvetel gyujtemenybe;Kael
-
-felvetel gyujtemenybe;Myra
-
-felvetel gyujtemenybe;Thalen
-
-felvetel gyujtemenybe;Isara
-
-uj pakli;
-mentes;kort
-
-beallitasok;0;0;0
-vilag;alap
-felvetel gyujtemenybe;Arin
-
-felvetel gyujtemenybe;Liora
-
-felvetel gyujtemenybe;Selia
-
-felvetel gyujtemenybe;Nerun
-
-felvetel gyujtemenybe;Torak
-
-felvetel gyujtemenybe;Emera
-
-felvetel gyujtemenybe;Kael
-
-felvetel gyujtemenybe;Myra
-
-felvetel gyujtemenybe;Thalen
-
-felvetel gyujtemenybe;Isara
-
-stats;Arin;2;5;fold
 stats;Liora;2;4;levego
 stats;Selia;2;6;viz
 stats;Nerun;3;3;tuz
 stats;Torak;3;4;fold
 stats;Emera;2;5;levego
-stats;Kael;3;5;tuz
+stats;Kael;4;5;tuz
 stats;Myra;2;6;fold
 stats;Thalen;3;5;levego
 stats;Isara;2;6;viz
-uj pakli;Arin
-mentes;almna
-
-beallitasok;0;1;1
-vilag;alap
-felvetel gyujtemenybe;Arin
-
-felvetel gyujtemenybe;Liora
-
-felvetel gyujtemenybe;Selia
-
-felvetel gyujtemenybe;Nerun
-
-felvetel gyujtemenybe;Torak
-
-felvetel gyujtemenybe;Emera
-
-felvetel gyujtemenybe;Kael
-
-felvetel gyujtemenybe;Myra
-
-felvetel gyujtemenybe;Thalen
-
-felvetel gyujtemenybe;Isara
-
-uj pakli;
-mentes;kort
-
-beallitasok;0;1;1
-vilag;alap
-felvetel gyujtemenybe;Arin
-
-felvetel gyujtemenybe;Liora
-
-felvetel gyujtemenybe;Selia
-
-felvetel gyujtemenybe;Nerun
-
-felvetel gyujtemenybe;Torak
-
-felvetel gyujtemenybe;Emera
-
-felvetel gyujtemenybe;Kael
-
-felvetel gyujtemenybe;Myra
-
-felvetel gyujtemenybe;Thalen
-
-felvetel gyujtemenybe;Isara
-
-uj pakli;
-mentes;kort
-
-beallitasok;0;0;0
-vilag;alap
-felvetel gyujtemenybe;Arin
-
-felvetel gyujtemenybe;Liora
-
-felvetel gyujtemenybe;Selia
-
-felvetel gyujtemenybe;Nerun
-
-felvetel gyujtemenybe;Torak
-
-felvetel gyujtemenybe;Emera
-
-felvetel gyujtemenybe;Kael
-
-felvetel gyujtemenybe;Myra
-
-felvetel gyujtemenybe;Thalen
-
-felvetel gyujtemenybe;Isara
-
-stats;Arin;2;5;fold
-stats;Liora;2;4;levego
-stats;Selia;2;6;viz
-stats;Nerun;3;3;tuz
-stats;Torak;3;4;fold
-stats;Emera;2;5;levego
-stats;Kael;3;5;tuz
-stats;Myra;2;6;fold
-stats;Thalen;3;5;levego
-stats;Isara;2;6;viz
-uj pakli;Arin
-mentes;almna
+uj pakli;Kael
+mentes;Kaleadventure
 

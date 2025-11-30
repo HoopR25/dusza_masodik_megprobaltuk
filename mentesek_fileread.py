@@ -2,6 +2,7 @@ import cards
 import kazamata
 import export
 import fight
+import new_cards
 mentesek = []
 
 def read_file(filer):
@@ -25,14 +26,18 @@ def read_file(filer):
                 vilag = data[1]
             elif data[0] == "mentes":
                 addtomentesek(data)
+            elif data[0] == "stats":
+                new_cards.statmodositas(data)
 
 def beallitas(data):
+        global beallitasok
         beallitasok.append(data[1])
         beallitasok.append(data[2])
         beallitasok.append(data[3])
 
 
 def addtomentesek(mentesnev):
+    global beallitasok
     mentesek.append([mentesnev[1],beallitasok.copy(),cards.gyujtemeny.copy(),cards.gyujt_stats.copy(),cards.pakli.copy(),vilag])
     cards.gyujtemeny.clear()
     cards.gyujt_stats.clear()

@@ -179,7 +179,10 @@ def betoltes():
     uj_gamemode.JATEK(asciiart_converter.ascii_to_text(choice))
 
 def vilagvalaszto():  
-    cls()                      
+    cls()           
+    global nehezsegiszint
+    global hardcore
+    global kepesseg           
     cim = [
 " __ __  ____  _       ____   ____   ___   __  _  ",
 "|  |  ||    || |     /    | /    | /   \ |  |/ ] ",
@@ -487,8 +490,6 @@ def nev(vilagnev):
             for kartya in vilag[2]:
                 cards.add_to_collection(["",kartya])
     mentesek_fileread.mentesek.append([jateknev,[nehezsegiszint,hardcore,kepesseg].copy(),cards.gyujtemeny.copy(),cards.gyujt_stats.copy(),cards.pakli.copy(),vilagnev])
-    print(beallitasok)
-    input("")
     mentes()
     mentesek_fileread.read_file("mentes.megprobaltuk")
     uj_gamemode.JATEK(jateknev)
@@ -496,21 +497,19 @@ def nev(vilagnev):
 
 
 def modosit(jateknev,vilagnev,beallitasok2):
-    beallitasok = []
-    beallitasok.append(beallitasok2[0])
-    if beallitasok2[1] == 1:
-        beallitasok.append(True)
+    beallitasok = [0,False,False]
+    beallitasok[0] = beallitasok2[0]
+    if beallitasok2[1] == '1':
+        beallitasok[1] = True
     else:
-        beallitasok.append(False)
-    if beallitasok2[2] == 1:
-        beallitasok.append(True)
+        beallitasok[1] = False
+    if beallitasok2[2] == '1':
+        beallitasok[2] = True
     else:
-        beallitasok.append(False)    
+        beallitasok[2] = False    
     for i in range(len(mentesek_fileread.mentesek)):
         if mentesek_fileread.mentesek[i][0] == jateknev:
-            mentesek_fileread.mentesek[i]=[jateknev,beallitasok.copy(),cards.gyujtemeny.copy(),cards.gyujt_stats.copy(),cards.pakli.copy(),vilagnev]
-            print(beallitasok)
-            input("")
+            mentesek_fileread.mentesek[i]=[jateknev,beallitasok.copy(),cards.gyujtemeny.copy(),cards.gyujt_stats.copy(),cards.pakli.copy(),vilagnev].copy()
             break
     mentes()
 
