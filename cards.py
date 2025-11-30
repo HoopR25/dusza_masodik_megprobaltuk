@@ -2,7 +2,7 @@ kartyak = []
 gyujtemeny = []
 pakli = []
 gyujt_stats = []
-
+vezerek = []
 def new_card(kartya):
     card = {
         "nev": kartya[1],
@@ -41,12 +41,19 @@ def new_vezer(vezer):
                 kartyak.append(card)
 
 def add_to_collection(kartya):
-    gyujtemeny.append(kartya[1])
-    gyujt_stats.append(stats(kartya[1]))
+    if kartya[1] not in gyujtemeny:
+        gyujtemeny.append(kartya[1])
+        st = stats(kartya[1])
+        if st is not None:
+            gyujt_stats.append(st)
+
 
 
 def stats(nev):
     for kartya in kartyak:
+        if kartya["nev"] == nev:
+            return kartya.copy()
+    for kartya in vezerek:
         if kartya["nev"] == nev:
             return kartya.copy()
 

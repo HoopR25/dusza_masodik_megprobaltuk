@@ -9,6 +9,12 @@ uj kartya;Kael;3;5;tuz
 uj kartya;Myra;2;6;fold
 uj kartya;Thalen;3;5;levego
 uj kartya;Isara;2;6;viz
+uj vezer;Lord Torak;Torak;sebzes
+uj vezer;Priestess Selia;Selia;eletero
+
+uj kazamata;egyszeru;Barlangi Portya;Nerun;sebzes
+uj kazamata;kis;Osi Szentely;Arin,Emera,Selia,Lord Torak;eletero
+uj kazamata;nagy; A melyseg kiralynoje;Liora,Arin,Selia,Nerun,Torak;Priestess Selia
 
 felvetel gyujtemenybe;Arin
 felvetel gyujtemenybe;Liora
@@ -21,45 +27,4 @@ felvetel gyujtemenybe;Myra
 felvetel gyujtemenybe;Thalen
 felvetel gyujtemenybe;Isara
 
-uj kazamata;egyszeru;Barlangi Portya;Nerun
-uj kazamata;kis;Osi Szentely;Arin,Emera,Selia;Lord Torak;eletero
-uj kazamata;nagy;A melyseg kiralynoje;Liora,Arin,Selia,Nerun,Torak;Priestess Selia
-
 uj vilag;alap
-
-uj kartya;a;2;2;fold
-
-
-
-uj vilag;alma
-
-uj kartya;a;2;2;fold
-
-
-
-uj vilag;almak
-
-uj kartya;a;2;2;fold
-
-
-
-uj vilag;almam
-
-uj kartya;alma;2;2;tuz
-
-
-
-uj vilag;almaaaaaa
-
-uj kartya;a;2;2;fold
-
-
-
-uj vilag;korte
-
-uj kartya;a;2;2;fold
-
-
-
-uj vilag;barack
-

@@ -18,7 +18,8 @@ from InquirerPy import get_style
 import game_mode
 import math
 import mentesek_fileread
-
+import uj_gamemode
+import new_cards
 theme = get_style({
     "questionmark": "#000000",
     "answermark": "#b10101",
@@ -36,6 +37,9 @@ theme = get_style({
     "disabled": "gray italic"
 })
 
+hardcore = False
+kepesseg = False
+nehezsegiszint = 0
 
 def cls():
     os.system("cls" if os.name == "nt" else "clear")
@@ -90,14 +94,16 @@ def jatekosmenu():
      ⡇⢸ ⠄ ⡇ ⢀⣀ ⢀⡀ ⢀⡀ ⡇⡠
      ⠸⠃ ⠇ ⠣ ⠣⠼ ⣑⡺ ⠣⠜ ⠏⠢
      """
-    
-    options = [ujjatektext, betoltestext, szabalyzattext, vilagtext]
+    visszatext = r"""
+     ⡇⢸ ⠄ ⢀⣀ ⢀⣀ ⣀⣀ ⢀⣀
+     ⠸⠃ ⠇ ⠭⠕ ⠭⠕ ⠴⠥ ⠣⠼
+    """
+    options = [ujjatektext, betoltestext, szabalyzattext]
     
     centered_options = [
     center_option(ujjatektext),
     center_option(betoltestext),
-    center_option(szabalyzattext),
-    center_option(vilagtext)
+    center_option(visszatext)
 ]
 
     cls()
@@ -113,14 +119,85 @@ def jatekosmenu():
     print(choice)
     print(ujjatektext)
     if choice == centered_options[0]:
-        print("az alma menno")
         vilagvalaszto()
+    if choice == centered_options[1]:
+        betoltes()
+    if choice == centered_options[2]:
+        uj_gamemode.menu()
+def betoltes():
+    cls()
+
+    cim = [
+" ____     ___ ______   ___   _     ______    ___  _____",
+"|    \   /  _]      | /   \ | |   |      |  /  _]/ ___/",
+"|  o  ) /  [_|      ||     || |   |      | /  [_(   \_ ",
+"|     ||    _]_|  |_||  O  || |___|_|  |_||    _]\__  |",
+"|  O  ||   [_  |  |  |     ||     | |  |  |   [_ /  \ |",
+"|     ||     | |  |  |     ||     | |  |  |     |\    |",
+"|_____||_____| |__|   \___/ |_____| |__|  |_____| \___|"
+    ]
+    utasitas = [
+     "⡷⣸ ⠄ ⣀⡀ ⣀⡀ ⢀⣀ ⢀⣀   ⣀⣀  ⢀⡀ ⣀⡀ ⣰⡀ ⢀⡀ ⢀⣀",
+     "⠇⠹ ⠇ ⠇⠸ ⠇⠸ ⠣⠤ ⠭⠕   ⠇⠇⠇ ⠣⠭ ⠇⠸ ⠘⠤ ⠣⠭ ⠭⠕"
+    ]
+    asciiras(cim,"white")
+    if mentesek_fileread.mentesek == []:
+        print("\n" * int(rows()/3))
+        asciiras(utasitas,"red")
+        cprint("Nyomjon egy Enter-t a folytatashoz!".center(cols()),"blue")
+        input("")
+        jatekosmenu()   
+    opciok = [[]]
+    vilagok = mentesek_fileread.mentesek
+    for i in range(math.ceil(len(vilagok) / 3)):
+        opciok.append([])
+    for i in range(math.ceil(len(vilagok) / 3)):
+        if len(vilagok) - (i * 3) <= 3:
+            if i != 0:
+                opciok[i].append(center_option(asciiart_converter.text_to_ascii("Elozo oldal", 1)))
+                for j in range(i * 3, len(vilagok)):
+                    opciok[i].append(center_option(asciiart_converter.text_to_ascii(vilagok[j][0], 1)))
+            else:
+                for j in range(i * 3, len(vilagok)):
+                    opciok[i].append(center_option(asciiart_converter.text_to_ascii(vilagok[j][0], 1)))
+        elif i == 0:
+            for j in range(i * 3,(i * 3) + 3):
+                opciok[i].append(center_option(asciiart_converter.text_to_ascii(vilagok[j][0], 1)))
+            opciok[i].append(center_option(asciiart_converter.text_to_ascii("Kovetkezo oldal", 1)))
+        else:
+            opciok[i].append(center_option(asciiart_converter.text_to_ascii("Elozo oldal", 1)))
+            for j in range(i * 3,(i * 3) + 3):
+                opciok[i].append(center_option(asciiart_converter.text_to_ascii(vilagok[j][0], 1)))
+            opciok[i].append(center_option(asciiart_converter.text_to_ascii("Kovetkezo oldal", 1)))
+    oldalszam = 1
+    maxoldalszam = math.ceil(len(vilagok) / 3)
+    elozotext = center_option(asciiart_converter.text_to_ascii("Elozo oldal", 1))
+    kovetkezotext = center_option(asciiart_converter.text_to_ascii("Kovetkezo oldal", 1))
+    while True: 
+        cls()
+        asciiras(cim, "white")
+        print("\n" * 5)
+        choice = inquirer.select(
+            message = center_option(f"{oldalszam}/{maxoldalszam}"),
+            pointer = "",
+            choices = opciok[oldalszam - 1],
+            multiselect = False,
+            style = theme
+        ).execute()
         
-
-
+        if choice == elozotext:
+            oldalszam -= 1
+        elif choice == kovetkezotext:
+            oldalszam += 1
+        else:
+            break
+    uj_gamemode.JATEK(asciiart_converter.ascii_to_text(choice))
 
 def vilagvalaszto():  
-    cls()                      
+    cls()           
+    global nehezsegiszint
+    global hardcore
+    global kepesseg           
     cim = [
 " __ __  ____  _       ____   ____   ___   __  _  ",
 "|  |  ||    || |     /    | /    | /   \ |  |/ ] ",
@@ -177,7 +254,9 @@ def vilagvalaszto():
             oldalszam += 1
         else:
             break
-    
+    hardcore = False
+    kepesseg = False
+    nehezsegiszint = 0
     beallitasok(asciiart_converter.ascii_to_text(choice))
     
     
@@ -200,9 +279,8 @@ def vilagvalaszto():
 # ! !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!   
 # ! !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 # ! LEMENTENI JATEKOT: VILAGNEV, GYUJTEMENY, GYUJTSTATS, BEALLITASOK
-nehezsegiszint = 0
-hardcore = False
-kepesseg = False
+
+
 
 def beallitasok(vilagnev):
     cls()
@@ -247,7 +325,6 @@ def beallitasok(vilagnev):
     center_option(opt5),
     center_option(opt1),
     center_option(opt2),
-    center_option(opt3),
     center_option(opt4)
     ]
     
@@ -269,14 +346,13 @@ def beallitasok(vilagnev):
         elif choice == options[1]:
             nehezseg()
         elif choice == options[2]:
-            hardcore()
+            hardcore1()
         elif choice == options[3]:
-            kepesseg()
-        elif choice == options[4]:
             nev(vilagnev)
 
 def nehezseg():
     cls()
+    global nehezsegiszint
     utasitas = [
      "⣎⣱ ⢀⣸ ⠠ ⢀⣀   ⣀⣀  ⢀⡀ ⢀⡀   ⢀⣀   ⣀⡀ ⢀⡀ ⣇⡀ ⢀⡀ ⣀⣀ ⢀⣀ ⢀⡀ ⢀⡀ ⠄   ⢀⣀ ⣀⣀ ⠄ ⣀⡀ ⣰⡀ ⢀⡀ ⣰⡀",
      "⠇⠸ ⠣⠼ ⡸ ⠣⠼   ⠇⠇⠇ ⠣⠭ ⣑⡺   ⠣⠼   ⠇⠸ ⠣⠭ ⠇⠸ ⠣⠭ ⠴⠥ ⠭⠕ ⠣⠭ ⣑⡺ ⠇   ⠭⠕ ⠴⠥ ⠇ ⠇⠸ ⠘⠤ ⠣⠭ ⠘⠤"
@@ -306,8 +382,9 @@ def nehezseg():
             if((nehezsegiszint<11 and nehezsegiszint>-1)):
                 break
         cls()
-def hardcore():
+def hardcore1():
     cls()
+    global hardcore
     cim = [
 " __ __   ____  ____   ___      __   ___   ____     ___ ",
 "|  |  | /    ||    \ |   \    /  ] /   \ |    \   /  _]",
@@ -343,56 +420,11 @@ def hardcore():
         multiselect = False,
         style = theme
     ).execute()
-    if Choice == igen:
+    if Choice == options[0]:
         hardcore = True
     else: 
         hardcore = False 
     
-
-
-
-def kepesseg():
-    cls()
-    cim = [
-" __  _    ___  ____   ___  _____ _____   ___   ____    ___  __  _  ",
-"|  |/ ]  /  _]|    \ /  _]/ ___// ___/  /  _] /    |  /  _]|  |/ ] ",
-"|  ' /  /  [_ |  o  )  [_(   \_(   \_  /  [_ |   __| /  [_ |  ' /  ",
-"|    \ |    _]|   _/    _]\__  |\__  ||    _]|  |  ||    _]|    \  ",
-"|     ||   [_ |  | |   [_ /  \ |/  \ ||   [_ |  |_ ||   [_ |     \ ",
-"|  .  ||     ||  | |     |\    |\    ||     ||     ||     ||  .  | ",
-"|__|\_||_____||__| |_____| \___| \___||_____||___,_||_____||__|\_| "
-                                                                  
-    ]
-    kerdes = [
-    " ⣇⠜ ⢀⡀ ⣀⡀ ⢀⡀ ⢀⣀ ⢀⣀ ⢀⡀ ⢀⡀ ⢀⡀ ⡇⡠ ⡇⡠ ⢀⡀ ⡇   ⢀⣀ ⣀⣀ ⢀⡀ ⡀⣀ ⢀⡀ ⣰⡀ ⣀⡀ ⢀⡀   ⠠ ⢀⣀ ⣰⡀ ⢀⣀ ⣀⣀ ⢀⣀ ⣀⡀ ⠄",
-    " ⠇⠱ ⠣⠭ ⡧⠜ ⠣⠭ ⠭⠕ ⠭⠕ ⠣⠭ ⣑⡺ ⠣⠭ ⠏⠢ ⠏⠢ ⠣⠭ ⠣   ⠭⠕ ⠴⠥ ⠣⠭ ⠏  ⠣⠭ ⠘⠤ ⠇⠸ ⠣⠭   ⡸ ⠣⠼ ⠘⠤ ⠭⠕ ⠴⠥ ⠣⠼ ⠇⠸ ⠇"
-    ]
-    
-    igen = r"""
-     ⡇ ⢀⡀ ⢀⡀ ⣀⡀
-     ⠇ ⣑⡺ ⠣⠭ ⠇⠸
-    """
-    nem = r"""
-     ⡷⣸ ⢀⡀ ⣀⣀ 
-     ⠇⠹ ⠣⠭ ⠇⠇⠇
-    """
-    options = [
-    center_option(igen),
-    center_option(nem)
-    ]
-    asciiras(cim,"white")
-    asciiras(kerdes,"blue")
-    Choice = inquirer.select(
-        message = "",
-        pointer = "",
-        choices = options,
-        multiselect = False,
-        style = theme
-    ).execute()
-    if Choice == igen:
-        kepesseg = True
-    else: 
-        kepesseg = False 
 
 def nev(vilagnev):
     cls()
@@ -409,22 +441,64 @@ def nev(vilagnev):
      "⣎⣱ ⢀⣸ ⠠ ⢀⣀   ⣀⣀  ⢀⡀ ⢀⡀   ⠠ ⢀⣀ ⣰⡀ ⢀⡀ ⡇⡠ ⣀⣀  ⢀⡀ ⣀⡀ ⢀⡀ ⣰⡀   ⣀⡀ ⢀⡀ ⡀⢀ ⢀⡀ ⣰⡀ ",
      "⠇⠸ ⠣⠼ ⡸ ⠣⠼   ⠇⠇⠇ ⠣⠭ ⣑⡺   ⡸ ⠣⠼ ⠘⠤ ⠣⠭ ⠏⠢ ⠇⠇⠇ ⠣⠭ ⠇⠸ ⠣⠭ ⠘⠤   ⠇⠸ ⠣⠭ ⠱⠃ ⠣⠭ ⠘⠤"
     ]
-    
+    instrukció2 = [
+     " ⣎⣱ ⢀⣸ ⠠ ⢀⡀ ⣀⡀   ⣀⣀  ⢀⡀ ⢀⡀   ⢀⡀ ⢀⡀ ⡀⢀   ⢀⡀ ⢀⡀ ⡀⢀ ⢀⡀ ⢀⣸ ⠄   ⣀⡀ ⢀⡀ ⡀⢀ ⢀⡀ ⣰⡀",
+     " ⠇⠸ ⠣⠼ ⡸ ⠣⠜ ⠇⠸   ⠇⠇⠇ ⠣⠭ ⣑⡺   ⠣⠭ ⣑⡺ ⣑⡺   ⠣⠭ ⣑⡺ ⣑⡺ ⠣⠭ ⠣⠼ ⠇   ⠇⠸ ⠣⠭ ⠱⠃ ⠣⠭ ⠘⠤"
+    ]
     asciiras(cim,"white")
     asciiras(instrukció,"blue")
-    
-    jateknev=input("")
-    
+    bool2 = True
+    while  True:
+        jateknev=input("")
+        bool2 = True
+        for mentes2 in mentesek_fileread.mentesek:
+            if mentes2[0] == jateknev:
+                bool2 = False
+        if bool2 == True:
+            break
+        else:
+            cls()
+            asciiras(cim,"white")
+            asciiras(instrukció2,"red")
     cls()
     cards.pakli.clear()
     cards.gyujt_stats.clear()
     cards.gyujtemeny.clear()
+    cards.kartyak.clear()
     for vilag in jatekmestermenu.vilagok:
         if vilag[0] == vilagnev:
+            for kartya in vilag[1]:
+                if kartya["vezer"]:
+                    new_cards.new_vezerf(kartya)
+                else:
+                    new_cards.new_cardf(kartya)
             for kartya in vilag[2]:
-                cards.add_to_collection(kartya)
-    mentesek_fileread.mentesek.append([jateknev,[nehezsegiszint,hardcore,kepesseg],cards.gyujtemeny,cards.gyujt_stats,cards.pakli,vilagnev])
+                cards.add_to_collection(["",kartya])
+    mentesek_fileread.mentesek.append([jateknev,[nehezsegiszint,hardcore].copy(),cards.gyujtemeny.copy(),cards.gyujt_stats.copy(),cards.pakli.copy(),vilagnev])
     mentes()
+    mentesek_fileread.read_file("mentes.megprobaltuk")
+
+    uj_gamemode.JATEK(jateknev)
+    
+
+
+def modosit(jateknev,vilagnev,beallitasok2):
+    beallitasok = [0,False,False]
+    beallitasok[0] = beallitasok2[0]
+    if beallitasok2[1] == '1':
+        beallitasok[1] = True
+    else:
+        beallitasok[1] = False  
+    for i in range(len(mentesek_fileread.mentesek)):
+        if mentesek_fileread.mentesek[i][0] == jateknev:
+            mentesek_fileread.mentesek[i]=[jateknev,beallitasok.copy(),cards.gyujtemeny.copy(),cards.gyujt_stats.copy(),cards.pakli.copy(),vilagnev].copy()
+            break
+    mentes()
+
+
+
+
+
 def mentes():
 
     cls()
@@ -432,21 +506,31 @@ def mentes():
     with open("mentes.megprobaltuk", "w", encoding = "utf-8") as file:
         for mentes in mentesek_fileread.mentesek: 
                 # * beallitasok
-                file.write(f"beallitasok;{mentes[1][0]};{mentes[1][1]};{mentes[1][2]}\n")
+                file.write(f"beallitasok;{mentes[1][0]};")
+                if mentes[1][1]:
+                    file.write("1\n")
+                else:
+                    file.write("0\n")
+                # * vilagnev
+                file.write(f"vilag;{mentes[5]}\n")
                 # * gyujtemeny
                 for kartya in mentes[2]:
                     file.write(f"felvetel gyujtemenybe;{kartya}\n")
                     file.write("\n")
-                # * gyujt stats
+                
                 for stats in mentes[3]:
+                    if stats is None:
+                        print("HIBA: mentes[3] egy None statot tartalmaz!")
+                        input("")
+                        continue
                     file.write(f"stats;{stats["nev"]};{stats["sebzes"]};{stats["eletero"]};{stats["tipus"]}\n")
                 file.write(f"uj pakli;")
                 for i in range(0,(len(mentes[4]))):
-                    if(i == len(mentes[4])):
+                    if(i == len(mentes[4])-1):
                         file.write(f"{mentes[4][i]}")
                     else:
                         file.write(f"{mentes[4][i]},")
-
+                file.write("\n")
                 file.write(f"mentes;{mentes[0]}\n")
                 file.write("\n")
                 # * temp_kartyak
@@ -454,4 +538,4 @@ def mentes():
                 # * temp_kazamatak
                 # * temp_gyujtemeny
                 # * temp_vilagnev
-
+    
