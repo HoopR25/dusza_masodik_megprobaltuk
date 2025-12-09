@@ -8,14 +8,34 @@ from termcolor import colored, cprint
 import kazamata
 import fight
 import sys
-import msvcrt
+
+
+def read_key():
+    """Cross-platform single key press"""
+    if platform.system() == "Windows":
+        import msvcrt
+        return msvcrt.getch().decode()
+    else:
+        fd = sys.stdin.fileno()
+        old_settings = termios.tcgetattr(fd)
+        try:
+            tty.setraw(fd)
+            if select.select([sys.stdin], [], [], 0)[0]:
+                ch = sys.stdin.read(1)
+            else:
+                ch = ""
+        finally:
+            termios.tcsetattr(fd, termios.TCSADRAIN, old_settings)
+        return ch
+
+
 import uj_gamemode
 
 from InquirerPy import inquirer
 
 from time import sleep
 def cls():
-    os.system("cls" if os.name == "nt" else "clear")
+    os.system("cls" if os == "nt" else "clear")
 
 def cols():
     return os.get_terminal_size().columns
@@ -28,9 +48,43 @@ def asciiras(s,color):
         cprint(line.center(cols()),f"{color}")
 
 
+
+import platform
+import sys
+
+if platform.system() == "Windows":
+    import msvcrt
+
+    def getch():
+        return msvcrt.getch().decode()
+
+    def kbhit():
+        return msvcrt.kbhit()
+
+else:
+    # Linux / macOS alternative using tty + termios
+    import tty
+    import termios
+    import select
+
+    def getch():
+        fd = sys.stdin.fileno()
+        old_settings = termios.tcgetattr(fd)
+        try:
+            tty.setraw(fd)
+            ch = sys.stdin.read(1)
+        finally:
+            termios.tcsetattr(fd, termios.TCSADRAIN, old_settings)
+        return ch
+
+    def kbhit():
+        dr, _, _ = select.select([sys.stdin], [], [], 0)
+        return bool(dr)
+
+
 def clear_input_field():
-    while msvcrt.kbhit():
-        msvcrt.getch()
+    while kbhit():
+        getch()
         
 def jatekmestermenu():
     cls()
@@ -57,12 +111,12 @@ def jatekmestermenu():
     print("\n" * (int(rows()/4)))
     asciiras(ujvilag,"red")
     while True:
-        event = keyboard.read_event()
-        if event.event_type == keyboard.KEY_DOWN:
-            if event.name == "1":
+        event = read_key()
+        if event:
+            if event == "1":
                 vilagfelvetel()
                 break
-            elif event.name == "esc":
+            elif event == "esc" or event == "\x1b":
                 uj_gamemode.menu()
                 break
 
@@ -114,34 +168,34 @@ def vilagfelvetel():
     print("\n"*3)
     asciiras(mentestext,"red")
     while True:
-        event = keyboard.read_event()
-        if event.event_type == keyboard.KEY_DOWN:
-            if event.name == "1":
+        event = read_key()
+        if event:
+            if event == "1":
                 clear_input_field()
                 sleep(0.2)
                 uj_kartya()
                 break
-            elif event.name == "2":
+            elif event == "2":
                 clear_input_field()
                 sleep(0.2)
                 uj_vezerkartya()
                 break
-            elif event.name == "3":
+            elif event == "3":
                 clear_input_field()
                 sleep(0.2)
                 uj_kazamata()
                 break
-            elif event.name == "4":
+            elif event == "4":
                 clear_input_field()
                 sleep(0.2)
                 uj_gyujtemeny()
                 break
-            elif event.name == "5":
+            elif event == "5":
                 clear_input_field()
                 sleep(0.2)
                 mentes()
                 break
-            elif event.name == "esc":
+            elif event == "esc" or event == "\x1b":
                 sleep(0.2)
                 jatekmestermenu()
                 break
@@ -193,9 +247,9 @@ def uj_kartya():
     print("\n" * 3)
 
     while True:
-        event = keyboard.read_event()
-        if event.event_type == keyboard.KEY_DOWN:
-            if event.name == "esc":
+        event = read_key()
+        if event:
+            if event == "esc" or event == "\x1b":
                 clear_input_field()
                 vilagfelvetel()
                 break
@@ -269,9 +323,9 @@ def uj_vezerkartya():
     if len(temp_kartyak) == 0:
         asciiras(nincs, "red")
         while True:
-            event = keyboard.read_event()
-            if event.event_type == keyboard.KEY_DOWN:
-                if event.name == "esc":
+            event = read_key()
+            if event:
+                if event == "esc" or event == "\x1b":
                     clear_input_field()
                     vilagfelvetel()
                     break
@@ -306,9 +360,9 @@ def uj_vezerkartya():
                     cprint(f"|{temp_kartyak[i][4].center(16)}|".center(os.get_terminal_size().columns), "blue")
                     cprint(" ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾".center(os.get_terminal_size().columns),"" "blue")
                     printed += 1
-            event = keyboard.read_event()
-            if event.event_type == keyboard.KEY_DOWN:
-                if event.name == "esc":
+            event = read_key()
+            if event:
+                if event == "esc" or event == "\x1b":
                     clear_input_field()
                     vilagfelvetel()
                     break
@@ -388,24 +442,24 @@ def uj_kazamata():
     print("\n" * 3)
 ############################
     while True:
-        event = keyboard.read_event()
-        if event.event_type == keyboard.KEY_DOWN:
-            if event.name == "1":
+        event = read_key()
+        if event:
+            if event == "1":
                 clear_input_field()
                 sleep(0.2)
                 egyszeru()
                 break
-            elif event.name == "2":
+            elif event == "2":
                 clear_input_field()
                 sleep(0.2)
                 kis()
                 break
-            elif event.name == "3":
+            elif event == "3":
                 clear_input_field()
                 sleep(0.2)
                 nagy()
                 break
-            elif event.name == "esc":
+            elif event == "esc" or event == "\x1b":
                 clear_input_field()
                 sleep(0.2)
                 vilagfelvetel()
@@ -461,9 +515,9 @@ def egyszeru():
     if len(temp_kartyak) < 1:
         asciiras(nincselegtext,"red")
         while True:
-            event = keyboard.read_event()
-            if event.event_type == keyboard.KEY_DOWN:
-                if event.name == "esc":
+            event = read_key()
+            if event:
+                if event == "esc" or event == "\x1b":
                     clear_input_field()
                     uj_kazamata()
                     break
@@ -497,9 +551,9 @@ def egyszeru():
                 cprint(f"|{temp_kartyak[i][4].center(16)}|".center(os.get_terminal_size().columns), "blue")
                 cprint(" ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾".center(os.get_terminal_size().columns),"" "blue")
                 printed += 1
-        event = keyboard.read_event()
-        if event.event_type == keyboard.KEY_DOWN:
-            if event.name == "esc":
+        event = read_key()
+        if event:
+            if event == "esc" or event == "\x1b":
                 clear_input_field()
                 uj_kazamata()
                 break
@@ -569,18 +623,18 @@ def kis():
     if len(temp_kartyak) < 3:
         asciiras(nincselegtext, "red")
         while True:
-            event = keyboard.read_event()
-            if event.event_type == keyboard.KEY_DOWN:
-                if event.name == "esc":
+            event = read_key()
+            if event:
+                if event == "esc" or event == "\x1b":
                     clear_input_field()
                     uj_kazamata()
                     break
     elif len(temp_vezerek) < 1:
         asciiras(nincsvezertext, "red")
         while True:
-            event = keyboard.read_event()
-            if event.event_type == keyboard.KEY_DOWN:
-                if event.name == "esc":
+            event = read_key()
+            if event:
+                if event == "esc" or event == "\x1b":
                     clear_input_field()
                     uj_kazamata()
                     break
@@ -643,9 +697,9 @@ def kis():
                 printed += 1
         
         
-        event = keyboard.read_event()
-        if event.event_type == keyboard.KEY_DOWN:
-            if event.name == "esc":
+        event = read_key()
+        if event:
+            if event == "esc" or event == "\x1b":
                 clear_input_field()
                 uj_kazamata()
                 break
@@ -710,18 +764,18 @@ def nagy():
     if len(temp_kartyak) < 5:
         asciiras(nincselegtext, "red")
         while True:
-            event = keyboard.read_event()
-            if event.event_type == keyboard.KEY_DOWN:
-                if event.name == "esc":
+            event = read_key()
+            if event:
+                if event == "esc" or event == "\x1b":
                     clear_input_field()
                     uj_kazamata()
                     break
     elif len(temp_vezerek) < 1:
         asciiras(nincsvezertext, "red")
         while True:
-            event = keyboard.read_event()
-            if event.event_type == keyboard.KEY_DOWN:
-                if event.name == "esc":
+            event = read_key()
+            if event:
+                if event == "esc" or event == "\x1b":
                     clear_input_field()
                     uj_kazamata()
                     break
@@ -782,9 +836,9 @@ def nagy():
                 printed += 1
             
             
-        event = keyboard.read_event()
-        if event.event_type == keyboard.KEY_DOWN:
-            if event.name == "esc":
+        event = read_key()
+        if event:
+            if event == "esc" or event == "\x1b":
                 clear_input_field()
                 uj_kazamata()
                 break
@@ -866,9 +920,9 @@ def uj_gyujtemeny():
     if (len(temp_kartyak)) < 1:
         asciiras(nincselegtext, "red")
         while True:
-            event = keyboard.read_event()
-            if event.event_type == keyboard.KEY_DOWN:
-                if event.name == "esc":
+            event = read_key()
+            if event:
+                if event == "esc" or event == "\x1b":
                     clear_input_field()
                     vilagfelvetel()
                     break
@@ -902,9 +956,9 @@ def uj_gyujtemeny():
                     cprint(" ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾".center(os.get_terminal_size().columns),"" "blue")
                     printed += 1
                 
-            event = keyboard.read_event()
-            if event.event_type == keyboard.KEY_DOWN:
-                if event.name == "esc":
+            event = read_key()
+            if event:
+                if event == "esc" or event == "\x1b":
                     clear_input_field()
                     vilagfelvetel()
                     break
@@ -975,9 +1029,9 @@ def mentes():
     print("\n" * int(rows()/5))
     asciiras(utasitas, "blue")
     while True:
-        event = keyboard.read_event()
-        if event.event_type == keyboard.KEY_DOWN:
-            if event.name == "esc":
+        event = read_key()
+        if event:
+            if event == "esc" or event == "\x1b":
                 clear_input_field()
                 vilagfelvetel()
                 break

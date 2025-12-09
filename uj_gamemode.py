@@ -1,5 +1,4 @@
-import os
-import keyboard
+#import keyboard
 import cards
 import fileread
 import kazamata
@@ -7,21 +6,7 @@ import time
 from termcolor import colored, cprint
 import kazamata
 import fight
-import sys
-import msvcrt
-import jatekosmenu
 import jatekmestermenu
-import new_fileread
-import mentesek_fileread
-import os
-import keyboard
-import cards
-import fileread
-import kazamata
-import time
-from termcolor import colored, cprint
-import kazamata
-import fight
 import new_kaz
 import asciiart_converter
 from InquirerPy.base.control import Choice
@@ -32,6 +17,80 @@ import new_cards
 import math
 import shutil
 import random
+import new_fileread
+import mentesek_fileread
+import jatekosmenu
+
+import os
+
+import subprocess
+
+import sys
+import platform
+import select
+import tty, termios
+
+
+def read_key():
+    """Cross-platform single key press"""
+    if platform.system() == "Windows":
+        import msvcrt
+        return msvcrt.getch().decode()
+    else:
+        fd = sys.stdin.fileno()
+        old_settings = termios.tcgetattr(fd)
+        try:
+            tty.setraw(fd)
+            if select.select([sys.stdin], [], [], 0)[0]:
+                ch = sys.stdin.read(1)
+            else:
+                ch = ""
+        finally:
+            termios.tcsetattr(fd, termios.TCSADRAIN, old_settings)
+        return ch
+
+if platform.system() == "Windows":
+    import msvcrt
+
+    def getch():
+        return msvcrt.getch().decode()
+
+    def kbhit():
+        return msvcrt.kbhit()
+
+else:
+    # Linux / macOS alternative using tty + termios
+    import tty
+    import termios
+    import select
+
+    def getch():
+        fd = sys.stdin.fileno()
+        old_settings = termios.tcgetattr(fd)
+        try:
+            tty.setraw(fd)
+            ch = sys.stdin.read(1)
+        finally:
+            termios.tcsetattr(fd, termios.TCSADRAIN, old_settings)
+        return ch
+
+    def kbhit():
+        dr, _, _ = select.select([sys.stdin], [], [], 0)
+        return bool(dr)
+
+def is_enter_pressed():
+    if platform.system() == "Windows":
+        import msvcrt
+        return msvcrt.kbhit() and msvcrt.getch() == b'\r'
+    else:
+        dr, _, _ = select.select([sys.stdin], [], [], 0)
+        if dr:
+            ch = sys.stdin.read(1)
+            return ch == "\n"
+        return False
+
+
+
 theme = get_style({
     "questionmark": "#000000",
     "answermark": "#b10101",
@@ -68,8 +127,8 @@ def center_option(text: str) -> str:
     return "\n".join(line.center(cols()) for line in text.split("\n"))
 
 def clear_input_field():
-    while msvcrt.kbhit():
-        msvcrt.getch()
+    while kbhit():
+        getch()
 
 def betoltokepernyo():
     if os.path.getsize("jatekkornyezetek.megprobaltuk") == 0:
@@ -141,7 +200,7 @@ def betoltokepernyo():
         start= time.time()
         bool = False
         while(time.time()-start<0.5):
-            if(keyboard.is_pressed("\n")):
+            if(is_enter_pressed()):
                 bool=True
                 clear_input_field()
                 break
@@ -151,7 +210,7 @@ def betoltokepernyo():
         print(" " * cols(), end="\r")
         start= time.time()
         while(time.time()-start<0.5):
-            if(keyboard.is_pressed("\n")):
+            if(is_enter_pressed()):
                 bool=True
                 clear_input_field()
                 break
@@ -202,21 +261,21 @@ def menu():
     cprint(guide[1].center(cols()),"blue")
     # ! KEYBOARD BEOLVASAS
     while True:
-        event = keyboard.read_event()
-        if event.event_type == keyboard.KEY_DOWN:
-            if event.name == "1":
+        event = read_key()
+        if event:
+            if event == "1":
                 clear_input_field()
                 jatekmestermenu.jatekmestermenu()
                 break
-            elif event.name == "2":
+            elif event == "2":
                 clear_input_field()
                 jatekosmenu.jatekosmenu()
                 break
-            elif event.name == "3":
+            elif event == "3":
                 clear_input_field()
                 leiras()
                 break
-            elif event.name == "esc":
+            elif event == "esc":
                 sys.exit(1)
                 os.system(f'taskkill /f /fi "WINDOWTITLE eq Damareen"')
 def leiras():
@@ -574,7 +633,8 @@ def uj_pakli():
     cprint(f"Adja meg szokozokkel elvalasztva a kivalasztott kartyak nevet sorrendben, max. {round(len(cards.gyujt_stats) / 2)}".center(os.get_terminal_size().columns), "blue")
     while True:
         egyediek = set()
-        if keyboard.is_pressed("esc"):
+        key = read_key()
+        if key == "esc" or key == "\x1b":
             menu2()
             break
         is_pakli_ready = True
@@ -1020,12 +1080,12 @@ def csak_hardcore(kazamata):
                             jatekospakli.remove(jatekospakli[i])
                     kijatszas(jatekospakli)
                     break
-            event = keyboard.read_event()
-            if event.event_type == keyboard.KEY_DOWN:
-                if event.name == "q" or event.name == "Q":
+            event = read_key()
+            if event:
+                if event == "q" or event == "Q":
                     jatekostamad(kazh,jatekh)
                     break
-                elif event.name == "r" or event.name == "R":
+                elif event == "r" or event == "R":
                     kijatszas(jatekospakli)
                     break
             

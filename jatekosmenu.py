@@ -8,7 +8,6 @@ from termcolor import colored, cprint
 import kazamata
 import fight
 import sys
-import msvcrt
 from InquirerPy import inquirer
 import jatekmestermenu
 import asciiart_converter
@@ -20,6 +19,40 @@ import math
 import mentesek_fileread
 import uj_gamemode
 import new_cards
+
+import platform
+import sys
+
+if platform.system() == "Windows":
+    import msvcrt
+
+    def getch():
+        return msvcrt.getch().decode()
+
+    def kbhit():
+        return msvcrt.kbhit()
+
+else:
+    # Linux / macOS alternative using tty + termios
+    import tty
+    import termios
+    import select
+
+    def getch():
+        fd = sys.stdin.fileno()
+        old_settings = termios.tcgetattr(fd)
+        try:
+            tty.setraw(fd)
+            ch = sys.stdin.read(1)
+        finally:
+            termios.tcsetattr(fd, termios.TCSADRAIN, old_settings)
+        return ch
+
+    def kbhit():
+        dr, _, _ = select.select([sys.stdin], [], [], 0)
+        return bool(dr)
+
+
 theme = get_style({
     "questionmark": "#000000",
     "answermark": "#b10101",
@@ -56,8 +89,8 @@ def asciiras(s,color):
 
 
 def clear_input_field():
-    while msvcrt.kbhit():
-        msvcrt.getch()
+    while kbhit():
+        getch()
 
 def center_option(text: str) -> str:
     return "\n".join(line.center(cols()) for line in text.split("\n"))
@@ -449,7 +482,7 @@ def nev(vilagnev):
     asciiras(instrukció,"blue")
     bool = True
     while  True:
-
+        bool = True
         jateknev=input("")
         for mentes2 in mentesek_fileread.mentesek:
             if mentes2[0] == jateknev:
