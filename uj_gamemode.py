@@ -130,6 +130,8 @@ def clear_input_field():
     while kbhit():
         getch()
 
+
+
 def betoltokepernyo():
     if os.path.getsize("jatekkornyezetek.megprobaltuk") == 0:
         with open("jatekkornyezetek.megprobaltuk", "w", encoding = "utf-8") as file:
@@ -195,6 +197,7 @@ def betoltokepernyo():
     print("\n "*5)
     
     time.sleep(0.5)
+    
     while True:
         cprint("Nyomd meg az entert a folytatashoz".center(cols()), "green") 
         start= time.time()
@@ -275,9 +278,9 @@ def menu():
                 clear_input_field()
                 leiras()
                 break
-            elif event == "esc":
-                sys.exit(1)
-                os.system(f'taskkill /f /fi "WINDOWTITLE eq Damareen"')
+            elif event == "esc" or event == "\x1b":
+                #sys.exit(1)
+                os.system('taskkill /f /fi "WINDOWTITLE eq Damareen"' if os.name == "nt" else 'pkill -f "/usr/bin/alacritty"')
 def leiras():
     cls()
     cim = [
@@ -462,7 +465,8 @@ def menu2():
     if choice == centered_options[4]:
         gyujtemeny()
     if choice == centered_options[5]:
-        os.system(f'taskkill /f /fi "WINDOWTITLE eq Damareen"')
+        #os.system(f'taskkill /f /fi "WINDOWTITLE eq Damareen"')
+        os.system('taskkill /f /fi "WINDOWTITLE eq Damareen"' if os.name == "nt" else 'pkill -f "/usr/bin/alacritty"')
 
         
     

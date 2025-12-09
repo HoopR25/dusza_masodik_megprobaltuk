@@ -4,6 +4,64 @@ felvetel gyujtemenybe;Arin
 
 felvetel gyujtemenybe;Liora
 
+felvetel gyujtemenybe;Nerun
+
+felvetel gyujtemenybe;Torak
+
+felvetel gyujtemenybe;Emera
+
+felvetel gyujtemenybe;Kael
+
+stats;Arin;2;5;fold
+stats;Liora;2;4;levego
+stats;Nerun;3;3;tuz
+stats;Torak;3;4;fold
+stats;Emera;2;5;levego
+stats;Kael;3;5;tuz
+uj pakli;Kael
+mentes;beksot
+
+beallitasok;0;1
+vilag;alap
+felvetel gyujtemenybe;Arin
+
+felvetel gyujtemenybe;Liora
+
+felvetel gyujtemenybe;Selia
+
+felvetel gyujtemenybe;Nerun
+
+felvetel gyujtemenybe;Torak
+
+felvetel gyujtemenybe;Emera
+
+felvetel gyujtemenybe;Kael
+
+felvetel gyujtemenybe;Myra
+
+felvetel gyujtemenybe;Thalen
+
+felvetel gyujtemenybe;Isara
+
+stats;Arin;2;5;fold
+stats;Liora;2;4;levego
+stats;Selia;2;6;viz
+stats;Nerun;3;3;tuz
+stats;Torak;3;4;fold
+stats;Emera;2;5;levego
+stats;Kael;3;5;tuz
+stats;Myra;2;6;fold
+stats;Thalen;3;7;levego
+stats;Isara;2;6;viz
+uj pakli;Kael,Myra,Thalen,Emera
+mentes;asdasd
+
+beallitasok;0;1
+vilag;alap
+felvetel gyujtemenybe;Arin
+
+felvetel gyujtemenybe;Liora
+
 felvetel gyujtemenybe;Selia
 
 felvetel gyujtemenybe;Nerun
@@ -30,6 +88,181 @@ stats;Kael;3;5;tuz
 stats;Myra;2;6;fold
 stats;Thalen;3;5;levego
 stats;Isara;2;6;viz
-uj pakli;Myra,Thalen,Isara,Kael,Selia
-mentes;beksot
+uj pakli;Nerun
+mentes;assaddkoajo
+
+beallitasok;0;1
+vilag;alap
+felvetel gyujtemenybe;Arin
+
+felvetel gyujtemenybe;Liora
+
+felvetel gyujtemenybe;Selia
+
+felvetel gyujtemenybe;Nerun
+
+felvetel gyujtemenybe;Torak
+
+felvetel gyujtemenybe;Emera
+
+felvetel gyujtemenybe;Kael
+
+felvetel gyujtemenybe;Myra
+
+felvetel gyujtemenybe;Thalen
+
+felvetel gyujtemenybe;Isara
+
+stats;Arin;2;5;fold
+stats;Liora;2;4;levego
+stats;Selia;2;6;viz
+stats;Nerun;3;3;tuz
+stats;Torak;3;4;fold
+stats;Emera;2;5;levego
+stats;Kael;3;5;tuz
+stats;Myra;2;6;fold
+stats;Thalen;3;5;levego
+stats;Isara;2;6;viz
+uj pakli;
+mentes;adsdaauijdhua
+
+beallitasok;0;1
+vilag;alap
+felvetel gyujtemenybe;Arin
+
+felvetel gyujtemenybe;Liora
+
+felvetel gyujtemenybe;Selia
+
+felvetel gyujtemenybe;Nerun
+
+felvetel gyujtemenybe;Torak
+
+felvetel gyujtemenybe;Emera
+
+felvetel gyujtemenybe;Kael
+
+felvetel gyujtemenybe;Myra
+
+felvetel gyujtemenybe;Thalen
+
+felvetel gyujtemenybe;Isara
+
+stats;Arin;2;5;fold
+stats;Liora;2;4;levego
+stats;Selia;2;6;viz
+stats;Nerun;3;3;tuz
+stats;Torak;3;4;fold
+stats;Emera;2;5;levego
+stats;Kael;3;5;tuz
+stats;Myra;2;6;fold
+stats;Thalen;3;5;levego
+stats;Isara;2;6;viz
+uj pakli;
+mentes;agvduujadpijhadp
+
+beallitasok;0;1
+vilag;alap
+felvetel gyujtemenybe;Arin
+
+felvetel gyujtemenybe;Liora
+
+felvetel gyujtemenybe;Selia
+
+felvetel gyujtemenybe;Nerun
+
+felvetel gyujtemenybe;Torak
+
+felvetel gyujtemenybe;Emera
+
+felvetel gyujtemenybe;Kael
+
+felvetel gyujtemenybe;Myra
+
+felvetel gyujtemenybe;Thalen
+
+felvetel gyujtemenybe;Isara
+
+stats;Arin;2;5;fold
+stats;Liora;2;4;levego
+stats;Selia;2;6;viz
+stats;Nerun;3;3;tuz
+stats;Torak;3;4;fold
+stats;Emera;2;5;levego
+stats;Kael;3;5;tuz
+stats;Myra;2;6;fold
+stats;Thalen;3;5;levego
+stats;Isara;2;6;viz
+uj pakli;
+mentes;asopjadoiujado
+
+beallitasok;0;1
+vilag;alap
+felvetel gyujtemenybe;Arin
+
+felvetel gyujtemenybe;Liora
+
+felvetel gyujtemenybe;Selia
+
+felvetel gyujtemenybe;Nerun
+
+felvetel gyujtemenybe;Torak
+
+felvetel gyujtemenybe;Emera
+
+felvetel gyujtemenybe;Kael
+
+felvetel gyujtemenybe;Myra
+
+felvetel gyujtemenybe;Thalen
+
+felvetel gyujtemenybe;Isara
+
+stats;Arin;2;5;fold
+stats;Liora;2;4;levego
+stats;Selia;2;6;viz
+stats;Nerun;3;3;tuz
+stats;Torak;3;4;fold
+stats;Emera;2;5;levego
+stats;Kael;3;5;tuz
+stats;Myra;2;6;fold
+stats;Thalen;3;5;levego
+stats;Isara;2;6;viz
+uj pakli;Nerun
+mentes;adshijhadyihadou
+
+beallitasok;0;0
+vilag;alap
+felvetel gyujtemenybe;Arin
+
+felvetel gyujtemenybe;Liora
+
+felvetel gyujtemenybe;Selia
+
+felvetel gyujtemenybe;Nerun
+
+felvetel gyujtemenybe;Torak
+
+felvetel gyujtemenybe;Emera
+
+felvetel gyujtemenybe;Kael
+
+felvetel gyujtemenybe;Myra
+
+felvetel gyujtemenybe;Thalen
+
+felvetel gyujtemenybe;Isara
+
+stats;Arin;2;5;fold
+stats;Liora;2;4;levego
+stats;Selia;2;6;viz
+stats;Nerun;3;3;tuz
+stats;Torak;3;4;fold
+stats;Emera;2;5;levego
+stats;Kael;3;5;tuz
+stats;Myra;2;6;fold
+stats;Thalen;3;5;levego
+stats;Isara;2;6;viz
+uj pakli;Nerun
+mentes;saasa
 
