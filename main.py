@@ -18,17 +18,11 @@ def maximize_console():
     system = platform.system()
     
     if system == "Windows":
-        try:
-            import win32gui
-            import win32con
-            import win32console
+        import win32gui
+        import win32con
+        import win32console
 
-            # Get console window handle
-            hwnd = win32console.GetConsoleWindow()
-            if hwnd:
-                win32gui.ShowWindow(hwnd, win32con.SW_MAXIMIZE)
-        except ImportError:
-            print("win32gui not installed. Cannot maximize console on Windows.")
+        maximize()
     
     elif system == "Linux":
         # Try using xdotool (X11)
