@@ -13,8 +13,10 @@ import sys
 def read_key():
     """Cross-platform single key press"""
     if platform.system() == "Windows":
-        import msvcrt
-        return msvcrt.getch().decode()
+        import keyboard
+        event = keyboard.read_event()
+        if event.event_type == keyboard.KEY_DOWN:
+            return event.name
     else:
         fd = sys.stdin.fileno()
         old_settings = termios.tcgetattr(fd)
