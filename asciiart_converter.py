@@ -458,7 +458,7 @@ def text_to_ascii(text, int):
 
 def ascii_to_text(ascii_block: str) -> str:
     # --- minták ---
-    all_chars = {
+     all_chars = {
         "0": ["⣎⣵","⠫⠜"], "1": ["⢺ ","⠼⠄"], "2": ["⠊⡱","⠮⠤"], "3": ["⢉⡹","⠤⠜"],
         "4": ["⢇⣸"," ⠸"], "5": ["⣏⡉","⠤⠜"], "6": ["⣎⡁","⠣⠜"], "7": ["⠉⡹","⠸ "],
         "8": ["⢎⡱","⠣⠜"], "9": ["⢎⣱","⠠⠜"],
@@ -477,32 +477,36 @@ def ascii_to_text(ascii_block: str) -> str:
         "u": ["⡀⢀","⠣⠼"], "v": ["⡀⢀","⠱⠃"], "w": ["⡀ ⢀","⠱⠱⠃"], "x": ["⡀⢀","⠜⠣"],
         "y": ["⡀⢀","⣑⡺"], "z": ["⣀⣀","⠴⠥"],
         " ": ["  ", "  "]  # space külön
-    }
+     }
 
-    # minták hossz szerint rendezve (leghosszabb előre)
-    patterns = sorted([(ch, t, b) for ch, (t, b) in all_chars.items()], key=lambda x: len(x[1]), reverse=True)
+     # minták hossz szerint rendezve (leghosszabb előre)
+     patterns = sorted(
+          [(ch, top, bot) for ch, (top, bot) in all_chars.items()],
+          key=lambda x: (len(x[1]) + len(x[2]), len(x[1])),
+          reverse=True
+     )
 
-    lines = [ln.rstrip() for ln in ascii_block.splitlines() if ln.strip() != ""]
-    if len(lines) < 2:
-        return ""
-    line1, line2 = lines[:2]
+     lines = [ln.rstrip("\n") for ln in ascii_block.splitlines() if ln.strip() != ""]
+     if len(lines) < 2:
+          return ""
 
-    pos = 0
-    out = ""
-    while pos < len(line1):
-     matched = False
-     for ch, top, bot in patterns:
-          L = len(top)
-          if line1[pos:pos+L] == top and line2[pos:pos+L] == bot:
-               out += ch
-               pos += L  # mindig a minta hosszával lépünk
-               matched = True
-               break
-     if not matched:
-          pos += 1  # ha semmi nem illeszkedik, előre lépünk
+     line1, line2 = lines[:2]
+     pos = 0
+     out = ""
 
-    return out.strip()
+     while pos < len(line1):
+          matched = False
+          for ch, top, bot in patterns:
+               L = len(top)
+               if line1[pos:pos + L] == top and line2[pos:pos + L] == bot:
+                    out += ch
+                    pos += L
+                    matched = True
+                    break
+          if not matched:
+               pos += 1
 
+     return out.strip()
 
 
 
