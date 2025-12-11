@@ -28,7 +28,6 @@ import subprocess
 import sys
 import platform
 import select
-import tty, termios
 
 
 def read_key():
@@ -153,7 +152,7 @@ def betoltokepernyo():
                 file.write("uj vezer;Priestess Selia;Selia;eletero\n\n")
 
                 file.write("uj kazamata;egyszeru;Barlangi Portya;Nerun;sebzes\n")
-                file.write("uj kazamata;kis;Osi Szentely;Arin,Emera,Selia,Lord Torak;eletero\n")
+                file.write("uj kazamata;kis;Osi Szentely;Arin,Emera,Selia;Lord Torak;eletero\n")
                 file.write("uj kazamata;nagy;A melyseg kiralynoje;Liora,Arin,Selia,Nerun,Torak;Priestess Selia\n\n")
 
                 file.write("felvetel gyujtemenybe;Arin\n")

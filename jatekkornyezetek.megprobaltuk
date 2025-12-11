@@ -12,6 +12,10 @@ uj kartya;Isara;2;6;viz
 uj vezer;Lord Torak;Torak;sebzes
 uj vezer;Priestess Selia;Selia;eletero
 
+uj kazamata;egyszeru;Barlangi Portya;Nerun;sebzes
+uj kazamata;kis;Osi Szentely;Arin,Emera,Selia;Lord Torak;eletero
+uj kazamata;nagy;A melyseg kiralynoje;Liora,Arin,Selia,Nerun,Torak;Priestess Selia
+
 felvetel gyujtemenybe;Arin
 felvetel gyujtemenybe;Liora
 felvetel gyujtemenybe;Selia
@@ -23,15 +27,32 @@ felvetel gyujtemenybe;Myra
 felvetel gyujtemenybe;Thalen
 felvetel gyujtemenybe;Isara
 
-uj kazamata;egyszeru;Barlangi Portya;Nerun
-uj kazamata;kis;Osi Szentely;Arin,Emera,Selia;Lord Torak;eletero
-uj kazamata;nagy; A melyseg kiralynoje;Liora,Arin,Selia,Nerun,Torak;Priestess Selia
-
 uj vilag;alap
 
-uj kartya;hello;3;4;fold
+
+uj kartya;Foldor;3;7;fold
+uj kartya;Kavics;4;5;fold
+uj kartya;Orgon;3;8;levego
+uj kartya;Vihar;2;12;levego
+uj kartya;Habor;4;9;viz
+uj kartya;Csepp;5;4;viz
+uj kartya;Vulkan;6;6;tuz
+uj kartya;Szikra;3;8;tuz
+
+uj vezer;Kemeny Kavics;Kavics;eletero
+uj vezer;Forro Szikra;Szikra;sebzes
 
 
+uj kazamata;egyszeru;Arnygodor;Kavics;eletero
+uj kazamata;kis;Lelekkamra;Orgon,Csepp,Szikra;Kemeny Kavics;sebzes
+uj kazamata;nagy;Titanodu;Vulkan,Habor,Vihar,Foldor,Kavics;Forro Szikra
 
-uj vilag;asd
 
+felvetel gyujtemenybe;Vulkan
+felvetel gyujtemenybe;Csepp
+felvetel gyujtemenybe;Habor
+felvetel gyujtemenybe;Orgon
+felvetel gyujtemenybe;Foldor
+felvetel gyujtemenybe;Vihar
+
+uj vilag;demo
