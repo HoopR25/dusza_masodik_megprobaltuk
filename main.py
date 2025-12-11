@@ -22,7 +22,10 @@ def maximize_console():
         import win32con
         import win32console
 
-        maximize()
+        os.system("title Damareen")
+        handle = win32gui.GetForegroundWindow()
+        win32gui.ShowWindow(handle, win32con.SW_MAXIMIZE)
+        
     
     elif system == "Linux":
         # Try using xdotool (X11)
