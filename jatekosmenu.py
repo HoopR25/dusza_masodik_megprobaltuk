@@ -27,7 +27,7 @@ if platform.system() == "Windows":
     import msvcrt
 
     def getch():
-        return msvcrt.getch().decode()
+        return msvcrt.getch()
 
     def kbhit():
         return msvcrt.kbhit()
