@@ -37,7 +37,7 @@ from InquirerPy import inquirer
 
 from time import sleep
 def cls():
-    os.system("cls" if os == "nt" else "clear")
+    os.system("cls" if os.name == "nt" else "clear")
 
 def cols():
     return os.get_terminal_size().columns
