@@ -1,5 +1,4 @@
 import os
-import keyboard
 import cards
 import fileread
 import kazamata
