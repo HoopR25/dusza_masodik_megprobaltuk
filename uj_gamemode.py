@@ -857,6 +857,7 @@ def jatekostamad(kazh,jatekh):
 def kazamatatamad(kazh, jatekh):
     
     i = 41
+    cls()
     asciiras(harctext,"white")
     print("\n" * int(rows()/4))
     while i > 0:
@@ -985,6 +986,9 @@ def harc(kazamata):
         alapeset(kazamata)
     elif beallitasok[1] == '1':
         csak_hardcore(kazamata)
+
+
+        
 def alapeset(kazamata):
     cls()
     global jatekh
@@ -1015,7 +1019,7 @@ def alapeset(kazamata):
                 jatekh = cards.get_gyujt_stats(cards.pakli[indexj]).copy()
         else:
             jatekostamad(kazh,jatekh)
-        input("")
+        
 
 def csak_hardcore(kazamata):
     cls()
