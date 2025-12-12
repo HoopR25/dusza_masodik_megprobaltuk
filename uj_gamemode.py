@@ -1053,7 +1053,7 @@ def csak_hardcore(kazamata):
     kazh = cards.stats(ellenfelek[indexk]).copy()
     while True:
         if kazh["eletero"] == 0:
-            if(len(kazamata["kartyak"])-2 == indexk):
+            if(len(kazamata["kartyak"])-1 == indexk):
                 cls()
                 win_screen(kazamata["nev"],True,jatekh["nev"])
                 #jatekos nyert
