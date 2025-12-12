@@ -124,6 +124,8 @@ def rows():
 def asciiras(s,color):
     for line in s:
         cprint(line.center(cols()),f"{color}")
+
+        
 def center_option(text: str) -> str:
     return "\n".join(line.center(cols()) for line in text.split("\n"))
 
@@ -190,7 +192,7 @@ def betoltokepernyo():
     
     vpad = (rows() - len(ascii_art)) // 2
 
-    print("\n" * (vpad - 4))  
+    print("\n" * (vpad - 3))  
 
     for line in ascii_art:
         time.sleep(0.5)
@@ -200,47 +202,51 @@ def betoltokepernyo():
     time.sleep(0.5)
     
     while True:
-        cprint("Nyomd meg az entert a folytatashoz".center(cols()), "green") 
-        start= time.time()
-        bool = False
-        while(time.time()-start<0.5):
-            if(is_enter_pressed()):
-                bool=True
+        cprint("Nyomd meg az entert a folytatáshoz".center(cols()), "green") 
+        start = time.time()
+        pressed = False
+
+        while time.time() - start < 0.5:
+            if is_enter_pressed():
+                pressed = True
                 clear_input_field()
                 break
-        if(bool):
+        if pressed:
             break
+
         print("\033[F", end="")
         print(" " * cols(), end="\r")
-        start= time.time()
-        while(time.time()-start<0.5):
-            if(is_enter_pressed()):
-                bool=True
+
+        start = time.time()
+        while time.time() - start < 0.5:
+            if is_enter_pressed():
+                pressed = True
                 clear_input_field()
                 break
-        if(bool):
+        if pressed:
             break
-    input("")
+
     cls()
     menu()
+
     
 def menu():
     cls()
     print("\n")
-    jatekos =[
-    "⠊⡱     ⠈⢹ ⢀⣀ ⣰⡀ ⢀⡀ ⡇⡠ ⢀⡀ ⢀⣀",
-    "⠮⠤ ⠶   ⠣⠜ ⠣⠼ ⠘⠤ ⠣⠭ ⠏⠢ ⠣⠜ ⠭⠕"
-    ]
+    jatekos = r"""
+        ⠈⢹ ⢀⣀ ⣰⡀ ⢀⡀ ⡇⡠ ⢀⡀ ⢀⣀
+        ⠣⠜ ⠣⠼ ⠘⠤ ⠣⠭ ⠏⠢ ⠣⠜ ⠭⠕
+    """
     
-    jatekmester =[
-    " ⢺      ⠈⢹ ⢀⣀ ⣰⡀ ⢀⡀ ⡇⡠ ⣀⣀  ⢀⡀ ⢀⣀ ⣰⡀ ⢀⡀ ⡀⣀",
-    " ⠼⠄ ⠶   ⠣⠜ ⠣⠼ ⠘⠤ ⠣⠭ ⠏⠢ ⠇⠇⠇ ⠣⠭ ⠭⠕ ⠘⠤ ⠣⠭ ⠏ "
-    ]
+    jatekmester = r"""
+        ⠈⢹ ⢀⣀ ⣰⡀ ⢀⡀ ⡇⡠ ⣀⣀  ⢀⡀ ⢀⣀ ⣰⡀ ⢀⡀ ⡀⣀
+        ⠣⠜ ⠣⠼ ⠘⠤ ⠣⠭ ⠏⠢ ⠇⠇⠇ ⠣⠭ ⠭⠕ ⠘⠤ ⠣⠭ ⠏ 
+    """
 
-    guide =[
-        " ⢉⡹     ⡇  ⢀⡀ ⠄ ⡀⣀ ⢀⣀ ⢀⣀",
-        " ⠤⠜ ⠶   ⠧⠤ ⠣⠭ ⠇ ⠏  ⠣⠼ ⠭⠕"
-    ]
+    guide = r"""
+        ⡇  ⢀⡀ ⠄ ⡀⣀ ⢀⣀ ⢀⣀
+        ⠧⠤ ⠣⠭ ⠇ ⠏  ⠣⠼ ⠭⠕
+    """
     tajekoztato=[
 "__      __   _                                                             _       _      _                  _ ",
 "\ \    / /  | |                                                           (_)     | |    | |                | |",
@@ -255,33 +261,57 @@ def menu():
     ]
     asciiras(tajekoztato,"white")
     print("\n"*3)
-    cprint(jatekmester[0].center(cols()),"red")
-    cprint(jatekmester[1].center(cols()),"red")
-    print("\n"*3)
-    cprint(jatekos[0].center(cols()),"red")
-    cprint(jatekos[1].center(cols()),"red")
-    cprint("\n"*3)
-    cprint(guide[0].center(cols()),"blue")
-    cprint(guide[1].center(cols()),"blue")
+    
     # ! KEYBOARD BEOLVASAS
-    while True:
-        event = read_key()
-        if event:
-            if event == "1":
-                clear_input_field()
-                jatekmestermenu.jatekmestermenu()
-                break
-            elif event == "2":
-                clear_input_field()
-                jatekosmenu.jatekosmenu()
-                break
-            elif event == "3":
-                clear_input_field()
-                leiras()
-                break
-            elif event == "esc" or event == "\x1b":
-                #sys.exit(1)
-                os.system('taskkill /f /fi "WINDOWTITLE eq Damareen"' if os.name == "nt" else 'pkill -f "/usr/bin/alacritty"')
+
+
+
+    centered_options = [
+        center_option(asciiart_converter.text_to_ascii("Jatekmester", 1)),
+        center_option(asciiart_converter.text_to_ascii("Jatekos", 1)),
+        center_option(asciiart_converter.text_to_ascii("Leiras", 1)),
+        center_option(asciiart_converter.text_to_ascii("Kilepes", 1))
+    ]
+    choice = inquirer.select(
+        message = "",
+        pointer = "",
+        choices = centered_options,
+        multiselect = False,
+        style = theme
+        ).execute()
+
+
+    if choice == centered_options[0]:
+        jatekmestermenu.jatekmestermenu()
+    if choice == centered_options[1]:
+        jatekosmenu.jatekosmenu()
+    if choice == centered_options[2]:
+        leiras()
+    if choice == centered_options[3]:
+        os.system('taskkill /f /fi "WINDOWTITLE eq Damareen"' if os.name == "nt" else 'pkill -f "/usr/bin/alacritty"')
+        
+    
+    # while True:
+    #     event = read_key()
+    #     if event:
+    #         if event == "1":
+    #             clear_input_field()
+    #             jatekmestermenu.jatekmestermenu()
+    #             break
+    #         elif event == "2":
+    #             clear_input_field()
+    #             jatekosmenu.jatekosmenu()
+    #             break
+    #         elif event == "3":
+    #             clear_input_field()
+    #             leiras()
+    #             break
+    #         elif event == "esc" or event == "\x1b":
+    #             #sys.exit(1)
+    #             os.system('taskkill /f /fi "WINDOWTITLE eq Damareen"' if os.name == "nt" else 'pkill -f "/usr/bin/alacritty"')
+    
+
+
 def leiras():
     cls()
     cim = [
@@ -766,7 +796,7 @@ def jatekostamad(kazh,jatekh):
             f'{" " * (41 - i)}‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾{" " * (i + 2)}‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾'.center(os.get_terminal_size().columns),
         ]
         print("\n".join(lines))
-        time.sleep(0.2)
+        time.sleep(0.1)
         cls()
         asciiras(harctext,"white")
         print("\n" * int(rows()/4))
@@ -843,7 +873,7 @@ def jatekostamad(kazh,jatekh):
         ]
 
         print("\n".join(lines))
-        time.sleep(0.2)
+        time.sleep(0.1)
         if clsb:
             cls()
             asciiras(harctext,"white")
@@ -872,7 +902,7 @@ def kazamatatamad(kazh, jatekh):
             f' ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾{" " * (i + 2)}‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾{" " * (41 - i)}'.center(os.get_terminal_size().columns),
         ]
         print("\n".join(lines))
-        time.sleep(0.2)
+        time.sleep(0.1)
         cls()
         asciiras(harctext,"white")
         print("\n" * int(rows()/4))
@@ -955,7 +985,7 @@ def kazamatatamad(kazh, jatekh):
             i = 41
             clsb=False
         print("\n".join(lines))
-        time.sleep(0.2)
+        time.sleep(0.1)
         if clsb:
             cls()
             asciiras(harctext,"white")
@@ -1023,24 +1053,16 @@ def alapeset(kazamata):
 
 def csak_hardcore(kazamata):
     cls()
-    gombok = [                                                                                                                                                       
-"  ▄▄▄▄           ▄                             █                       ▄▄▄▄▄         █        ▀       ▀            ▄                               ",
-" ▄▀  ▀▄        ▄▄█▄▄   ▄▄▄   ▄▄▄▄▄   ▄▄▄    ▄▄▄█   ▄▄▄    ▄▄▄          █   ▀█        █   ▄  ▄▄▄     ▄▄▄    ▄▄▄   ▄▄█▄▄   ▄▄▄   ▄▄▄▄▄   ▄▄▄    ▄▄▄  ",
-" █    █   █      █    ▀   █  █ █ █  ▀   █  █▀ ▀█  ▀   █  █   ▀         █▄▄▄▄▀   █    █ ▄▀     █       █   ▀   █    █    █   ▀     ▄▀  ▀   █  █   ▀ ",
-" █    █          █    ▄▀▀▀█  █ █ █  ▄▀▀▀█  █   █  ▄▀▀▀█   ▀▀▀▄         █   ▀▄        █▀█      █       █   ▄▀▀▀█    █     ▀▀▀▄   ▄▀    ▄▀▀▀█   ▀▀▀▄ ",
-"  █▄▄█▀   █      ▀▄▄  ▀▄▄▀█  █ █ █  ▀▄▄▀█  ▀█▄██  ▀▄▄▀█  ▀▄▄▄▀         █    ▀   █    █  ▀▄  ▄▄█▄▄     █   ▀▄▄▀█    ▀▄▄  ▀▄▄▄▀  █▄▄▄▄  ▀▄▄▀█  ▀▄▄▄▀ ",
-"     █                                                                                                █                                            ",
-"                                                                                                    ▀▀                                             "
-    ]
-    gombok2 = [                                                                                                                    
-" ▄▄▄▄▄▄        █                                                      ",
-" █             █   ▄   ▄▄▄   ▄▄▄▄    ▄▄▄    ▄▄▄    ▄▄▄    ▄▄▄    ▄▄▄▄ ",
-" █▄▄▄▄▄   █    █ ▄▀   █▀  █  █▀ ▀█  █▀  █  █   ▀  █   ▀  █▀  █  █▀ ▀█ ",
-" █             █▀█    █▀▀▀▀  █   █  █▀▀▀▀   ▀▀▀▄   ▀▀▀▄  █▀▀▀▀  █   █ ",
-" █▄▄▄▄▄   █    █  ▀▄  ▀█▄▄▀  ██▄█▀  ▀█▄▄▀  ▀▄▄▄▀  ▀▄▄▄▀  ▀█▄▄▀  ▀█▄▀█ ",
-"                             █                                   ▄  █ ",
-"                             ▀                                    ▀▀  "
-    ]
+#     gombok = [                                                                                                                                                       
+# "  ▄▄▄▄           ▄                             █                       ▄▄▄▄▄         █        ▀       ▀            ▄                               ",
+# " ▄▀  ▀▄        ▄▄█▄▄   ▄▄▄   ▄▄▄▄▄   ▄▄▄    ▄▄▄█   ▄▄▄    ▄▄▄          █   ▀█        █   ▄  ▄▄▄     ▄▄▄    ▄▄▄   ▄▄█▄▄   ▄▄▄   ▄▄▄▄▄   ▄▄▄    ▄▄▄  ",
+# " █    █   █      █    ▀   █  █ █ █  ▀   █  █▀ ▀█  ▀   █  █   ▀         █▄▄▄▄▀   █    █ ▄▀     █       █   ▀   █    █    █   ▀     ▄▀  ▀   █  █   ▀ ",
+# " █    █          █    ▄▀▀▀█  █ █ █  ▄▀▀▀█  █   █  ▄▀▀▀█   ▀▀▀▄         █   ▀▄        █▀█      █       █   ▄▀▀▀█    █     ▀▀▀▄   ▄▀    ▄▀▀▀█   ▀▀▀▄ ",
+# "  █▄▄█▀   █      ▀▄▄  ▀▄▄▀█  █ █ █  ▀▄▄▀█  ▀█▄██  ▀▄▄▀█  ▀▄▄▄▀         █    ▀   █    █  ▀▄  ▄▄█▄▄     █   ▀▄▄▀█    ▀▄▄  ▀▄▄▄▀  █▄▄▄▄  ▀▄▄▀█  ▀▄▄▄▀ ",
+# "     █                                                                                                █                                            ",
+# "                                                                                                    ▀▀                                             "
+#     ]
+    
     global jatekh
     global kazh
     ellenfelek = kazamata["kartyak"]
@@ -1063,8 +1085,8 @@ def csak_hardcore(kazamata):
                 kazh = cards.stats(ellenfelek[indexk]).copy()
         else:   
             kazamatatamad(kazh,jatekh)
-        print ("\n" * int (rows()/5))
-        asciiras(gombok,"blue")
+        print ("\n" * int (rows()/7))
+        asciiras(asciiart_converter.text_to_ascii("Q: Tamadas   R: Kijatszas", 0),"blue")
         while True:
             if int(jatekh["eletero"]) == 0:
                 #kiveves
@@ -1191,7 +1213,7 @@ def win_screen(kaznev, nyert, kartyanev):
 "      | | __ _| |_ ___| | _____  ___  __   _____  ___ ___| |_ ___| |_| |_ ",
 "  _   | |/ _` | __/ _ \ |/ / _ \/ __| \ \ / / _ \/ __|_  / __/ _ \ __| __|",
 " | |__| | (_| | ||  __/   < (_) \__ \  \ V /  __/\__ \/ /| ||  __/ |_| |_ ",
-" \____/ \__,_|\__\___|_|\_\___/|___/   \_/ \___||___/___|\__\___|\__|\__| "
+"  \____/ \__,_|\__\___|_|\_\___/|___/   \_/ \___||___/___|\__\___|\__|\__|"
                                                                           
                                                                           
     ]
@@ -1200,6 +1222,7 @@ def win_screen(kaznev, nyert, kartyanev):
             kstat = kaz
     if nyert:
         asciiras(nyerttext,"green")
+        print("\n" * int(rows() / 5))
         
         if (kstat["tipus"] == "egyszeru" or kstat["tipus"] == "kis") : 
             

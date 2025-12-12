@@ -7,6 +7,8 @@ from termcolor import colored, cprint
 import kazamata
 import fight
 import sys
+import asciiart_converter
+from InquirerPy import get_style
 
 
 def read_key():
@@ -82,6 +84,26 @@ else:
         dr, _, _ = select.select([sys.stdin], [], [], 0)
         return bool(dr)
 
+def center_option(text: str) -> str:
+    return "\n".join(line.center(cols()) for line in text.split("\n"))
+
+
+theme = get_style({
+    "questionmark": "#000000",
+    "answermark": "#b10101",
+    "input": "#420101",
+    "question": "",
+    "answered_question": "#141514",
+    "pointer": "#b70000",
+    "instruction": "#000000",
+    "long_instruction": "#000000",
+    "answer": "#000000 bold",
+    "long_answer": "#000000",
+    "separator": "",
+    "selected": "#000000",
+    "marker": "#000000",
+    "disabled": "gray italic"
+})
 
 def clear_input_field():
     while kbhit():
@@ -102,24 +124,28 @@ def jatekmestermenu():
     ]
     
     asciiras(jatekmester,"white")
-    ujvilag =[
-    " ⢺      ⡀⢀ ⠠   ⡀⢀ ⠄ ⡇ ⢀⣀ ⢀⡀ ",
-    " ⠼⠄ ⠶   ⠣⠼ ⡸   ⠱⠃ ⠇ ⠣ ⠣⠼ ⣑⡺"
+    print("\n" * int(rows() / 5))
+
+    centered_options = [
+        center_option(asciiart_converter.text_to_ascii("Uj vilag", 1)),
+        center_option(asciiart_converter.text_to_ascii("Vissza", 1))
     ]
+    choice = inquirer.select(
+        message = "",
+        pointer = "",
+        choices = centered_options,
+        multiselect = False,
+        style = theme
+        ).execute()
 
-    # TODO: Kilepes!
 
-    print("\n" * (int(rows()/4)))
-    asciiras(ujvilag,"red")
-    while True:
-        event = read_key()
-        if event:
-            if event == "1":
-                vilagfelvetel()
-                break
-            elif event == "esc" or event == "\x1b":
-                uj_gamemode.menu()
-                break
+    if choice == centered_options[0]:
+        vilagfelvetel()
+    if choice == centered_options[1]:
+        uj_gamemode.menu()
+    
+
+    
 
 
 
@@ -138,68 +164,39 @@ def vilagfelvetel():
     ]    
     asciiras(ujvilag,"white")
     print("\n" * (int(rows()/6)))
-    kartyatext = [
-     "⢺      ⡇⡠ ⢀⣀ ⡀⣀ ⣰⡀ ⡀⢀ ⢀⣀",
-     "⠼⠄ ⠶   ⠏⠢ ⠣⠼ ⠏  ⠘⠤ ⣑⡺ ⠣⠼"
-    ] 
-    asciiras(kartyatext,"red")
-    print("\n" *3)
     
-    vezerkartyatext = [
-      "⠊⡱     ⡀⢀ ⢀⡀ ⣀⣀ ⢀⡀ ⡀⣀ ⡇⡠ ⢀⣀ ⡀⣀ ⣰⡀ ⡀⢀ ⢀⣀",
-      "⠮⠤ ⠶   ⠱⠃ ⠣⠭ ⠴⠥ ⠣⠭ ⠏  ⠏⠢ ⠣⠼ ⠏  ⠘⠤ ⣑⡺ ⠣⠼"
+    centered_options = [
+        center_option(asciiart_converter.text_to_ascii("Kartya", 1)),
+        center_option(asciiart_converter.text_to_ascii("Vezerkartya", 1)),
+        center_option(asciiart_converter.text_to_ascii("Kazamata", 1)),
+        center_option(asciiart_converter.text_to_ascii("Gyujtemeny", 1)),
+        center_option(asciiart_converter.text_to_ascii("Vilag lementese", 1)),
+        center_option(asciiart_converter.text_to_ascii("Vissza", 1))
     ]
-    asciiras(vezerkartyatext,"red")
-    print("\n" *3)
-    kazamatatext = [
-     "⢉⡹     ⡇⡠ ⢀⣀ ⣀⣀ ⢀⣀ ⣀⣀  ⢀⣀ ⣰⡀ ⢀⣀",
-     "⠤⠜ ⠶   ⠏⠢ ⠣⠼ ⠴⠥ ⠣⠼ ⠇⠇⠇ ⠣⠼ ⠘⠤ ⠣⠼"
-    ]
-    asciiras(kazamatatext,"red")
-    print("\n" *3)
-    gyujtemenytext = [
-    "⢇⣸   ⢀⡀ ⡀⢀ ⡀⢀ ⠠ ⣰⡀ ⢀⡀ ⣀⣀  ⢀⡀ ⣀⡀ ⡀⢀",
-    " ⠸ ⠶ ⣑⡺ ⣑⡺ ⠣⠼ ⡸ ⠘⠤ ⠣⠭ ⠇⠇⠇ ⠣⠭ ⠇⠸ ⣑⡺"
-    ]
-    mentestext = [
-    "⣏⡉     ⡇⢸ ⠄ ⡇ ⢀⣀ ⢀⡀   ⡇ ⢀⡀ ⣀⣀  ⢀⡀ ⣀⡀ ⣰⡀ ⢀⡀ ⢀⣀ ⢀⡀ ",
-    "⠤⠜ ⠶   ⠸⠃ ⠇ ⠣ ⠣⠼ ⣑⡺   ⠣ ⠣⠭ ⠇⠇⠇ ⠣⠭ ⠇⠸ ⠘⠤ ⠣⠭ ⠭⠕ ⠣⠭ "
-    ]
-    asciiras(gyujtemenytext,"red")
+    choice = inquirer.select(
+        message = "",
+        pointer = "",
+        choices = centered_options,
+        multiselect = False,
+        style = theme
+        ).execute()
+
+
+    if choice == centered_options[0]:
+        uj_kartya()
+    if choice == centered_options[1]:
+        uj_vezerkartya()
+    if choice == centered_options[2]:
+        uj_kazamata()
+    if choice == centered_options[3]:
+        uj_gyujtemeny()
+    if choice == centered_options[4]:
+        mentes()
+    if choice == centered_options[5]:
+        jatekmestermenu()
+    
     print("\n"*3)
-    asciiras(mentestext,"red")
-    while True:
-        event = read_key()
-        if event:
-            if event == "1":
-                clear_input_field()
-                sleep(0.2)
-                uj_kartya()
-                break
-            elif event == "2":
-                clear_input_field()
-                sleep(0.2)
-                uj_vezerkartya()
-                break
-            elif event == "3":
-                clear_input_field()
-                sleep(0.2)
-                uj_kazamata()
-                break
-            elif event == "4":
-                clear_input_field()
-                sleep(0.2)
-                uj_gyujtemeny()
-                break
-            elif event == "5":
-                clear_input_field()
-                sleep(0.2)
-                mentes()
-                break
-            elif event == "esc" or event == "\x1b":
-                sleep(0.2)
-                jatekmestermenu()
-                break
+    
 
 tipusok = ["fold", "levego", "viz", "tuz", "fold", "levego"]
 
@@ -432,39 +429,32 @@ def uj_kazamata():
     ]
     print("\n" * 3)
     asciiras(cim,"white")
-    print("\n" * (int(rows()/5)))
-    asciiras(utasitas,"blue")
-    print("\n" * 3)
-    asciiras(egyszerutext,"red")
-    print("\n" * 3)
-    asciiras(kistext,"red")
-    print("\n" * 3)
-    asciiras(nagytext,"red")
-    print("\n" * 3)
+    print("\n" * (int(rows()/7)))
+    
 ############################
-    while True:
-        event = read_key()
-        if event:
-            if event == "1":
-                clear_input_field()
-                sleep(0.2)
-                egyszeru()
-                break
-            elif event == "2":
-                clear_input_field()
-                sleep(0.2)
-                kis()
-                break
-            elif event == "3":
-                clear_input_field()
-                sleep(0.2)
-                nagy()
-                break
-            elif event == "esc" or event == "\x1b":
-                clear_input_field()
-                sleep(0.2)
-                vilagfelvetel()
-                break
+    centered_options = [
+        center_option(asciiart_converter.text_to_ascii("Egyszeru", 1)),
+        center_option(asciiart_converter.text_to_ascii("Kis", 1)),
+        center_option(asciiart_converter.text_to_ascii("Nagy", 1)),
+        center_option(asciiart_converter.text_to_ascii("Vissza", 1))
+    ]
+    choice = inquirer.select(
+        message = "",
+        pointer = "",
+        choices = centered_options,
+        multiselect = False,
+        style = theme
+        ).execute()
+
+
+    if choice == centered_options[0]:
+        egyszeru()
+    if choice == centered_options[1]:
+        kis()
+    if choice == centered_options[2]:
+        nagy()
+    if choice == centered_options[3]:
+        vilagfelvetel()
 ################################################
 
 

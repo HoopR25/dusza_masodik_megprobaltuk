@@ -140,6 +140,7 @@ def jatekosmenu():
 
     cls()
     asciiras(cim, "white")
+    print("\n" * int(rows() / 5))
     choice = inquirer.select(
         message = "",
         pointer = "",
