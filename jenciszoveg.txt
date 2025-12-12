@@ -1,0 +1,32 @@
+Retró stílusu
+Ascii artok sima szöveg helyett
+    jobban látható
+    beleillik a retró stílusba
+    kiemeli az adott oldal tartalmat
+Ascii konverter
+    dinamikus elemek megjelenítése
+        pl: vilag nevek,mentesek
+        segitik a retró élményt életre hozni
+    Ascii artokat be programba tétele ??? nem biztos
+Menü iranyitasat probaltuk legegyszerűbbé tenni
+    egyszerunek kellett lennie a retró stílus miatt emiatt
+        konnyebb a felhasználónak mivel csak nyilakat kell hasznalnia
+        hasonlo felépítés minden oldalon konnyu hozzaszokni
+
+Kinezet formazasa
+    A formazast igazitasok miert fontosak
+        jobban elosztja a szoveget nincsenek egymas hatan
+        konzisztens szinek egybol elaruljak a szoveg lenyeget
+        szinek kiemelik a fontos dolgokat
+
+
+kártya megjelenítés
+    fontos mivel jatek kozben ezek a fő elemek
+    emiatt és a retró stílushoz illő kartyakat csinaltunk
+    konnyen láthatók a kartya statjai és jól elkulonítetők a border miatt
+
+Animacio
+    miért
+      konnyen kovethető harc
+      nagyobb elmeny mint sima váltás vagy szoveg
+    attol meg hogy retró fontos hogy legyen valami mozgas benne
