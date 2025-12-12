@@ -13,7 +13,7 @@ def new_cardf(kartya):
 def new_vezerf(vezer):
     card = {
     "nev": vezer["nev"],
-    "sebzes": int(vezer["sebzes"]) * 2,
+    "sebzes": int(vezer["sebzes"]),
     "eletero": int(vezer["eletero"]),
     "tipus": vezer["tipus"],
     "vezer": True,

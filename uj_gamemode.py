@@ -485,11 +485,11 @@ def vilagkartyak():
             print(f"|{cards.kartyak[i]["tipus"].center(16)}|      |{cards.kartyak[i + 1]["tipus"].center(16)}|      |{cards.kartyak[i + 2]["tipus"].center(16)}|".center(os.get_terminal_size().columns))
             print(" ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾        ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾        ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾".center(os.get_terminal_size().columns))
             printed += 3
-        elif len(cards.gyujtemeny) - printed == 2:
+        elif len(cards.kartyak) - printed == 2:
             print(" ________________        ________________".center(os.get_terminal_size().columns))
-            print(f"|{cards.kartyak[i]["nev"].center(16)}|      |{cards.kartyak[i+"nev"]["nev"].center(16)}|".center(os.get_terminal_size().columns))
+            print(f"|{cards.kartyak[i]["nev"].center(16)}|      |{cards.kartyak[i + 1]["nev"].center(16)}|".center(os.get_terminal_size().columns))
             print(f"|{("S  " + str(cards.kartyak[i]["sebzes"]) + "  E  " + str(cards.kartyak[i]["eletero"])).center(16)}|      |{("S  " + str(cards.kartyak[i + 1]["sebzes"]) + "  E  " + str(cards.kartyak[i + 1]["eletero"])).center(16)}|".center(os.get_terminal_size().columns))
-            print(f"|{cards.kartyak[i]["tipus"].center(16)}|      |{cards.kartyak[i + "nev"]["tipus"].center(16)}|".center(os.get_terminal_size().columns))
+            print(f"|{cards.kartyak[i]["tipus"].center(16)}|      |{cards.kartyak[i + 1]["tipus"].center(16)}|".center(os.get_terminal_size().columns))
             print(" ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾        ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾".center(os.get_terminal_size().columns))
             printed += 2
         else:
@@ -1063,26 +1063,26 @@ def csak_hardcore(kazamata):
         asciiras(gombok,"blue")
         while True:
             if int(jatekh["eletero"]) == 0:
-                if(len(jatekospakli)-1 == 0):
+                #kiveves
+                for i in range(len(cards.pakli)-1,-1,-1):
+                    if cards.pakli[i] == jatekh["nev"]:
+                        cards.pakli.remove(cards.pakli[i])
+                for i in range(len(cards.gyujtemeny) - 1, -1, -1):
+                    if cards.gyujtemeny[i] == jatekh["nev"]:
+                        cards.gyujtemeny.remove(cards.gyujtemeny[i])
+
+                for i in range(len(cards.gyujt_stats) - 1, -1, -1):
+                    if cards.gyujt_stats[i]["nev"] == jatekh["nev"]:
+                        cards.gyujt_stats.remove(cards.gyujt_stats[i])
+
+                for i in range(len(jatekospakli) - 1, -1, -1):
+                    if jatekospakli[i]["nev"] == jatekh["nev"]:
+                        jatekospakli.remove(jatekospakli[i])
+                if(len(jatekospakli) == 0):
                     cls()
                     win_screen(kazamata["nev"],False,jatekh["nev"])
                     break
                 else:
-                    #kiveves
-                    for i in range(len(cards.pakli)-1,-1,-1):
-                        if cards.pakli[i] == jatekh["nev"]:
-                            cards.pakli.remove(cards.pakli[i])
-                    for i in range(len(cards.gyujtemeny) - 1, -1, -1):
-                        if cards.gyujtemeny[i] == jatekh["nev"]:
-                            cards.gyujtemeny.remove(cards.gyujtemeny[i])
-
-                    for i in range(len(cards.gyujt_stats) - 1, -1, -1):
-                        if cards.gyujt_stats[i]["nev"] == jatekh["nev"]:
-                            cards.gyujt_stats.remove(cards.gyujt_stats[i])
-
-                    for i in range(len(jatekospakli) - 1, -1, -1):
-                        if jatekospakli[i]["nev"] == jatekh["nev"]:
-                            jatekospakli.remove(jatekospakli[i])
                     kijatszas(jatekospakli)
                     break
             event = read_key()
