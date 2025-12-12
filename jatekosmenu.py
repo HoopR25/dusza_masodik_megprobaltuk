@@ -1,5 +1,4 @@
 import os
-import keyboard
 import cards
 import fileread
 import kazamata
@@ -8,7 +7,6 @@ from termcolor import colored, cprint
 import kazamata
 import fight
 import sys
-import msvcrt
 from InquirerPy import inquirer
 import jatekmestermenu
 import asciiart_converter
@@ -20,6 +18,40 @@ import math
 import mentesek_fileread
 import uj_gamemode
 import new_cards
+
+import platform
+import sys
+
+if platform.system() == "Windows":
+    import msvcrt
+
+    def getch():
+        return msvcrt.getch()
+
+    def kbhit():
+        return msvcrt.kbhit()
+
+else:
+    # Linux / macOS alternative using tty + termios
+    import tty
+    import termios
+    import select
+
+    def getch():
+        fd = sys.stdin.fileno()
+        old_settings = termios.tcgetattr(fd)
+        try:
+            tty.setraw(fd)
+            ch = sys.stdin.read(1)
+        finally:
+            termios.tcsetattr(fd, termios.TCSADRAIN, old_settings)
+        return ch
+
+    def kbhit():
+        dr, _, _ = select.select([sys.stdin], [], [], 0)
+        return bool(dr)
+
+
 theme = get_style({
     "questionmark": "#000000",
     "answermark": "#b10101",
@@ -56,8 +88,8 @@ def asciiras(s,color):
 
 
 def clear_input_field():
-    while msvcrt.kbhit():
-        msvcrt.getch()
+    while kbhit():
+        getch()
 
 def center_option(text: str) -> str:
     return "\n".join(line.center(cols()) for line in text.split("\n"))
@@ -66,13 +98,13 @@ def center_option(text: str) -> str:
 def jatekosmenu():
     
     cim = [
-"  ____   ____  ______    ___  __  _   ___   _____",
-" |    | /    ||      |  /  _]|  |/ ] /   \ / ___/",
-" |__  ||  o  ||      | /  [_ |  ' / |     (   \_ ",
-" __|  ||     ||_|  |_||    _]|    \ |  O  |\__  |",
-"/  |  ||  _  |  |  |  |   [_ |     ||     |/  \ |",
-"\  `  ||  |  |  |  |  |     ||  .  ||     |\    |",
-" \____||__|__|  |__|  |_____||__|\_| \___/  \___|"
+        "  ____   ____  ______    ___  __  _   ___   _____",
+        " |    | /    ||      |  /  _]|  |/ ] /   \ / ___/",
+        " |__  ||  o  ||      | /  [_ |  ' / |     (   \_ ",
+        " __|  ||     ||_|  |_||    _]|    \ |  O  |\__  |",
+        "/  |  ||  _  |  |  |  |   [_ |     ||     |/  \ |",
+        "\  `  ||  |  |  |  |  |     ||  .  ||     |\    |",
+        " \____||__|__|  |__|  |_____||__|\_| \___/  \___|"
 
     ]
     ujjatektext = r"""
@@ -447,14 +479,14 @@ def nev(vilagnev):
     ]
     asciiras(cim,"white")
     asciiras(instrukció,"blue")
-    bool2 = True
+    bool = True
     while  True:
+        bool = True
         jateknev=input("")
-        bool2 = True
         for mentes2 in mentesek_fileread.mentesek:
             if mentes2[0] == jateknev:
-                bool2 = False
-        if bool2 == True:
+                bool = False
+        if bool:
             break
         else:
             cls()

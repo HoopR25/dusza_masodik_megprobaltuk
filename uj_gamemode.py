@@ -1,5 +1,4 @@
-import os
-import keyboard
+#import keyboard
 import cards
 import fileread
 import kazamata
@@ -7,21 +6,7 @@ import time
 from termcolor import colored, cprint
 import kazamata
 import fight
-import sys
-import msvcrt
-import jatekosmenu
 import jatekmestermenu
-import new_fileread
-import mentesek_fileread
-import os
-import keyboard
-import cards
-import fileread
-import kazamata
-import time
-from termcolor import colored, cprint
-import kazamata
-import fight
 import new_kaz
 import asciiart_converter
 from InquirerPy.base.control import Choice
@@ -32,6 +17,81 @@ import new_cards
 import math
 import shutil
 import random
+import new_fileread
+import mentesek_fileread
+import jatekosmenu
+
+import os
+
+import subprocess
+
+import sys
+import platform
+import select
+
+
+def read_key():
+    """Cross-platform single key press"""
+    if platform.system() == "Windows":
+        import keyboard
+        event = keyboard.read_event()
+        if event.event_type == keyboard.KEY_DOWN:
+            return event.name
+    else:
+        fd = sys.stdin.fileno()
+        old_settings = termios.tcgetattr(fd)
+        try:
+            tty.setraw(fd)
+            if select.select([sys.stdin], [], [], 0)[0]:
+                ch = sys.stdin.read(1)
+            else:
+                ch = ""
+        finally:
+            termios.tcsetattr(fd, termios.TCSADRAIN, old_settings)
+        return ch
+
+if platform.system() == "Windows":
+    import msvcrt
+
+    def getch():
+        return msvcrt.getch()
+
+    def kbhit():
+        return msvcrt.kbhit()
+
+else:
+    # Linux / macOS alternative using tty + termios
+    import tty
+    import termios
+    import select
+
+    def getch():
+        fd = sys.stdin.fileno()
+        old_settings = termios.tcgetattr(fd)
+        try:
+            tty.setraw(fd)
+            ch = sys.stdin.read(1)
+        finally:
+            termios.tcsetattr(fd, termios.TCSADRAIN, old_settings)
+        return ch
+
+    def kbhit():
+        dr, _, _ = select.select([sys.stdin], [], [], 0)
+        return bool(dr)
+
+def is_enter_pressed():
+    if platform.system() == "Windows":
+        import msvcrt
+        return msvcrt.kbhit() and msvcrt.getch() == b'\r'
+    else:
+        dr, _, _ = select.select([sys.stdin], [], [], 0)
+        if dr:
+            ch = sys.stdin.read(1)
+            return ch == "\n"
+        return False
+
+
+
 theme = get_style({
     "questionmark": "#000000",
     "answermark": "#b10101",
@@ -68,8 +128,10 @@ def center_option(text: str) -> str:
     return "\n".join(line.center(cols()) for line in text.split("\n"))
 
 def clear_input_field():
-    while msvcrt.kbhit():
-        msvcrt.getch()
+    while kbhit():
+        getch()
+
+
 
 def betoltokepernyo():
     if os.path.getsize("jatekkornyezetek.megprobaltuk") == 0:
@@ -92,7 +154,7 @@ def betoltokepernyo():
                 file.write("uj vezer;Priestess Selia;Selia;eletero\n\n")
 
                 file.write("uj kazamata;egyszeru;Barlangi Portya;Nerun;sebzes\n")
-                file.write("uj kazamata;kis;Osi Szentely;Arin,Emera,Selia,Lord Torak;eletero\n")
+                file.write("uj kazamata;kis;Osi Szentely;Arin,Emera,Selia;Lord Torak;eletero\n")
                 file.write("uj kazamata;nagy;A melyseg kiralynoje;Liora,Arin,Selia,Nerun,Torak;Priestess Selia\n\n")
 
                 file.write("felvetel gyujtemenybe;Arin\n")
@@ -136,12 +198,13 @@ def betoltokepernyo():
     print("\n "*5)
     
     time.sleep(0.5)
+    
     while True:
         cprint("Nyomd meg az entert a folytatashoz".center(cols()), "green") 
         start= time.time()
         bool = False
         while(time.time()-start<0.5):
-            if(keyboard.is_pressed("\n")):
+            if(is_enter_pressed()):
                 bool=True
                 clear_input_field()
                 break
@@ -151,7 +214,7 @@ def betoltokepernyo():
         print(" " * cols(), end="\r")
         start= time.time()
         while(time.time()-start<0.5):
-            if(keyboard.is_pressed("\n")):
+            if(is_enter_pressed()):
                 bool=True
                 clear_input_field()
                 break
@@ -202,23 +265,23 @@ def menu():
     cprint(guide[1].center(cols()),"blue")
     # ! KEYBOARD BEOLVASAS
     while True:
-        event = keyboard.read_event()
-        if event.event_type == keyboard.KEY_DOWN:
-            if event.name == "1":
+        event = read_key()
+        if event:
+            if event == "1":
                 clear_input_field()
                 jatekmestermenu.jatekmestermenu()
                 break
-            elif event.name == "2":
+            elif event == "2":
                 clear_input_field()
                 jatekosmenu.jatekosmenu()
                 break
-            elif event.name == "3":
+            elif event == "3":
                 clear_input_field()
                 leiras()
                 break
-            elif event.name == "esc":
-                sys.exit(1)
-                os.system(f'taskkill /f /fi "WINDOWTITLE eq Damareen"')
+            elif event == "esc" or event == "\x1b":
+                #sys.exit(1)
+                os.system('taskkill /f /fi "WINDOWTITLE eq Damareen"' if os.name == "nt" else 'pkill -f "/usr/bin/alacritty"')
 def leiras():
     cls()
     cim = [
@@ -243,7 +306,6 @@ def leiras():
     cprint("A vilag keszitesen belul a kartyak letrehozasanal mindig mikor letrehozol egy kartyat akkor eggyel visszabdob.".center(os.get_terminal_size().columns), "blue")
     cprint("Hianyos vilagot(nincs kazamata vagy gyujtemeny, esetleg vilagkartyak) ne tolts be.".center(os.get_terminal_size().columns), "blue")
     cprint("Az alap jatekmodban koronkent Enter-t kell nyomni akkor is ha az a kor az utolso.".center(os.get_terminal_size().columns), "blue")
-    cprint("A .megprobaltuk fajlokbol lehet kitorolni vilagokat , menteseket.Sajat felelosseggel!!!".center(os.get_terminal_size().columns), "blue")
     print("")
     cprint("Nyomja meg az Enter-t a folytatashoz.".center(os.get_terminal_size().columns), "blue")
     input()
@@ -404,7 +466,8 @@ def menu2():
     if choice == centered_options[4]:
         gyujtemeny()
     if choice == centered_options[5]:
-        os.system(f'taskkill /f /fi "WINDOWTITLE eq Damareen"')
+        #os.system(f'taskkill /f /fi "WINDOWTITLE eq Damareen"')
+        os.system('taskkill /f /fi "WINDOWTITLE eq Damareen"' if os.name == "nt" else 'pkill -f "/usr/bin/alacritty"')
 
         
     
@@ -422,11 +485,11 @@ def vilagkartyak():
             print(f"|{cards.kartyak[i]["tipus"].center(16)}|      |{cards.kartyak[i + 1]["tipus"].center(16)}|      |{cards.kartyak[i + 2]["tipus"].center(16)}|".center(os.get_terminal_size().columns))
             print(" ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾        ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾        ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾".center(os.get_terminal_size().columns))
             printed += 3
-        elif len(cards.gyujtemeny) - printed == 2:
+        elif len(cards.kartyak) - printed == 2:
             print(" ________________        ________________".center(os.get_terminal_size().columns))
-            print(f"|{cards.kartyak[i]["nev"].center(16)}|      |{cards.kartyak[i+"nev"]["nev"].center(16)}|".center(os.get_terminal_size().columns))
+            print(f"|{cards.kartyak[i]["nev"].center(16)}|      |{cards.kartyak[i + 1]["nev"].center(16)}|".center(os.get_terminal_size().columns))
             print(f"|{("S  " + str(cards.kartyak[i]["sebzes"]) + "  E  " + str(cards.kartyak[i]["eletero"])).center(16)}|      |{("S  " + str(cards.kartyak[i + 1]["sebzes"]) + "  E  " + str(cards.kartyak[i + 1]["eletero"])).center(16)}|".center(os.get_terminal_size().columns))
-            print(f"|{cards.kartyak[i]["tipus"].center(16)}|      |{cards.kartyak[i + "nev"]["tipus"].center(16)}|".center(os.get_terminal_size().columns))
+            print(f"|{cards.kartyak[i]["tipus"].center(16)}|      |{cards.kartyak[i + 1]["tipus"].center(16)}|".center(os.get_terminal_size().columns))
             print(" ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾        ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾".center(os.get_terminal_size().columns))
             printed += 2
         else:
@@ -575,7 +638,8 @@ def uj_pakli():
     cprint(f"Adja meg szokozokkel elvalasztva a kivalasztott kartyak nevet sorrendben, max. {round(len(cards.gyujt_stats) / 2)}".center(os.get_terminal_size().columns), "blue")
     while True:
         egyediek = set()
-        if keyboard.is_pressed("esc"):
+        key = read_key()
+        if key == "esc" or key == "\x1b":
             menu2()
             break
         is_pakli_ready = True
@@ -793,6 +857,7 @@ def jatekostamad(kazh,jatekh):
 def kazamatatamad(kazh, jatekh):
     
     i = 41
+    cls()
     asciiras(harctext,"white")
     print("\n" * int(rows()/4))
     while i > 0:
@@ -878,9 +943,7 @@ def kazamatatamad(kazh, jatekh):
     clsb = True
     while i < 41:
         i += 3
-        if i > 40:
-            i = 41
-            clsb=False
+        
         lines = [
             f' ________________{" " * (i + 2)}________________{" " * (41 - i)}'.center(os.get_terminal_size().columns),
             f'|{jatekh["nev"].center(16)}|{" " * i}|{kazh["nev"].center(16)}|{" " * (40 - i)}'.center(os.get_terminal_size().columns),
@@ -888,7 +951,9 @@ def kazamatatamad(kazh, jatekh):
             f'|{jatekh["tipus"].center(16)}|{" " * i}|{cards.stats(kazh["nev"])["tipus"].center(16)}|{" " * (40 - i)}'.center(os.get_terminal_size().columns),
             f' ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾{" " * (i + 2)}‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾{" " * (41 - i)}'.center(os.get_terminal_size().columns),
         ]
-
+        if i > 40:
+            i = 41
+            clsb=False
         print("\n".join(lines))
         time.sleep(0.2)
         if clsb:
@@ -921,6 +986,9 @@ def harc(kazamata):
         alapeset(kazamata)
     elif beallitasok[1] == '1':
         csak_hardcore(kazamata)
+
+
+        
 def alapeset(kazamata):
     cls()
     global jatekh
@@ -951,7 +1019,7 @@ def alapeset(kazamata):
                 jatekh = cards.get_gyujt_stats(cards.pakli[indexj]).copy()
         else:
             jatekostamad(kazh,jatekh)
-        input("")
+        
 
 def csak_hardcore(kazamata):
     cls()
@@ -985,7 +1053,7 @@ def csak_hardcore(kazamata):
     kazh = cards.stats(ellenfelek[indexk]).copy()
     while True:
         if kazh["eletero"] == 0:
-            if(len(kazamata["kartyak"])-3 == indexk):
+            if(len(kazamata["kartyak"])-2 == indexk):
                 cls()
                 win_screen(kazamata["nev"],True,jatekh["nev"])
                 #jatekos nyert
@@ -999,34 +1067,34 @@ def csak_hardcore(kazamata):
         asciiras(gombok,"blue")
         while True:
             if int(jatekh["eletero"]) == 0:
-                if(len(jatekospakli)-1 == 0):
+                #kiveves
+                for i in range(len(cards.pakli)-1,-1,-1):
+                    if cards.pakli[i] == jatekh["nev"]:
+                        cards.pakli.remove(cards.pakli[i])
+                for i in range(len(cards.gyujtemeny) - 1, -1, -1):
+                    if cards.gyujtemeny[i] == jatekh["nev"]:
+                        cards.gyujtemeny.remove(cards.gyujtemeny[i])
+
+                for i in range(len(cards.gyujt_stats) - 1, -1, -1):
+                    if cards.gyujt_stats[i]["nev"] == jatekh["nev"]:
+                        cards.gyujt_stats.remove(cards.gyujt_stats[i])
+
+                for i in range(len(jatekospakli) - 1, -1, -1):
+                    if jatekospakli[i]["nev"] == jatekh["nev"]:
+                        jatekospakli.remove(jatekospakli[i])
+                if(len(jatekospakli) == 0):
                     cls()
                     win_screen(kazamata["nev"],False,jatekh["nev"])
                     break
                 else:
-                    #kiveves
-                    for i in range(len(cards.pakli)-1,-1,-1):
-                        if cards.pakli[i] == jatekh["nev"]:
-                            cards.pakli.remove(cards.pakli[i])
-                    for i in range(len(cards.gyujtemeny) - 1, -1, -1):
-                        if cards.gyujtemeny[i] == jatekh["nev"]:
-                            cards.gyujtemeny.remove(cards.gyujtemeny[i])
-
-                    for i in range(len(cards.gyujt_stats) - 1, -1, -1):
-                        if cards.gyujt_stats[i]["nev"] == jatekh["nev"]:
-                            cards.gyujt_stats.remove(cards.gyujt_stats[i])
-
-                    for i in range(len(jatekospakli) - 1, -1, -1):
-                        if jatekospakli[i]["nev"] == jatekh["nev"]:
-                            jatekospakli.remove(jatekospakli[i])
                     kijatszas(jatekospakli)
                     break
-            event = keyboard.read_event()
-            if event.event_type == keyboard.KEY_DOWN:
-                if event.name == "q" or event.name == "Q":
+            event = read_key()
+            if event:
+                if event == "q" or event == "Q":
                     jatekostamad(kazh,jatekh)
                     break
-                elif event.name == "r" or event.name == "R":
+                elif event == "r" or event == "R":
                     kijatszas(jatekospakli)
                     break
             
@@ -1106,11 +1174,33 @@ fejlesztes = {
 }
 def win_screen(kaznev, nyert, kartyanev):
     cls()
+    nyerttext=[
+"       _       _       _                                     _   ",
+"      | |     | |     | |                                   | |  ",
+"      | | __ _| |_ ___| | _____  ___   _ __  _   _  ___ _ __| |_ ",
+"  _   | |/ _` | __/ _ \ |/ / _ \/ __| | '_ \| | | |/ _ \ '__| __|",
+" | |__| | (_| | ||  __/   < (_) \__ \ | | | | |_| |  __/ |  | |_ ",
+"  \____/ \__,_|\__\___|_|\_\___/|___/ |_| |_|\__, |\___|_|   \__|",
+"                                              __/ |              ",
+"                                             |___/               "
+    
+    ]
+    losetext=[
+"       _       _       _                                  _       _   _   ",
+"      | |     | |     | |                                | |     | | | |  ",
+"      | | __ _| |_ ___| | _____  ___  __   _____  ___ ___| |_ ___| |_| |_ ",
+"  _   | |/ _` | __/ _ \ |/ / _ \/ __| \ \ / / _ \/ __|_  / __/ _ \ __| __|",
+" | |__| | (_| | ||  __/   < (_) \__ \  \ V /  __/\__ \/ /| ||  __/ |_| |_ ",
+" \____/ \__,_|\__\___|_|\_\___/|___/   \_/ \___||___/___|\__\___|\__|\__| "
+                                                                          
+                                                                          
+    ]
     for kaz in kazamata.kazamatak:
         if kaz["nev"] == kaznev:
             kstat = kaz
     if nyert:
-        cprint(f"A jatekos nyert. {kartyanev}".center(os.get_terminal_size().columns), "green")
+        asciiras(nyerttext,"green")
+        
         if (kstat["tipus"] == "egyszeru" or kstat["tipus"] == "kis") : 
             
             for i in range(len(cards.gyujt_stats)):
@@ -1125,7 +1215,7 @@ def win_screen(kaznev, nyert, kartyanev):
                     print(f"A jutalmad: ez a kartya {kartya} a gyüjteményedbe került".center(os.get_terminal_size().columns))
                     break
     else:
-        cprint("A jatekos vesztett.".center(os.get_terminal_size().columns), "red")
+        asciiras(losetext,"red")
 
     input()
     jatekosmenu.modosit(jateknev,vilagnev,beallitasok)
