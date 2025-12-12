@@ -942,9 +942,7 @@ def kazamatatamad(kazh, jatekh):
     clsb = True
     while i < 41:
         i += 3
-        if i > 40:
-            i = 41
-            clsb=False
+        
         lines = [
             f' ________________{" " * (i + 2)}________________{" " * (41 - i)}'.center(os.get_terminal_size().columns),
             f'|{jatekh["nev"].center(16)}|{" " * i}|{kazh["nev"].center(16)}|{" " * (40 - i)}'.center(os.get_terminal_size().columns),
@@ -952,7 +950,9 @@ def kazamatatamad(kazh, jatekh):
             f'|{jatekh["tipus"].center(16)}|{" " * i}|{cards.stats(kazh["nev"])["tipus"].center(16)}|{" " * (40 - i)}'.center(os.get_terminal_size().columns),
             f' ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾{" " * (i + 2)}‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾{" " * (41 - i)}'.center(os.get_terminal_size().columns),
         ]
-
+        if i > 40:
+            i = 41
+            clsb=False
         print("\n".join(lines))
         time.sleep(0.2)
         if clsb:
